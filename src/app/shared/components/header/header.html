@@ -1,0 +1,11 @@
+<mat-toolbar color="white" class="header-toolbar">
+  <app-horizontal-logo class="logo" width="211px" />
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="toggleArrow()">
+    <mat-icon class="header-icons" fontSet="material-symbols-outlined">{{
+      isInputMode ? "arrows_input" : "arrows_output"
+    }}</mat-icon>
+  </button>
+  <button mat-icon-button><mat-icon class="header-icons">contrast</mat-icon></button>
+  <button mat-icon-button><mat-icon class="header-icons">account_circle</mat-icon></button>
+</mat-toolbar>
