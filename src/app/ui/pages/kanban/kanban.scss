@@ -6,9 +6,11 @@
 
 .drawer-container {
   flex: 1;
-  background: #eee;
+  background-color: var(--background-color);
 }
 
 .drawer-mode {
   width: 33.625rem;
+  background-color: white;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
 }
