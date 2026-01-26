@@ -1,17 +1,17 @@
 .header-toolbar {
   background-color: white;
-  height: 120px;
+  height: 7.5rem;
   position: relative;
   z-index: 10;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: space-between;
-  padding: 0 300px 0 150px;
+  padding: 0 9.375rem 0 9.375rem;
 }
 
 .buttons-container {
   display: flex;
-  gap: 40px;
+  gap: 2.5rem;
   button {
     background-color: white;
   }
