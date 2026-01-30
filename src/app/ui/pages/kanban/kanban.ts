@@ -8,8 +8,10 @@ import {
 } from "@angular/cdk/drag-drop";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatDrawer, MatDrawerContainer, MatDrawerContent } from "@angular/material/sidenav";
+import { MatDrawerContainer, MatDrawerContent, MatDrawer } from "@angular/material/sidenav";
 import { Header } from "../../../shared/components/header/header";
+// import { TasksPage } from "./tasks/tasks";
+import { Drawer } from "../../../shared/components/drawer/drawer";
 
 interface Task {
   id: string;
@@ -26,9 +28,11 @@ interface Task {
     MatButtonModule,
     MatIconModule,
     Header,
-    MatDrawer,
     MatDrawerContainer,
-    MatDrawerContent
+    MatDrawerContent,
+    // TasksPage,
+    Drawer,
+    MatDrawer
   ],
   templateUrl: "./kanban.html",
   styleUrl: "./kanban.scss"
