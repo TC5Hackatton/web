@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.drawer-container {
+  flex: 1;
+  background-color: var(--background-color);
+}
+
+.drawer-mode {
+  width: 33.625rem;
+  background-color: white;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
+}
