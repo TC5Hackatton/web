@@ -1,0 +1,23 @@
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  button {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+    margin-top: 18px;
+    padding: 18px 91px;
+    background-color: white;
+    font-size: 16px;
+    color: var(--drawer-text-primary);
+    cursor: pointer;
+
+    &.active-link {
+      background-color: var(--drawer-bg-active);
+    }
+
+    &:active {
+      background-color: var(--drawer-bg-active);
+    }
+  }
+}
