@@ -3,19 +3,19 @@
     <app-vertical-logo class="logo" width="190px" />
 
     <form class="form" [formGroup]="loginForm">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
         <mat-label>E-mail</mat-label>
         <input matInput formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
         <mat-label>Senha</mat-label>
         <input matInput formControlName="password" />
       </mat-form-field>
 
       <button matButton="filled" class="btn-entrar" (click)="entrar()">Entrar</button>
       <div class="buttons">
-        <button matButton="filled" class="btn-cadastro" (click)="fetchTasks()">Cadastre-se</button>
+        <button matButton="filled" class="btn-cadastro" (click)="goToSignup()">Cadastre-se</button>
         <button matButton class="btn-esqueci-senha">Esqueci minha senha</button>
       </div>
     </form>

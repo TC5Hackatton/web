@@ -16,6 +16,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../infrastructure/config/firebase.config";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { User } from "../../../core/interfaces/user";
 
 @Component({
   selector: "app-login",
@@ -40,25 +41,38 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required]
+      email: ["teste@teste.com", [Validators.required, Validators.email]],
+      password: ["senha123", Validators.required]
     });
   }
 
   entrar() {
-    signInWithEmailAndPassword(auth, "teste@teste.com", "senha123").then((value) => {
-      console.log(value);
+    if (this.loginForm.invalid) return;
+
+    this._authService.login(this.email?.value, this.password?.value).subscribe({
+      next: (user: User) => {
+        console.log(user, "login");
+        this.router.navigate(["/home"]);
+      },
+      error: (e) => {
+        console.log(e.code);
+      }
     });
   }
 
-  fetchTasks() {
-    const q = query(collection(db, "tasks"), where("uid", "==", "idUser"));
+  forgotPassword() {
+    console.log("implentar futuramente");
+  }
 
-    getDocs(q).then((tasks) => {
-      tasks.docs.map((t) => {
-        const data = t.data();
-        console.log(data);
-      });
-    });
+  goToSignup() {
+    this.router.navigate(["/signup"]);
+  }
+
+  get email() {
+    return this.loginForm.get("email");
+  }
+
+  get password() {
+    return this.loginForm.get("password");
   }
 }
