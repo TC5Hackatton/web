@@ -18,6 +18,10 @@ html {
   --error: #e89b8c;
   --success: #a8dba8;
   --background-color: #f7f8fa;
+  --drawer-text-primary: #2c3e50;
+  --drawer-text-secondary: #6b7280;
+  --drawer-bg-active: #a8c5e080;
+  --drawer-border: #e5e4e4;
 }
 
 * {
@@ -74,7 +78,11 @@ body {
   color: var(--error) !important;
 }
 
-.mat-mdc-form-field:not(.mat-focused) .mdc-text-field:not(.mdc-text-field--invalid) .mdc-text-field__input,
-.mat-mdc-form-field:not(.mat-focused) .mdc-text-field:not(.mdc-text-field--invalid) .mdc-floating-label {
+.mat-mdc-form-field:not(.mat-focused)
+  .mdc-text-field:not(.mdc-text-field--invalid)
+  .mdc-text-field__input,
+.mat-mdc-form-field:not(.mat-focused)
+  .mdc-text-field:not(.mdc-text-field--invalid)
+  .mdc-floating-label {
   color: var(--primary) !important;
 }
