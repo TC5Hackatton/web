@@ -2,19 +2,14 @@
   <button
     mat-icon-button
     class="button-inicio"
-    routerLink="/"
+    routerLink="/dashboard"
     routerLinkActive="active-link"
     [routerLinkActiveOptions]="{ exact: true }"
   >
     <mat-icon> home </mat-icon>
     Inicio
   </button>
-  <button
-    mat-icon-button
-    class="button-tarefas"
-    routerLink="/kanban"
-    routerLinkActive="active-link"
-  >
+  <button mat-icon-button class="button-tarefas" routerLink="/tasks" routerLinkActive="active-link">
     <mat-icon> sticky_note_2 </mat-icon>
     Tarefas
   </button>

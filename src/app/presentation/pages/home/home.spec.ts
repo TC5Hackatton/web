@@ -23,7 +23,7 @@ describe("HomePage", () => {
       schemas: [NO_ERRORS_SCHEMA]
     })
       .overrideComponent(HomePage, {
-        set: { imports: [] } // Clear imports to avoid real modules causing issues if needed, or just let NO_ERRORS_SCHEMA handle templates
+        set: { imports: [] }
       })
       .compileComponents();
 

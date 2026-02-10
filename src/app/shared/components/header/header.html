@@ -1,7 +1,7 @@
 <mat-toolbar color="white" class="header-toolbar">
   <app-horizontal-logo class="logo" width="211px" />
   <div class="buttons-container">
-    <button mat-icon-button (click)="toggleArrow()">
+    <button mat-icon-button (click)="toggleArrow()" class="arrows-icon">
       <mat-icon class="header-icons" fontSet="material-symbols-outlined">{{
         isInputMode ? "arrows_input" : "arrows_output"
       }}</mat-icon>
