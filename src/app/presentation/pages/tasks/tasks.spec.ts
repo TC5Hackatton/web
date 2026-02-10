@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { TasksPage } from "./tasks";
-import { TaskService } from "../../core/services/task.service";
+import { TaskService } from "../../../core/services/task.service";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("../../../api/firebase", () => ({ auth: {}, db: {} }));

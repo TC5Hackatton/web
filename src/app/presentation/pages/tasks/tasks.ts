@@ -23,7 +23,6 @@ import { Task } from "../../../core/models/task.model";
 export class TasksPage implements OnInit {
   private taskService = inject(TaskService);
 
-  // Signals para gerenciar o estado das colunas
   todo = signal<Task[]>([]);
   doing = signal<Task[]>([]);
   done = signal<Task[]>([]);
@@ -35,7 +34,6 @@ export class TasksPage implements OnInit {
   async loadTasks() {
     const tasks = await this.taskService.getTasks();
 
-    // Filtra as tarefas para as colunas corretas
     this.todo.set(tasks.filter((t) => t.status === "todo"));
     this.doing.set(tasks.filter((t) => t.status === "doing"));
     this.done.set(tasks.filter((t) => t.status === "done"));
@@ -45,7 +43,6 @@ export class TasksPage implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // Move visualmente
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -53,11 +50,9 @@ export class TasksPage implements OnInit {
         event.currentIndex
       );
 
-      // Atualiza no Firebase
       const task = event.container.data[event.currentIndex];
       const newStatus = event.container.id as "todo" | "doing" | "done";
 
-      // Importante: container.id deve bater com os status (ver HTML)
       if (task.id) {
         this.taskService.updateTaskStatus(task.id, newStatus);
       }
