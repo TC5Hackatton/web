@@ -1,0 +1,7 @@
+🔵 PRESENTATION (Apresentação / UI)
+Onde o usuário interage com o MindEase. É código 100% Angular.
+Estrutura:
+- Pages: As telas principais (Dashboard, Settings, Tasks, Login). Elas orquestram a página.
+  Ex: A `DashboardPage` pede dados para um Service/UseCase e passsa para os componentes.
+- Components: Pedaços reutilizáveis de tela (Botões, Cards de Tarefa, Header, Drawer). São "burros", apenas recebem dados (@Input) e emitem eventos (@Output).
+- Layouts: Estruturas macro (ex: Wrapper que tem o Menu Lateral fixo).

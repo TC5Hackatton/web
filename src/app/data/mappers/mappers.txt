@@ -1,0 +1,1 @@
+Transformam dados da API/Firebase para o Modelo de Domínio

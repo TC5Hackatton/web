@@ -1,0 +1,8 @@
+🟢 DOMAIN (Regras de Negócio Puras)
+O coração do MindEase. Essa camada NÃO deve saber que existe Angular, HTML ou Firebase.
+Se amanhã você criar um app Mobile usando React Native, você poderia copiar essa pasta inteira e funcionaria.
+Estrutura:
+- Models: As classes principais (Ex: `Task`, `User`). Definem o que É uma tarefa (tem título, status, etc).
+- Repositories (Interfaces/Contratos): Contratos que dizem O QUE o app precisa fazer, mas não COMO.
+  Ex: `AuthRepository` interface diz "preciso de um método login", mas não diz se é com Google ou Email.
+- UseCases: A lógica de cada ação do usuário. Ex: `CreateTaskUseCase` (valida se o título não está vazio antes de chamar o repositório).

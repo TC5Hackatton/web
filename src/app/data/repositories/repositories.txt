@@ -1,0 +1,1 @@
+Implementação concreta (Ex: firebase-auth.repository.ts)
