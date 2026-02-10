@@ -1,0 +1,103 @@
+<div class="settings-container">
+  <!-- Banner Section -->
+  <div class="settings-banner">
+    <mat-icon class="banner-icon">settings</mat-icon>
+    <div class="banner-text">
+      <h2>Configurações pensadas para você</h2>
+      <p>
+        Ajuste conforme sua necessidade. Não existe "jeito certo" - o que funciona para você é o
+        melhor.
+      </p>
+    </div>
+  </div>
+
+  <!-- Appearance Section -->
+  <mat-card class="settings-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>contrast</mat-icon>
+      <mat-card-title>Aparência</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="setting-row">
+        <div class="setting-label">
+          <strong>Modo Escuro</strong>
+          <span>Reduz luz da tela</span>
+        </div>
+        <mat-slide-toggle color="primary"></mat-slide-toggle>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          <strong>Alto Contraste</strong>
+          <span>Para melhor legibilidade</span>
+        </div>
+        <mat-slide-toggle color="primary"></mat-slide-toggle>
+      </div>
+
+      <div class="setting-row vertical">
+        <div class="setting-label">
+          <strong>Tamanho da Fonte</strong>
+        </div>
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="M">
+          <mat-button-toggle value="P">P</mat-button-toggle>
+          <mat-button-toggle value="M">M</mat-button-toggle>
+          <mat-button-toggle value="G">G</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Productivity Section -->
+  <mat-card class="settings-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>timer</mat-icon>
+      <mat-card-title>Tempo e Produtividade</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="setting-row vertical">
+        <div class="setting-label">
+          <strong>Pomodoro Padrão</strong>
+        </div>
+        <mat-button-toggle-group name="pomodoro" aria-label="Pomodoro Time" value="25">
+          <mat-button-toggle value="15">15 min</mat-button-toggle>
+          <mat-button-toggle value="25">25 min</mat-button-toggle>
+          <mat-button-toggle value="35">35 min</mat-button-toggle>
+          <mat-button-toggle value="45">45 min</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          <strong>Lembrete de Pausa</strong>
+          <span>Avisa quando terminar</span>
+        </div>
+        <mat-slide-toggle color="primary"></mat-slide-toggle>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Notifications Section -->
+  <mat-card class="settings-card">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>notifications</mat-icon>
+      <mat-card-title>Notificações</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="setting-row">
+        <div class="setting-label">
+          <strong>Sons</strong>
+          <span>Alertas sonoros</span>
+        </div>
+        <mat-slide-toggle color="primary" checked></mat-slide-toggle>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">
+          <strong>Vibração</strong>
+          <span>Feedback tátil (mobile apenas)</span>
+        </div>
+        <mat-slide-toggle color="primary"></mat-slide-toggle>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
