@@ -10,7 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
 import { TaskService } from "../../../core/services/task.service";
-import { Card } from "../../../shared/components/card/card";
+import { Card } from "../../components/card/card";
 import { Task } from "../../../core/models/task.model";
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { AuthService } from "../../../core/auth/auth.service";
 import { Router, RouterOutlet } from "@angular/router";
-import { Header } from "../../../shared/components/header/header";
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from "@angular/material/sidenav";
-import { Drawer } from "../../../shared/components/drawer/drawer";
 
 import { MatButtonModule } from "@angular/material/button";
+import { Header } from "../../layouts/header/header";
+import { Drawer } from "../../layouts/drawer/drawer";
 
 @Component({
   selector: "app-home",
