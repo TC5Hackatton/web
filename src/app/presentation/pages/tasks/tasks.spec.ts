@@ -4,7 +4,7 @@ import { TaskService } from "../../../core/services/task.service";
 
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
-jest.mock("../../../api/firebase", () => ({ auth: {}, db: {} }));
+jest.mock("../../../../api/firebase", () => ({ auth: {}, db: {} }));
 
 describe("TasksPage", () => {
   let component: TasksPage;

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HomePage } from "./home";
 import { AuthService } from "../../../core/auth/auth.service";
 import { provideRouter } from "@angular/router";
@@ -19,11 +19,10 @@ describe("HomePage", () => {
 
     await TestBed.configureTestingModule({
       imports: [HomePage],
-      providers: [{ provide: AuthService, useValue: authServiceSpy }, provideRouter([])],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [{ provide: AuthService, useValue: authServiceSpy }, provideRouter([])]
     })
       .overrideComponent(HomePage, {
-        set: { imports: [] }
+        set: { imports: [], schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA] }
       })
       .compileComponents();
 
