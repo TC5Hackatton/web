@@ -1,0 +1,12 @@
+<app-header></app-header>
+<mat-drawer-container class="drawer-container">
+  <mat-drawer mode="side" opened class="drawer-mode">
+    <div class="drawer-wrapper">
+      <app-drawer></app-drawer>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="drawer-content">
+    <router-outlet></router-outlet>
+    <button matButton="filled">Voltar</button>
+  </mat-drawer-content>
+</mat-drawer-container>

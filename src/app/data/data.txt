@@ -1,0 +1,8 @@
+🟠 DATA (Dados e Infraestrutura)
+Essa camada é responsável por buscar e salvar dados. O "Domínio" pede, o "Data" executa.
+Aqui é onde o MindEase se conecta com o mundo real (Firebase, APIs).
+Estrutura:
+- Repositories (Implementação): O código real que chama `firebase.firestore().collection('tasks').add()`.
+  Ex: `firebase-auth.repository.ts`.
+- Mappers: Tradutores. O Firebase devolve um `DocumentSnapshot`, o Mapper transforma isso numa `Task` limpa para o seu Domínio.
+- Sources: Configurações diretas de conexões (ex: inicialização do Firebase).

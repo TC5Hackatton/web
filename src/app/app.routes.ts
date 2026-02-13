@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
-import { SignupPage } from "./ui/pages/signup/signup";
-import { authGuard } from "./core/auth/auth.guard";
-import { HomePage } from "./ui/pages/home/home";
-import { LoginPage } from "./ui/pages/login/login";
+import { SignupPage } from "./presentation/pages/signup/signup";
+import { authGuard } from "./infrastructure/guards/auth.guard";
+import { LoginPage } from "./presentation/pages/login/login";
+import { HomePage } from "./presentation/pages/home/home";
 
 export const routes: Routes = [
   {
@@ -16,6 +16,31 @@ export const routes: Routes = [
   {
     path: "",
     canActivate: [authGuard],
-    loadComponent: () => HomePage
+    loadComponent: () => HomePage,
+    children: [
+      {
+        path: "dashboard",
+        loadComponent: () =>
+          import("./presentation/pages/dashboard/dashboard.component").then(
+            (m) => m.DashboardComponent
+          )
+      },
+      {
+        path: "tasks",
+        loadComponent: () => import("./presentation/pages/tasks/tasks").then((m) => m.TasksPage)
+      },
+      {
+        path: "settings",
+        loadComponent: () =>
+          import("./presentation/pages/settings/settings.component").then(
+            (m) => m.SettingsComponent
+          )
+      },
+      {
+        path: "",
+        redirectTo: "dashboard",
+        pathMatch: "full"
+      }
+    ]
   }
 ];

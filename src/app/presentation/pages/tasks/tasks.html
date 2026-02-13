@@ -1,0 +1,45 @@
+<div class="page-header">
+  <mat-icon class="home-icon">home</mat-icon>
+  <span class="chevron">></span>
+  <span class="title">Tarefas</span>
+</div>
+
+<div class="board-columns">
+  <app-card class="column-card">
+    <div class="column-header">
+      <span class="dot blue"></span>
+      <h3>A Fazer</h3>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header">
+        <h4>Estudar React</h4>
+        <button mat-icon-button class="play-btn">
+          <mat-icon>play_circle_filled</mat-icon>
+        </button>
+      </div>
+
+      <div class="task-meta">
+        <span class="time-badge"> <mat-icon>schedule</mat-icon> 25 min </span>
+      </div>
+
+      <p class="task-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+    </div>
+  </app-card>
+
+  <app-card class="column-card">
+    <div class="column-header">
+      <span class="dot yellow"></span>
+      <h3>Em andamento</h3>
+    </div>
+    <div class="empty-state">Nenhuma tarefa em andamento</div>
+  </app-card>
+
+  <app-card class="column-card">
+    <div class="column-header">
+      <span class="dot green"></span>
+      <h3>Concluido</h3>
+    </div>
+    <div class="empty-state">Nenhuma tarefa concluída</div>
+  </app-card>
+</div>

@@ -1,0 +1,1 @@
+Lógica de aplicação (Ex: sign-in.usecase.ts)

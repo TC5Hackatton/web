@@ -1,0 +1,1 @@
+(Ou entities) Interfaces/Classes (Ex: User.ts, Task.ts)

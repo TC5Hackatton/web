@@ -1,0 +1,16 @@
+<div class="drawer-content">
+  <button
+    mat-icon-button
+    class="button-inicio"
+    routerLink="/dashboard"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <mat-icon> home </mat-icon>
+    Inicio
+  </button>
+  <button mat-icon-button class="button-tarefas" routerLink="/tasks" routerLinkActive="active-link">
+    <mat-icon> sticky_note_2 </mat-icon>
+    Tarefas
+  </button>
+</div>

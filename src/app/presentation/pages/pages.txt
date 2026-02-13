@@ -1,0 +1,13 @@
+Presentation > Pages
+São as "Vistas" completas que o Router carrega.
+No MindEase:
+- Dashboard: Visão geral e métricas.
+- Settings: Preferências do usuário (Times, Temas).
+- Tasks: O Kanban board (Todo/Doing/Done).
+- Auth: Login e Cadastro.
+
+Responsabilidade:
+- Injetar Services/UseCases.
+- Buscar dados no ngOnInit.
+- Gerenciar o estado da tela.
+- Passar dados para componentes filhos.

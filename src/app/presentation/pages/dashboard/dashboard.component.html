@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <div class="welcome-header">
+    <div class="user-info">
+      <h1>Bem vindo, {{ userName }}</h1>
+      <p>Aqui está o resumo do seu dia no MindEase</p>
+    </div>
+    <button mat-flat-button color="primary" routerLink="/tasks">
+      <mat-icon>add</mat-icon>
+      Nova Tarefa
+    </button>
+  </div>
+
+  <!-- Metrics Grid -->
+  <div class="metrics-grid">
+    <mat-card class="metric-card">
+      <mat-card-header>
+        <mat-card-title>A Fazer</mat-card-title>
+        <mat-icon class="metric-icon todo">assignment</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <span class="metric-value">{{ todoCount }}</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card">
+      <mat-card-header>
+        <mat-card-title>Em Andamento</mat-card-title>
+        <mat-icon class="metric-icon doing">pending_actions</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <span class="metric-value">{{ doingCount }}</span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="metric-card">
+      <mat-card-header>
+        <mat-card-title>Concluídas</mat-card-title>
+        <mat-icon class="metric-icon done">check_circle</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <span class="metric-value">{{ doneCount }}</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
