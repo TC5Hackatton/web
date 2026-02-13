@@ -9,9 +9,9 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
-import { TaskService } from "../../../core/services/task.service";
+import { TaskRepository } from "../../../domain/repositories/task.repository";
 import { Card } from "../../components/card/card";
-import { Task } from "../../../core/models/task.model";
+import { Task } from "../../../domain/models/task.model";
 
 @Component({
   selector: "app-tasks",
@@ -21,7 +21,7 @@ import { Task } from "../../../core/models/task.model";
   styleUrl: "./tasks.scss"
 })
 export class TasksPage implements OnInit {
-  private taskService = inject(TaskService);
+  private taskService = inject(TaskRepository);
 
   todo = signal<Task[]>([]);
   doing = signal<Task[]>([]);

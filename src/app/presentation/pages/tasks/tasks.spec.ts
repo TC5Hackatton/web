@@ -1,25 +1,26 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { TasksPage } from "./tasks";
-import { TaskService } from "../../../core/services/task.service";
+import { TaskRepository } from "../../../domain/repositories/task.repository";
 
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
-jest.mock("../../../../api/firebase", () => ({ auth: {}, db: {} }));
+jest.mock("../../../infrastructure/config/firebase.config", () => ({ auth: {}, db: {} }));
 
 describe("TasksPage", () => {
   let component: TasksPage;
   let fixture: ComponentFixture<TasksPage>;
-  let taskServiceSpy: { getTasks: jest.Mock; updateTaskStatus: jest.Mock };
+  let taskRepositorySpy: { getTasks: jest.Mock; updateTaskStatus: jest.Mock; addTask: jest.Mock };
 
   beforeEach(async () => {
-    taskServiceSpy = {
+    taskRepositorySpy = {
       getTasks: jest.fn().mockResolvedValue([]),
-      updateTaskStatus: jest.fn()
+      updateTaskStatus: jest.fn(),
+      addTask: jest.fn()
     };
 
     await TestBed.configureTestingModule({
       imports: [TasksPage],
-      providers: [{ provide: TaskService, useValue: taskServiceSpy }]
+      providers: [{ provide: TaskRepository, useValue: taskRepositorySpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TasksPage);

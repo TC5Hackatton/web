@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { DashboardComponent } from "./dashboard.component";
-import { TaskService } from "../../../core/services/task.service";
+import { TaskRepository } from "../../../domain/repositories/task.repository";
 import { provideRouter } from "@angular/router";
 
 // Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("firebase/storage", () => ({ getStorage: jest.fn() }));
-jest.mock("../../../../api/firebase", () => ({ auth: {}, db: {} }));
+jest.mock("../../../infrastructure/config/firebase.config", () => ({ auth: {}, db: {} }));
 
 describe("DashboardComponent", () => {
   let component: DashboardComponent;
@@ -18,7 +18,7 @@ describe("DashboardComponent", () => {
       imports: [DashboardComponent],
       providers: [
         {
-          provide: TaskService,
+          provide: TaskRepository,
           useValue: { getTasks: jest.fn().mockResolvedValue([]) }
         },
         provideRouter([])

@@ -6,22 +6,22 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { authGuard } from "./auth.guard";
-import { AuthService } from "./auth.service";
+import { AuthStateUtil } from "../utils/auth-state.util";
 
 describe("authGuard", () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
     TestBed.runInInjectionContext(() => authGuard(...guardParameters));
 
-  let authServiceSpy: { isAuthenticated: jest.Mock };
+  let authStateUtilSpy: { isAuthenticated: jest.Mock };
   let routerSpy: { navigate: jest.Mock };
 
   beforeEach(() => {
-    authServiceSpy = { isAuthenticated: jest.fn() };
+    authStateUtilSpy = { isAuthenticated: jest.fn() };
     routerSpy = { navigate: jest.fn() };
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: AuthService, useValue: authServiceSpy },
+        { provide: AuthStateUtil, useValue: authStateUtilSpy },
         { provide: Router, useValue: routerSpy }
       ]
     });
@@ -32,14 +32,14 @@ describe("authGuard", () => {
   });
 
   it("should allow access if authenticated", () => {
-    authServiceSpy.isAuthenticated.mockReturnValue(true);
+    authStateUtilSpy.isAuthenticated.mockReturnValue(true);
     const result = executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
     expect(result).toBe(true);
     expect(routerSpy.navigate).not.toHaveBeenCalled();
   });
 
   it("should redirect to login if not authenticated", () => {
-    authServiceSpy.isAuthenticated.mockReturnValue(false);
+    authStateUtilSpy.isAuthenticated.mockReturnValue(false);
     const result = executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
     expect(result).toBe(false);
     expect(routerSpy.navigate).toHaveBeenCalledWith(["/login"]);

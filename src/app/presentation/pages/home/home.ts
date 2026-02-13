@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { AuthService } from "../../../core/auth/auth.service";
 import { Router, RouterOutlet } from "@angular/router";
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from "@angular/material/sidenav";
 
 import { MatButtonModule } from "@angular/material/button";
 import { Header } from "../../layouts/header/header";
 import { Drawer } from "../../layouts/drawer/drawer";
+import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 
 @Component({
   selector: "app-home",
@@ -22,7 +22,7 @@ import { Drawer } from "../../layouts/drawer/drawer";
   styleUrls: ["./home.scss"]
 })
 export class HomePage implements OnInit {
-  authService = inject(AuthService);
+  authService = inject(AuthStateUtil);
   router = inject(Router);
 
   ngOnInit() {

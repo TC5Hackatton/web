@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { SignupPage } from "./signup";
-import { AuthService } from "../../../core/auth/auth.service";
+import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { provideRouter } from "@angular/router";
 
 describe("SignupPage", () => {
   let component: SignupPage;
   let fixture: ComponentFixture<SignupPage>;
-  let authServiceSpy: { isAuthenticated: jest.Mock };
+  let authStateUtilSpy: { isAuthenticated: jest.Mock };
 
   beforeEach(async () => {
-    authServiceSpy = { isAuthenticated: jest.fn() };
+    authStateUtilSpy = { isAuthenticated: jest.fn() };
 
     await TestBed.configureTestingModule({
       imports: [SignupPage],
-      providers: [{ provide: AuthService, useValue: authServiceSpy }, provideRouter([])]
+      providers: [{ provide: AuthStateUtil, useValue: authStateUtilSpy }, provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignupPage);

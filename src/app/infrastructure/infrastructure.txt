@@ -1,4 +1,4 @@
-🟣 CORE (Configurações Globais e Ferramentas)
+🟣 Infrastructure (Configurações Globais e Ferramentas)
 Aqui ficam os serviços e utilitários que sustentam a aplicação MindEase inteira.
 Diferente do domínio, aqui podemos ter dependências de framework (Angular, Firebase).
 Exemplos no seu projeto:

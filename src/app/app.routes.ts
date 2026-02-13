@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
-import { SignupPage } from "./ui/pages/signup/signup";
-// import { authGuard } from "./core/auth/auth.guard";
-import { LoginPage } from "./ui/pages/login/login";
+import { SignupPage } from "./presentation/pages/signup/signup";
+import { authGuard } from "./infrastructure/guards/auth.guard";
+import { LoginPage } from "./presentation/pages/login/login";
 import { HomePage } from "./presentation/pages/home/home";
 
 export const routes: Routes = [
@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: "",
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () => HomePage,
     children: [
       {

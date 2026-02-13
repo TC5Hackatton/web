@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { TaskService } from "../../../core/services/task.service";
-import { Task } from "../../../core/models/task.model";
+import { TaskRepository } from "../../../domain/repositories/task.repository";
+import { Task } from "../../../domain/models/task.model";
 import { RouterModule } from "@angular/router";
 
 @Component({
@@ -15,7 +15,7 @@ import { RouterModule } from "@angular/router";
   styleUrl: "./dashboard.component.scss"
 })
 export class DashboardComponent implements OnInit {
-  private taskService = inject(TaskService);
+  private taskService = inject(TaskRepository);
 
   tasks: Task[] = [];
   userName = "Usuário01"; // Idealmente viria do AuthService

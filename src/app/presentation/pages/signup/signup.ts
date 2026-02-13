@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { AuthService } from "../../../core/auth/auth.service";
+import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { Router } from "@angular/router";
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrl: "./signup.scss"
 })
 export class SignupPage implements OnInit {
-  authService = inject(AuthService);
+  authService = inject(AuthStateUtil);
   router = inject(Router);
 
   ngOnInit() {
