@@ -28,7 +28,7 @@ import { VerticalLogoComponent } from "../../components/vertical-logo/vertical-l
     MatButtonModule,
     Card,
     VerticalLogoComponent
-],
+  ],
   templateUrl: "./signup.html",
   styleUrl: "./signup.scss"
 })
