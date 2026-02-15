@@ -3,12 +3,12 @@
     <app-vertical-logo class="logo" width="190px" />
 
     <form class="form" [formGroup]="loginForm">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
         <mat-label>E-mail</mat-label>
         <input matInput formControlName="email" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
         <mat-label>Senha</mat-label>
         <input matInput formControlName="password" />
       </mat-form-field>

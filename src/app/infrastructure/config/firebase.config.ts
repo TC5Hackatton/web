@@ -3,7 +3,9 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-const firebaseConfig = {};
+import { environment } from "../../../environments/environment";
+
+const firebaseConfig = environment.firebase;
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 

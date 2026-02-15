@@ -1,1 +1,32 @@
-<div>pagina de cadastro</div>
+<div class="container">
+  <app-card [cardClass]="'card'">
+    <app-vertical-logo class="logo" width="190px" />
+
+    <form class="form" [formGroup]="signupForm">
+      <!-- <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field> -->
+
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" [hideRequiredMarker]="true">
+        <mat-label>Repita a senha</mat-label>
+        <input matInput formControlName="repeatPassword" />
+      </mat-form-field>
+
+      <div class="buttons">
+        <button matButton="filled" class="btn-cancelar" (click)="cancel()">Cancelar</button>
+        <button matButton="filled" class="btn-cadastro" (click)="signup()">Cadastrar</button>
+      </div>
+    </form>
+  </app-card>
+</div>
