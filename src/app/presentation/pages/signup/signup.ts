@@ -1,12 +1,19 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { Router } from "@angular/router";
-import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { Card } from "../../components/card/card";
 import { MatButtonModule } from "@angular/material/button";
 import { VerticalLogoComponent } from "../../components/vertical-logo/vertical-logo";
+import { passwordMatchValidator } from "../../validators/password-match.validator";
 
 @Component({
   selector: "app-signup",
@@ -26,6 +33,8 @@ export class SignupPage implements OnInit {
   authService = inject(AuthStateUtil);
   formBuilder = inject(FormBuilder);
   router = inject(Router);
+
+  signupForm!: FormGroup;
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group(
