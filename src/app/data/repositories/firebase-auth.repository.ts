@@ -4,7 +4,12 @@ import { map } from "rxjs/operators";
 import { AuthRepository } from "../../domain/repositories/auth.repository";
 import { User } from "../../domain/models/user.model";
 import { auth } from "../../infrastructure/config/firebase.config";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  createUserWithEmailAndPassword,
+  updateProfile
+} from "firebase/auth";
 
 @Injectable({ providedIn: "root" })
 export class FirebaseAuthRepository implements AuthRepository {
@@ -18,8 +23,11 @@ export class FirebaseAuthRepository implements AuthRepository {
   }
 
   signUp(name: string, email: string, password: string): Observable<void> {
-    console.log(name, email, password);
-    return from(Promise.resolve());
+    return from(
+      createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        return updateProfile(userCredential.user, { displayName: name });
+      })
+    );
   }
 
   logout(): Observable<void> {

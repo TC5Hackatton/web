@@ -3,19 +3,30 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { TaskRepository } from "../../../domain/repositories/task.repository";
+import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecase";
 import { Task } from "../../../domain/models/task.model";
 import { RouterModule } from "@angular/router";
+
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
 
 @Component({
   selector: "app-dashboard",
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    MatDialogModule
+  ],
   templateUrl: "./dashboard.component.html",
   styleUrl: "./dashboard.component.scss"
 })
 export class DashboardComponent implements OnInit {
-  private taskService = inject(TaskRepository);
+  private getTasksUseCase = inject(GetTasksUseCase);
+  private dialog = inject(MatDialog);
 
   tasks: Task[] = [];
   userName = "Usuário01"; // Idealmente viria do AuthService
@@ -26,7 +37,11 @@ export class DashboardComponent implements OnInit {
   doneCount = 0;
 
   async ngOnInit() {
-    this.tasks = await this.taskService.getTasks();
+    await this.loadData();
+  }
+
+  async loadData() {
+    this.tasks = await this.getTasksUseCase.execute();
     this.calculateMetrics();
   }
 
@@ -34,5 +49,17 @@ export class DashboardComponent implements OnInit {
     this.todoCount = this.tasks.filter((t) => t.status === "todo").length;
     this.doingCount = this.tasks.filter((t) => t.status === "doing").length;
     this.doneCount = this.tasks.filter((t) => t.status === "done").length;
+  }
+
+  openAddTaskDialog() {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        await this.loadData();
+      }
+    });
   }
 }

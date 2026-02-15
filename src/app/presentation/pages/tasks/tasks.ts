@@ -9,34 +9,68 @@ import {
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
-import { TaskRepository } from "../../../domain/repositories/task.repository";
+import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecase";
+import { UpdateTaskStatusUseCase } from "../../../domain/usecases/tasks/update-task-status.usecase";
+
 import { Card } from "../../components/card/card";
 import { Task } from "../../../domain/models/task.model";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { FormsModule } from "@angular/forms";
+import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
 
 @Component({
   selector: "app-tasks",
   standalone: true,
-  imports: [CommonModule, DragDropModule, MatButtonModule, MatIconModule, MatCardModule, Card],
+  imports: [
+    CommonModule,
+    DragDropModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    Card,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    FormsModule
+  ],
   templateUrl: "./tasks.html",
   styleUrl: "./tasks.scss"
 })
 export class TasksPage implements OnInit {
-  private taskService = inject(TaskRepository);
+  private getTasksUseCase = inject(GetTasksUseCase);
+  private updateTaskStatusUseCase = inject(UpdateTaskStatusUseCase);
+
+  private dialog = inject(MatDialog);
 
   todo = signal<Task[]>([]);
   doing = signal<Task[]>([]);
   done = signal<Task[]>([]);
+  tasks: Task[] = [];
+  newTaskTitle = "";
 
   ngOnInit() {
     this.loadTasks();
   }
 
   async loadTasks() {
-    const tasks = await this.taskService.getTasks();
-
+    const tasks = await this.getTasksUseCase.execute();
     this.todo.set(tasks.filter((t) => t.status === "todo"));
     this.doing.set(tasks.filter((t) => t.status === "doing"));
     this.done.set(tasks.filter((t) => t.status === "done"));
+  }
+
+  openAddTaskDialog() {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        await this.loadTasks();
+      }
+    });
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -54,7 +88,7 @@ export class TasksPage implements OnInit {
       const newStatus = event.container.id as "todo" | "doing" | "done";
 
       if (task.id) {
-        this.taskService.updateTaskStatus(task.id, newStatus);
+        this.updateTaskStatusUseCase.execute(task.id, newStatus);
       }
     }
   }

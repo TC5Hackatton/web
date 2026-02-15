@@ -5,7 +5,7 @@
       <h1>Bem vindo, {{ userName }}</h1>
       <p>Aqui está o resumo do seu dia no MindEase</p>
     </div>
-    <button mat-flat-button color="primary" routerLink="/tasks">
+    <button mat-flat-button color="primary" (click)="openAddTaskDialog()" style="cursor: pointer">
       <mat-icon>add</mat-icon>
       Nova Tarefa
     </button>
