@@ -7,8 +7,8 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../api/firebase";
 import { catchError, from, map, Observable, tap, throwError } from "rxjs";
-import { User } from "../interfaces/user";
 import { FirebaseError } from "firebase/app";
+import { User } from "../../domain/models/user.model";
 
 @Injectable({
   providedIn: "root"
@@ -24,7 +24,7 @@ export class AuthStateUtil {
   login(email: string, password: string): Observable<User> {
     return from(signInWithEmailAndPassword(auth, email, password)).pipe(
       map((result) => ({
-        uid: result.user.uid,
+        id: result.user.uid,
         email: result.user.email,
         displayName: result.user.displayName
       })),
@@ -43,7 +43,7 @@ export class AuthStateUtil {
   createUser(email: string, password: string): Observable<User> {
     return from(createUserWithEmailAndPassword(auth, email, password)).pipe(
       map((result) => ({
-        uid: result.user.uid,
+        id: result.user.uid,
         email: result.user.email,
         displayName: result.user.displayName
       })),

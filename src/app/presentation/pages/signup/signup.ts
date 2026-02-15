@@ -10,11 +10,11 @@ import {
   ReactiveFormsModule,
   Validators
 } from "@angular/forms";
-import { VerticalLogoComponent } from "../../../shared/components/vertical-logo/vertical-logo";
-import { Card } from "../../../shared/components/card/card";
 import { MatButtonModule } from "@angular/material/button";
-import { User } from "../../../core/interfaces/user";
-import { passwordMatchValidator } from "../../../shared/validators/password-match.validator";
+import { VerticalLogoComponent } from "../../components/vertical-logo/vertical-logo";
+import { Card } from "../../components/card/card";
+import { passwordMatchValidator } from "../../validators/password-match.validator";
+import { User } from "../../../domain/models/user.model";
 
 @Component({
   selector: "app-signup",

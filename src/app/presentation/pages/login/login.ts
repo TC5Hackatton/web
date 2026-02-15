@@ -13,10 +13,7 @@ import {
 import { VerticalLogoComponent } from "../../../presentation/components/vertical-logo/vertical-logo";
 import { Card } from "../../../presentation/components/card/card";
 import { MatButtonModule } from "@angular/material/button";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../infrastructure/config/firebase.config";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { User } from "../../../core/interfaces/user";
+import { User } from "../../../domain/models/user.model";
 
 @Component({
   selector: "app-login",
