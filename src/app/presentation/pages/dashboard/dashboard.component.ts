@@ -10,6 +10,8 @@ import { RouterModule } from "@angular/router";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
 
+import { GetCurrentUserUseCase } from "../../../domain/usecases/get-current-user.usecase";
+
 @Component({
   selector: "app-dashboard",
   standalone: true,
@@ -26,10 +28,11 @@ import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-tas
 })
 export class DashboardComponent implements OnInit {
   private getTasksUseCase = inject(GetTasksUseCase);
+  private getCurrentUserUseCase = inject(GetCurrentUserUseCase);
   private dialog = inject(MatDialog);
 
   tasks: Task[] = [];
-  userName = "Usuário01"; // Idealmente viria do AuthService
+  userName = "Usuário";
 
   // Metrics
   todoCount = 0;
@@ -41,6 +44,11 @@ export class DashboardComponent implements OnInit {
   }
 
   async loadData() {
+    const user = this.getCurrentUserUseCase.execute();
+    if (user?.email) {
+      this.userName = user.email;
+    }
+
     this.tasks = await this.getTasksUseCase.execute();
     this.calculateMetrics();
   }
