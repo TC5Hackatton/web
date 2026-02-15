@@ -33,4 +33,16 @@ export class FirebaseAuthRepository implements AuthRepository {
   logout(): Observable<void> {
     return from(signOut(auth));
   }
+
+  getCurrentUser(): User | null {
+    const user = auth.currentUser;
+    if (user) {
+      return {
+        id: user.uid,
+        email: user.email,
+        name: user.displayName
+      };
+    }
+    return null;
+  }
 }
