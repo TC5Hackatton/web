@@ -2,44 +2,126 @@
   <mat-icon class="home-icon">home</mat-icon>
   <span class="chevron">></span>
   <span class="title">Tarefas</span>
+  <div class="add-task-btn">
+    <button mat-flat-button color="primary" (click)="openAddTaskDialog()">
+      <mat-icon>add</mat-icon>
+      Nova Tarefa
+    </button>
+  </div>
 </div>
 
-<div class="board-columns">
+<div class="board-columns" cdkDropListGroup>
+  <!-- TODO COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
       <span class="dot blue"></span>
       <h3>A Fazer</h3>
     </div>
 
-    <div class="task-card">
-      <div class="task-header">
-        <h4>Estudar React</h4>
-        <button mat-icon-button class="play-btn">
-          <mat-icon>play_circle_filled</mat-icon>
-        </button>
-      </div>
-
-      <div class="task-meta">
-        <span class="time-badge"> <mat-icon>schedule</mat-icon> 25 min </span>
-      </div>
-
-      <p class="task-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+    <div
+      cdkDropList
+      id="todo"
+      [cdkDropListData]="todo()"
+      [cdkDropListConnectedTo]="['doing', 'done']"
+      (cdkDropListDropped)="drop($event)"
+      class="task-list"
+      style="min-height: 100px; max-width: 22.875rem"
+    >
+      @for (task of todo(); track task.id) {
+        <div cdkDrag class="task-card">
+          <div class="task-header">
+            <h4>{{ task.title }}</h4>
+            <button mat-icon-button class="play-btn">
+              <mat-icon>play_circle_filled</mat-icon>
+            </button>
+          </div>
+          <div class="task-meta">
+            <span class="time-badge">
+              <mat-icon>schedule</mat-icon> {{ task.createdAt | date: "short" }}
+            </span>
+          </div>
+          @if (task.description) {
+            <p class="task-desc">{{ task.description }}</p>
+          }
+        </div>
+      }
+      @if (todo().length === 0) {
+        <div class="empty-state">Nenhuma tarefa a fazer</div>
+      }
     </div>
   </app-card>
 
+  <!-- DOING COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
       <span class="dot yellow"></span>
       <h3>Em andamento</h3>
     </div>
-    <div class="empty-state">Nenhuma tarefa em andamento</div>
+
+    <div
+      cdkDropList
+      id="doing"
+      [cdkDropListData]="doing()"
+      [cdkDropListConnectedTo]="['todo', 'done']"
+      (cdkDropListDropped)="drop($event)"
+      class="task-list"
+      style="min-height: 100px"
+    >
+      @for (task of doing(); track task.id) {
+        <div cdkDrag class="task-card">
+          <div class="task-header">
+            <h4>{{ task.title }}</h4>
+            <button mat-icon-button class="play-btn">
+              <mat-icon>pause_circle_filled</mat-icon>
+            </button>
+          </div>
+          <div class="task-meta">
+            <span class="time-badge">
+              <mat-icon>schedule</mat-icon> {{ task.createdAt | date: "short" }}
+            </span>
+          </div>
+        </div>
+      }
+      @if (doing().length === 0) {
+        <div class="empty-state">Nenhuma tarefa em andamento</div>
+      }
+    </div>
   </app-card>
 
+  <!-- DONE COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
       <span class="dot green"></span>
       <h3>Concluido</h3>
     </div>
-    <div class="empty-state">Nenhuma tarefa concluída</div>
+
+    <div
+      cdkDropList
+      id="done"
+      [cdkDropListData]="done()"
+      [cdkDropListConnectedTo]="['todo', 'doing']"
+      (cdkDropListDropped)="drop($event)"
+      class="task-list"
+      style="min-height: 100px"
+    >
+      @for (task of done(); track task.id) {
+        <div cdkDrag class="task-card">
+          <div class="task-header">
+            <h4>{{ task.title }}</h4>
+            <button mat-icon-button class="play-btn">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+          </div>
+          <div class="task-meta">
+            <span class="time-badge">
+              <mat-icon>schedule</mat-icon> {{ task.createdAt | date: "short" }}
+            </span>
+          </div>
+        </div>
+      }
+      @if (done().length === 0) {
+        <div class="empty-state">Nenhuma tarefa concluída</div>
+      }
+    </div>
   </app-card>
 </div>

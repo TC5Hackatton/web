@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { Router } from "@angular/router";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -13,12 +12,12 @@ import {
 import { VerticalLogoComponent } from "../../../presentation/components/vertical-logo/vertical-logo";
 import { Card } from "../../../presentation/components/card/card";
 import { MatButtonModule } from "@angular/material/button";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../../infrastructure/config/firebase.config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { SignInUseCase } from "../../../domain/usecases/sign-in.usecase";
+import { User } from "../../../domain/models/user.model";
 
 @Component({
   selector: "app-login",
+  standalone: true,
   imports: [
     MatCardModule,
     ReactiveFormsModule,
@@ -32,9 +31,9 @@ import { collection, getDocs, query, where } from "firebase/firestore";
   styleUrl: "./login.scss"
 })
 export class LoginPage implements OnInit {
-  formBuilder = inject(FormBuilder);
-  _authService = inject(AuthStateUtil);
-  router = inject(Router);
+  private formBuilder = inject(FormBuilder);
+  private signInUseCase = inject(SignInUseCase);
+  private router = inject(Router);
 
   loginForm!: FormGroup;
 
@@ -46,19 +45,23 @@ export class LoginPage implements OnInit {
   }
 
   entrar() {
-    signInWithEmailAndPassword(auth, "teste@teste.com", "senha123").then((value) => {
-      console.log(value);
+    if (this.loginForm.invalid) return;
+
+    const { email, password } = this.loginForm.value;
+
+    this.signInUseCase.execute(email, password).subscribe({
+      next: (user: User) => {
+        console.log("Login realizado com sucesso", user);
+        this.router.navigate(["/"]);
+      },
+      error: (err: Error) => {
+        console.error("Erro ao fazer login:", err);
+        alert("Erro ao fazer login: " + err.message);
+      }
     });
   }
 
-  fetchTasks() {
-    const q = query(collection(db, "tasks"), where("uid", "==", "idUser"));
-
-    getDocs(q).then((tasks) => {
-      tasks.docs.map((t) => {
-        const data = t.data();
-        console.log(data);
-      });
-    });
+  goToSignup() {
+    this.router.navigate(["/signup"]);
   }
 }

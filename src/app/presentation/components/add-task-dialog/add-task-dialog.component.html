@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Nova Tarefa</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Título da Tarefa</mat-label>
+    <input matInput [(ngModel)]="taskTitle" (keydown.enter)="onAdd()" autoFocus />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Descrição da Tarefa</mat-label>
+    <input matInput [(ngModel)]="taskDescription" (keydown.enter)="onAdd()" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Tipo de Tempo</mat-label>
+    <mat-select [(ngModel)]="timeType">
+      <mat-option value="minutes">Cronômetro</mat-option>
+      <mat-option value="tempo_fixo">Tempo Fixo</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  @if (timeType === "tempo_fixo") {
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Duração (minutos)</mat-label>
+      <input matInput type="number" [(ngModel)]="timeSpent" min="1" />
+    </mat-form-field>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onAdd()" cdkFocusInitial>Adicionar</button>
+</mat-dialog-actions>

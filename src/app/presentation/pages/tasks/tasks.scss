@@ -13,6 +13,11 @@
   gap: 1rem;
 }
 
+.add-task-btn {
+  margin-left: 4rem;
+  cursor: pointer;
+}
+
 ::ng-deep app-card.column-card .card {
   min-height: 43.75rem;
   min-width: 25rem;
