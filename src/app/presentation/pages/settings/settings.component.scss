@@ -1,6 +1,5 @@
 .settings-container {
   padding: 32px;
-  max-width: 800px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -12,26 +11,29 @@
     padding: 24px;
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 3.5rem;
     border: 1px solid #bbdefb;
 
     .banner-icon {
-      color: #1976d2;
-      font-size: 32px;
-      width: 32px;
-      height: 32px;
+      color: var(--primary);
+      font-size: 50px;
+      width: 50px;
+      height: 50px;
     }
 
     .banner-text {
+      font-family: "Raleway", sans-serif;
       h2 {
-        margin: 0 0 8px 0;
-        color: #1976d2;
+        margin: 0 0 12px 0;
+        color: var(--primary);
         font-size: 1.25rem;
+        font-weight: 700;
       }
       p {
         margin: 0;
-        color: #555;
+        color: var(--dashboard-text-subtitle);
         font-size: 0.9rem;
+        font-family: "Raleway", sans-serif;
       }
     }
   }
@@ -39,16 +41,21 @@
   .settings-card {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: white;
 
     mat-card-header {
-      margin-bottom: 16px;
       mat-icon {
-        color: #555;
+        color: var(--dashboard-text-subtitle);
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
       }
       mat-card-title {
-        font-size: 1.1rem;
-        font-weight: 500;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
         margin-top: 4px;
+        color: var(--dashboard-text-subtitle);
       }
     }
 
@@ -72,13 +79,16 @@
       .setting-label {
         display: flex;
         flex-direction: column;
-        strong {
-          color: #333;
-          font-weight: 500;
+        p {
+          font-family: "Raleway", sans-serif;
+          color: var(--dashboard-text);
+          font-weight: 700;
         }
         span {
-          font-size: 0.85rem;
-          color: #888;
+          font-family: "Raleway", sans-serif;
+          font-weight: 400;
+          font-size: 0.8rem;
+          color: var(--dashboard-text);
           margin-top: 4px;
         }
       }
@@ -87,6 +97,8 @@
         width: 100%;
         mat-button-toggle {
           flex: 1;
+          font-size: 1.25rem;
+          color: var(--dashboard-text-subtitle);
         }
       }
     }
