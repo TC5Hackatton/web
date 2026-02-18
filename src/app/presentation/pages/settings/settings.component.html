@@ -1,145 +1,197 @@
-<div class="settings-container">
-  <!-- Banner Section -->
-  <div class="settings-banner">
-    <mat-icon class="banner-icon">settings</mat-icon>
-    <div class="banner-text">
-      <h2>Configurações pensadas para você</h2>
-      <p>
-        Ajuste conforme sua necessidade. Não existe "jeito certo" - o que funciona para você é o
-        melhor.
-      </p>
+@if (settingsService.settings(); as settings) {
+  <div class="settings-container">
+    <!-- Banner Section -->
+    <div class="settings-banner">
+      <mat-icon class="banner-icon">settings</mat-icon>
+      <div class="banner-text">
+        <h2>Configurações pensadas para você</h2>
+        <p>
+          Ajuste conforme sua necessidade. Não existe "jeito certo" - o que funciona para você é o
+          melhor.
+        </p>
+      </div>
     </div>
+
+    <!-- Appearance Section -->
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>contrast</mat-icon>
+        <mat-card-title>Aparência</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Modo Escuro</p>
+            <span>Reduz luz da tela</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.appearance.dark_mode"
+            (change)="toggleDarkMode($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Alto Contraste</p>
+            <span>Para melhor legibilidade</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.appearance.high_contrast"
+            (change)="toggleHighContrast($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="setting-row vertical">
+          <div class="setting-label">
+            <p>Tamanho da Fonte</p>
+          </div>
+          <mat-button-toggle-group
+            name="fontStyle"
+            aria-label="Font Style"
+            [value]="settings.appearance.font_size"
+            (change)="changeFontSize($event)"
+          >
+            <mat-button-toggle value="P">P</mat-button-toggle>
+            <mat-button-toggle value="M">M</mat-button-toggle>
+            <mat-button-toggle value="G">G</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Productivity Section -->
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>schedule</mat-icon>
+        <mat-card-title>Tempo e Produtividade</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="setting-row vertical">
+          <div class="setting-label">
+            <p>Pomodoro Padrão</p>
+          </div>
+          <mat-button-toggle-group
+            name="pomodoro"
+            aria-label="Pomodoro Time"
+            [value]="settings.timer.amount_default.toString()"
+            (change)="changePomodoroTime($event)"
+          >
+            <mat-button-toggle value="15">15 min</mat-button-toggle>
+            <mat-button-toggle value="25">25 min</mat-button-toggle>
+            <mat-button-toggle value="35">35 min</mat-button-toggle>
+            <mat-button-toggle value="45">45 min</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Lembrete de Pausa</p>
+            <span>Avisa quando terminar</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.timer.pause_reminder"
+            (change)="togglePauseReminder($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notifications Section -->
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>notifications</mat-icon>
+        <mat-card-title>Notificações</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Sons</p>
+            <span>Alertas sonoros</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.notifications.sound_on"
+            (change)="toggleSound($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Focus Mode Section -->
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="material-symbols-outlined">filter_center_focus</mat-icon>
+        <mat-card-title>Modo Foco</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Ocultar Concluídas</p>
+            <span>Menos distrações visuais</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.focus.hide_done"
+            (change)="toggleHideDone($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Apenas tarefa atual</p>
+            <span>Foco total em uma coisa</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.focus.only_current"
+            (change)="toggleOnlyCurrent($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Accessibility Section -->
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>accessible_forward</mat-icon>
+        <mat-card-title>Acessibilidade</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Animações Reduzidas</p>
+            <span>Menos movimento na tela</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.accessibility.animations_decreased"
+            (change)="toggleAnimationsDecreased($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label">
+            <p>Modo Simplificado</p>
+            <span>Interface mais básica</span>
+          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="settings.accessibility.simplified_mode"
+            (change)="toggleSimplifiedMode($event)"
+          >
+          </mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-
-  <!-- Appearance Section -->
-  <mat-card class="settings-card">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>contrast</mat-icon>
-      <mat-card-title>Aparência</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Modo Escuro</p>
-          <span>Reduz luz da tela</span>
-        </div>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
-      </div>
-
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Alto Contraste</p>
-          <span>Para melhor legibilidade</span>
-        </div>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
-      </div>
-
-      <div class="setting-row vertical">
-        <div class="setting-label">
-          <p>Tamanho da Fonte</p>
-        </div>
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="M">
-          <mat-button-toggle value="P">P</mat-button-toggle>
-          <mat-button-toggle value="M">M</mat-button-toggle>
-          <mat-button-toggle value="G">G</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Productivity Section -->
-  <mat-card class="settings-card">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>schedule-solid</mat-icon>
-      <mat-card-title>Tempo e Produtividade</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="setting-row vertical">
-        <div class="setting-label">
-          <p>Pomodoro Padrão</p>
-        </div>
-        <mat-button-toggle-group name="pomodoro" aria-label="Pomodoro Time" value="25">
-          <mat-button-toggle value="15">15 min</mat-button-toggle>
-          <mat-button-toggle value="25">25 min</mat-button-toggle>
-          <mat-button-toggle value="35">35 min</mat-button-toggle>
-          <mat-button-toggle value="45">45 min</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Lembrete de Pausa</p>
-          <span>Avisa quando terminar</span>
-        </div>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Notifications Section -->
-  <mat-card class="settings-card">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>notifications-solid</mat-icon>
-      <mat-card-title>Notificações</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Sons</p>
-          <span>Alertas sonoros</span>
-        </div>
-        <mat-slide-toggle color="primary" checked></mat-slide-toggle>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Focus Mode Section -->
-  <mat-card class="settings-card">
-    <mat-card-header>
-      <mat-icon mat-card-avatar class="material-symbols-outlined">network_intelligence</mat-icon>
-      <mat-card-title>Modo Foco</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Ocultar Concluídas</p>
-          <span>Menos distrações visuais</span>
-        </div>
-        <mat-slide-toggle color="primary" checked></mat-slide-toggle>
-      </div>
-
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Apenas tarefa atual</p>
-          <span>Foco total em uma coisa</span>
-        </div>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <!-- Accessibility Section -->
-  <mat-card class="settings-card">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>accessible_forward</mat-icon>
-      <mat-card-title>Acessibilidade</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Sons</p>
-          <span>Alertas sonoros</span>
-        </div>
-        <mat-slide-toggle color="primary" checked></mat-slide-toggle>
-      </div>
-
-      <div class="setting-row">
-        <div class="setting-label">
-          <p>Vibração</p>
-          <span>Feedback tátil (mobile apenas)</span>
-        </div>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+}
