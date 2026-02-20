@@ -7,9 +7,9 @@
     gap: 38px;
     margin-top: 18px;
     padding: 18px 91px;
-    background-color: white;
+    background-color: var(--card-bg);
     font-size: 16px;
-    color: var(--drawer-text-primary);
+    color: var(--settings-text);
     cursor: pointer;
 
     &.active-link {

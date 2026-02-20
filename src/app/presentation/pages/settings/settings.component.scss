@@ -6,13 +6,13 @@
   gap: 24px;
 
   .settings-banner {
-    background-color: #e3f2fd;
+    background-color: var(--settings-banner-bg);
     border-radius: 12px;
     padding: 24px;
     display: flex;
     align-items: flex-start;
     gap: 3.5rem;
-    border: 1px solid #bbdefb;
+    border: 1px solid var(--settings-banner-border);
 
     .banner-icon {
       color: var(--primary);
@@ -31,7 +31,7 @@
       }
       p {
         margin: 0;
-        color: var(--dashboard-text-subtitle);
+        color: var(--primary);
         font-size: 0.9rem;
         font-family: "Raleway", sans-serif;
       }
@@ -41,11 +41,11 @@
   .settings-card {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    background-color: white;
+    background-color: var(--card-bg);
 
     mat-card-header {
       mat-icon {
-        color: var(--dashboard-text-subtitle);
+        color: var(--settings-text-subtitle);
         font-size: 28px;
         width: 28px;
         height: 28px;
@@ -55,7 +55,7 @@
         font-size: 1.3rem;
         font-weight: 600;
         margin-top: 4px;
-        color: var(--dashboard-text-subtitle);
+        color: var(--settings-text-subtitle);
       }
     }
 
@@ -64,11 +64,6 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
-
-      &:last-child {
-        border-bottom: none;
-      }
 
       &.vertical {
         flex-direction: column;
@@ -81,14 +76,14 @@
         flex-direction: column;
         p {
           font-family: "Raleway", sans-serif;
-          color: var(--dashboard-text);
+          color: var(--settings-text);
           font-weight: 700;
         }
         span {
           font-family: "Raleway", sans-serif;
           font-weight: 400;
           font-size: 0.8rem;
-          color: var(--dashboard-text);
+          color: var(--settings-text);
           margin-top: 4px;
         }
       }
@@ -98,8 +93,22 @@
         mat-button-toggle {
           flex: 1;
           font-size: 1.25rem;
-          color: var(--dashboard-text-subtitle);
+          color: var(--settings-text-subtitle);
         }
+      }
+      .mat-button-toggle-appearance-standard.mat-button-toggle-checked{
+        background-color: var(--background-toggle);
+        color: var(--card-bg);
+      }
+
+      .mdc-switch {
+        background-color: #E89B8C;
+      } 
+      .mdc-switch--selected {
+        background-color: #E89B8C;
+      } 
+      .mdc-switch--checked {
+        background-color: #E89B8C;
       }
     }
   }
