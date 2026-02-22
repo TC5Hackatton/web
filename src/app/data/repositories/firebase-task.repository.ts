@@ -25,6 +25,10 @@ export class FirebaseTaskRepository implements TaskRepository {
         description: data["description"],
         timeType: data["timeType"] ?? data["time_type"],
         timeSpend: data["timeSpend"] ?? data["time_spend"],
+        timeValue: data["timeValue"] ?? 0,
+        statusChangedAt: data["statusChangedAt"]?.toDate
+          ? data["statusChangedAt"].toDate()
+          : data["statusChangedAt"],
         status: data["status"],
         createdAt: data["createdAt"]?.toDate ? data["createdAt"].toDate() : data["createdAt"]
       } as Task;
@@ -35,6 +39,7 @@ export class FirebaseTaskRepository implements TaskRepository {
     title: string,
     description: string,
     timeType: "cronometro" | "tempo_fixo",
+    timeValue: number,
     timeSpent: number,
     status: TaskStatus = "todo"
   ) {
@@ -45,15 +50,22 @@ export class FirebaseTaskRepository implements TaskRepository {
       uid: user.uid,
       title,
       description,
+      timeType,
+      timeValue,
       timeSpend: timeSpent,
-      timeType: timeType,
       status,
       createdAt: new Date()
     });
   }
 
-  async updateTaskStatus(taskId: string, newStatus: TaskStatus) {
-    const taskRef = doc(db, "tasks", taskId);
-    await updateDoc(taskRef, { status: newStatus });
+  async updateTask(task: Task): Promise<void> {
+    if (!task.id) throw new Error("Task ID is required for update");
+
+    const taskRef = doc(db, "tasks", task.id);
+    await updateDoc(taskRef, {
+      status: task.status,
+      timeSpend: task.timeSpend,
+      statusChangedAt: task.statusChangedAt ?? null
+    });
   }
 }

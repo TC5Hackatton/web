@@ -6,7 +6,9 @@ export interface Task {
   title: string;
   description?: string;
   timeType: "cronometro" | "tempo_fixo";
-  timeSpend: number;
+  timeValue: number; // Tempo estimado/planeado (adicionado)
+  timeSpend: number; // Tempo total já gasto na execução
+  statusChangedAt?: Date; // Guarda a hora exata em que o status mudou para "doing"
   status: TaskStatus;
   createdAt: Date;
 }

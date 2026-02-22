@@ -90,7 +90,9 @@ export class TasksPage implements OnInit {
       const newStatus = event.container.id as "todo" | "doing" | "done";
 
       if (task.id) {
-        this.updateTaskStatusUseCase.execute(task.id, newStatus);
+        this.updateTaskStatusUseCase.execute(task, newStatus).then(() => {
+          this.loadTasks();
+        });
       }
     }
   }

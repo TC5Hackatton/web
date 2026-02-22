@@ -12,9 +12,10 @@ export class AddTaskUseCase {
     title: string,
     description: string,
     timeType: "cronometro" | "tempo_fixo",
+    timeValue: number,
     timeSpent: number,
     status: TaskStatus = "todo"
   ): Promise<void> {
-    return this.taskRepository.addTask(title, description, timeType, timeSpent, status);
+    return this.taskRepository.addTask(title, description, timeType, timeValue, timeSpent, status);
   }
 }

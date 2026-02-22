@@ -29,6 +29,7 @@ export class AddTaskDialogComponent {
   taskDescription = "";
   timeType: "cronometro" | "tempo_fixo" = "cronometro";
   timeSpent = 0;
+  timeValue = 0;
 
   async onAdd(): Promise<void> {
     if (!this.taskTitle.trim()) return;
@@ -39,6 +40,7 @@ export class AddTaskDialogComponent {
         this.taskDescription,
         this.timeType,
         this.timeSpent,
+        this.timeValue,
         "todo"
       );
       this.dialogRef.close(true);

@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { TaskStatus } from "../../models/task.model";
+import { Task, TaskStatus } from "../../models/task.model";
 import { TaskRepository } from "../../repositories/task.repository";
 
 @Injectable({
@@ -8,7 +8,30 @@ import { TaskRepository } from "../../repositories/task.repository";
 export class UpdateTaskStatusUseCase {
   private taskRepository = inject(TaskRepository);
 
-  execute(taskId: string, newStatus: TaskStatus): Promise<void> {
-    return this.taskRepository.updateTaskStatus(taskId, newStatus);
+  async execute(task: Task, newStatus: TaskStatus): Promise<void> {
+    let timeSpend = task.timeSpend;
+    let statusChangedAt: Date | undefined = undefined;
+
+    // Acumula o tempo decorrido ao sair do status "doing"
+    if (task.status === "doing" && task.statusChangedAt) {
+      const now = new Date();
+      const elapsedMs = now.getTime() - task.statusChangedAt.getTime();
+      const elapsedMinutes = elapsedMs / (1000 * 60);
+      timeSpend = Number((timeSpend + elapsedMinutes).toFixed(2));
+    }
+
+    // Define statusChangedAt somente ao entrar em "doing"
+    if (newStatus === "doing") {
+      statusChangedAt = new Date();
+    }
+
+    const updatedTask: Task = {
+      ...task,
+      status: newStatus,
+      timeSpend,
+      statusChangedAt
+    };
+
+    return this.taskRepository.updateTask(updatedTask);
   }
 }
