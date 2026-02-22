@@ -1,0 +1,19 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  color: var(--settings-text-subtitle);
+
+  .home-icon {
+    color: var(--primary);
+    margin-right: 8px;
+  }
+
+  .chevron {
+    margin: 0 8px;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+}

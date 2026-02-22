@@ -1,14 +1,11 @@
-<div class="page-header">
-  <mat-icon class="home-icon">home</mat-icon>
-  <span class="chevron">></span>
-  <span class="title">Tarefas</span>
+<app-breadcrumb title="Tarefas">
   <div class="add-task-btn">
     <button mat-flat-button color="primary" (click)="openAddTaskDialog()">
       <mat-icon>add</mat-icon>
       Nova Tarefa
     </button>
   </div>
-</div>
+</app-breadcrumb>
 
 <div class="board-columns" cdkDropListGroup>
   <!-- TODO COLUMN -->
@@ -25,7 +22,6 @@
       [cdkDropListConnectedTo]="['doing', 'done']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px; max-width: 22.875rem"
     >
       @for (task of todo(); track task.id) {
         <div cdkDrag class="task-card">
@@ -38,7 +34,7 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
@@ -70,7 +66,6 @@
       [cdkDropListConnectedTo]="['todo', 'done']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px"
     >
       @for (task of doing(); track task.id) {
         <div cdkDrag class="task-card">
@@ -83,13 +78,16 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
               }
             </span>
           </div>
+          @if (task.description) {
+            <p class="task-desc">{{ task.description }}</p>
+          }
         </div>
       }
       @if (doing().length === 0) {
@@ -112,7 +110,6 @@
       [cdkDropListConnectedTo]="['todo', 'doing']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px"
     >
       @for (task of done(); track task.id) {
         <div cdkDrag class="task-card">
@@ -125,13 +122,16 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
               }
             </span>
           </div>
+          @if (task.description) {
+            <p class="task-desc">{{ task.description }}</p>
+          }
         </div>
       }
       @if (done().length === 0) {

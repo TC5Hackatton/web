@@ -10,7 +10,7 @@
 }
 
 .drawer-mode {
-  width: 33.625rem;
+  width: var(--drawer-width);
   background-color: var(--card-bg);
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
   border-radius: 0;

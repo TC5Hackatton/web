@@ -26,6 +26,9 @@ html {
   --settings-banner-bg: #e3f2fd;
   --settings-banner-border: #bbdefb;
   --card-bg: #ffffff;
+  --task-bg: #f5f5f5;
+
+  --drawer-width: 538px;
 }
 
 body.theme-dark {
@@ -36,6 +39,7 @@ body.theme-dark {
   --settings-banner-bg: #c1ddf8;
   --settings-banner-border: #bbdefb;
   --card-bg: #1a1f2e;
+  --task-bg: #4a5565;
 }
 
 * {
@@ -52,9 +56,26 @@ html,
 body {
   height: 100%;
 }
+
+html:has(body.font-size-p) {
+  font-size: 13px;
+}
+
+html:has(body.font-size-m) {
+  font-size: 16px;
+}
+
+html:has(body.font-size-g) {
+  font-size: 19px;
+}
+
 body {
   margin: 0;
   background-color: var(--background-color);
+}
+
+.mat-drawer-content {
+  margin-left: var(--drawer-width) !important;
 }
 
 /* estado normal */
