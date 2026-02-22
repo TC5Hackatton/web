@@ -1,14 +1,11 @@
-<div class="page-header">
-  <mat-icon class="home-icon">home</mat-icon>
-  <span class="chevron">></span>
-  <span class="title">Tarefas</span>
+<app-breadcrumb title="Tarefas">
   <div class="add-task-btn">
     <button mat-flat-button color="primary" (click)="openAddTaskDialog()">
       <mat-icon>add</mat-icon>
       Nova Tarefa
     </button>
   </div>
-</div>
+</app-breadcrumb>
 
 <div class="board-columns" cdkDropListGroup>
   <!-- TODO COLUMN -->

@@ -1,13 +1,3 @@
-.page-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-  color: #555;
-  .home-icon { color: #3F51B5; margin-right: 8px; }
-  .chevron { margin: 0 8px; color: #999; }
-  .title { font-weight: bold; }
-}
-
 .board-columns {
   display: flex;
   gap: 1rem;
@@ -30,19 +20,33 @@
   display: flex;
   align-items: center;
   margin-bottom: 16px;
-  
-  h3 { margin: 0; font-size: 14px; color: #777; font-weight: 500;}
-  
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+  }
+
   .dot {
-    width: 8px; height: 8px; border-radius: 50%; margin-right: 8px;
-    &.blue { background-color: #5C6BC0; }
-    &.yellow { background-color: #FFCA28; }
-    &.green { background-color: #66BB6A; }
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    &.blue {
+      background-color: #5c6bc0;
+    }
+    &.yellow {
+      background-color: #ffca28;
+    }
+    &.green {
+      background-color: #66bb6a;
+    }
   }
 }
 
 .task-card {
-  background-color: #F5F6F8;
+  background-color: #f5f6f8;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
@@ -51,12 +55,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    h4 { margin: 0; font-weight: bold; color: #333; }
-    .play-btn { color: #66BB6A; } // Cor do play
+    h4 {
+      margin: 0;
+      font-weight: bold;
+      color: #333;
+    }
+    .play-btn {
+      color: #66bb6a;
+    }
   }
 
-  .task-meta { margin: 8px 0; }
-  
+  .task-meta {
+    margin: 8px 0;
+  }
+
   .time-badge {
     background-color: var(--primary);
     color: white;
@@ -65,7 +77,12 @@
     font-size: 12px;
     display: inline-flex;
     align-items: center;
-    mat-icon { font-size: 14px; width: 14px; height: 14px; margin-right: 4px; }
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      margin-right: 4px;
+    }
   }
 
   .task-desc {
@@ -77,7 +94,7 @@
 }
 
 .empty-state {
-  color: #CCC;
+  color: #ccc;
   text-align: center;
   margin-top: 40px;
   font-size: 12px;
