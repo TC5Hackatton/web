@@ -7,6 +7,7 @@ import { MatButtonToggleChange, MatButtonToggleModule } from "@angular/material/
 import { MatButtonModule } from "@angular/material/button";
 import { AppSettingsService } from "../../services/app-settings.service";
 import { FontSize } from "../../../domain/models/user-settings.model";
+import { BreadcrumbComponent } from "../../components/breadcrumb/breadcrumb";
 
 @Component({
   selector: "app-settings",
@@ -17,7 +18,8 @@ import { FontSize } from "../../../domain/models/user-settings.model";
     MatIconModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    BreadcrumbComponent
   ],
   templateUrl: "./settings.component.html",
   styleUrl: "./settings.component.scss"

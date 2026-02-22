@@ -13,6 +13,7 @@ import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecas
 import { UpdateTaskStatusUseCase } from "../../../domain/usecases/tasks/update-task-status.usecase";
 
 import { Card } from "../../components/card/card";
+import { BreadcrumbComponent } from "../../components/breadcrumb/breadcrumb";
 import { Task } from "../../../domain/models/task.model";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -33,7 +34,8 @@ import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-tas
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    BreadcrumbComponent
   ],
   templateUrl: "./tasks.html",
   styleUrl: "./tasks.scss"

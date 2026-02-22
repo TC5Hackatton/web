@@ -6,10 +6,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecase";
 import { Task } from "../../../domain/models/task.model";
 import { RouterModule } from "@angular/router";
-
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
-
 import { GetCurrentUserUseCase } from "../../../domain/usecases/get-current-user.usecase";
 
 @Component({
