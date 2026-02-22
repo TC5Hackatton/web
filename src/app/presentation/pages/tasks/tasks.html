@@ -38,7 +38,7 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
@@ -83,7 +83,7 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
@@ -125,7 +125,7 @@
           <div class="task-meta">
             <span class="time-badge">
               <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "minutes") {
+              @if (task.timeType === "tempo_fixo") {
                 {{ task.timeSpend }} min
               } @else {
                 {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
