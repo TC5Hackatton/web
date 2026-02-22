@@ -11,7 +11,7 @@ export class AddTaskUseCase {
   execute(
     title: string,
     description: string,
-    timeType: "minutes" | "tempo_fixo",
+    timeType: "cronometro" | "tempo_fixo",
     timeSpent: number,
     status: TaskStatus = "todo"
   ): Promise<void> {

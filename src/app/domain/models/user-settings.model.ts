@@ -3,11 +3,11 @@ export type FontSize = "P" | "M" | "G";
 export interface AppearanceSettings {
   dark_mode: boolean;
   high_contrast: boolean;
-  font_size: FontSize;
+  font_size?: FontSize;
 }
 
 export interface TimerSettings {
-  amount_default: number;
+  amount_default?: number;
   pause_reminder: boolean;
 }
 

@@ -23,8 +23,8 @@ export class FirebaseTaskRepository implements TaskRepository {
         uid: data["uid"],
         title: data["title"],
         description: data["description"],
-        timeType: data["time_type"],
-        timeSpend: data["time_spend"],
+        timeType: data["timeType"] ?? data["time_type"],
+        timeSpend: data["timeSpend"] ?? data["time_spend"],
         status: data["status"],
         createdAt: data["createdAt"]?.toDate ? data["createdAt"].toDate() : data["createdAt"]
       } as Task;
@@ -34,7 +34,7 @@ export class FirebaseTaskRepository implements TaskRepository {
   async addTask(
     title: string,
     description: string,
-    timeType: "minutes" | "tempo_fixo",
+    timeType: "cronometro" | "tempo_fixo",
     timeSpent: number,
     status: TaskStatus = "todo"
   ) {
@@ -45,8 +45,8 @@ export class FirebaseTaskRepository implements TaskRepository {
       uid: user.uid,
       title,
       description,
-      time_spend: timeSpent,
-      time_type: timeType,
+      timeSpend: timeSpent,
+      timeType: timeType,
       status,
       createdAt: new Date()
     });

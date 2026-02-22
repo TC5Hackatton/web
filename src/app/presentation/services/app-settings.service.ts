@@ -61,7 +61,15 @@ export class AppSettingsService {
     if (user?.id) {
       this.getSettingsUseCase.execute(user.id).subscribe((data) => {
         if (data) {
-          this.settings.set({ ...DEFAULT_SETTINGS, ...data, uid: user.id });
+          const merged: UserSettings = {
+            uid: user.id,
+            appearance: { ...DEFAULT_SETTINGS.appearance, ...data.appearance },
+            timer: { ...DEFAULT_SETTINGS.timer, ...data.timer },
+            notifications: { ...DEFAULT_SETTINGS.notifications, ...data.notifications },
+            focus: { ...DEFAULT_SETTINGS.focus, ...data.focus },
+            accessibility: { ...DEFAULT_SETTINGS.accessibility, ...data.accessibility }
+          };
+          this.settings.set(merged);
         } else {
           this.settings.update((s) => ({ ...s, uid: user.id }));
           this.saveSettingsUseCase.execute(user.id, this.settings()).subscribe();
@@ -126,7 +134,8 @@ export class AppSettingsService {
     this.renderer.removeClass(body, "font-size-p");
     this.renderer.removeClass(body, "font-size-m");
     this.renderer.removeClass(body, "font-size-g");
-    this.renderer.addClass(body, `font-size-${appearance.font_size.toLowerCase()}`);
+    const fontSize = (appearance.font_size || "M").toLowerCase();
+    this.renderer.addClass(body, `font-size-${fontSize}`);
 
     if (appearance.high_contrast) {
       this.renderer.addClass(body, "high-contrast");

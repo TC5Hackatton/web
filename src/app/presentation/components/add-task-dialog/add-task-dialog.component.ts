@@ -27,7 +27,7 @@ export class AddTaskDialogComponent {
 
   taskTitle = "";
   taskDescription = "";
-  timeType: "minutes" | "tempo_fixo" = "minutes";
+  timeType: "cronometro" | "tempo_fixo" = "cronometro";
   timeSpent = 0;
 
   async onAdd(): Promise<void> {
