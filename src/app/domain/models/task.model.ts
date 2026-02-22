@@ -5,7 +5,7 @@ export interface Task {
   uid: string; // ID do usuário dono da tarefa
   title: string;
   description?: string;
-  timeType: "minutes" | "tempo_fixo";
+  timeType: "cronometro" | "tempo_fixo";
   timeSpend: number;
   status: TaskStatus;
   createdAt: Date;

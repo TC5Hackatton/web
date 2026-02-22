@@ -5,7 +5,7 @@ export abstract class TaskRepository {
   abstract addTask(
     title: string,
     description: string,
-    timeType: "minutes" | "tempo_fixo",
+    timeType: "cronometro" | "tempo_fixo",
     timeSpent: number,
     status?: TaskStatus
   ): Promise<void>;

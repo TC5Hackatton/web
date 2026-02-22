@@ -77,7 +77,7 @@
           <mat-button-toggle-group
             name="pomodoro"
             aria-label="Pomodoro Time"
-            [value]="settings.timer.amount_default.toString()"
+            [value]="(settings.timer.amount_default ?? 25).toString()"
             (change)="changePomodoroTime($event)"
           >
             <mat-button-toggle value="15">15 min</mat-button-toggle>
