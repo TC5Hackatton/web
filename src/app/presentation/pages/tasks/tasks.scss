@@ -9,11 +9,15 @@
 }
 
 ::ng-deep app-card.column-card .card {
-  min-height: 43.75rem;
+  min-height: 700px;
+  max-height: 700px;
+  background-color: var(--card-bg);
   min-width: 25rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .column-header {
@@ -24,7 +28,7 @@
   h3 {
     margin: 0;
     font-size: 14px;
-    color: #777;
+    color: var(--settings-text-subtitle);
     font-weight: 500;
   }
 
@@ -34,19 +38,19 @@
     border-radius: 50%;
     margin-right: 8px;
     &.blue {
-      background-color: #5c6bc0;
+      background-color: var(--primary);
     }
     &.yellow {
       background-color: #ffca28;
     }
     &.green {
-      background-color: #66bb6a;
+      background-color: var(--success);
     }
   }
 }
 
 .task-card {
-  background-color: #f5f6f8;
+  background-color: var(--task-bg);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
@@ -58,10 +62,10 @@
     h4 {
       margin: 0;
       font-weight: bold;
-      color: #333;
+      color: var(--settings-text);
     }
     .play-btn {
-      color: #66bb6a;
+      color: var(--success);
     }
   }
 
@@ -71,7 +75,7 @@
 
   .time-badge {
     background-color: var(--primary);
-    color: white;
+    color: var(--card-bg);
     padding: 4px 8px;
     border-radius: 12px;
     font-size: 12px;
@@ -87,9 +91,26 @@
 
   .task-desc {
     font-size: 12px;
-    color: #888;
+    color: var(--settings-text-subtitle);
     line-height: 1.4;
     margin: 0;
+  }
+}
+
+.task-list {
+  overflow-y: auto;
+  max-height: 620px;
+  flex: 1;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
   }
 }
 

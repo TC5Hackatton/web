@@ -22,7 +22,6 @@
       [cdkDropListConnectedTo]="['doing', 'done']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px; max-width: 22.875rem"
     >
       @for (task of todo(); track task.id) {
         <div cdkDrag class="task-card">
@@ -67,7 +66,6 @@
       [cdkDropListConnectedTo]="['todo', 'done']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px"
     >
       @for (task of doing(); track task.id) {
         <div cdkDrag class="task-card">
@@ -87,6 +85,9 @@
               }
             </span>
           </div>
+          @if (task.description) {
+            <p class="task-desc">{{ task.description }}</p>
+          }
         </div>
       }
       @if (doing().length === 0) {
@@ -109,7 +110,6 @@
       [cdkDropListConnectedTo]="['todo', 'doing']"
       (cdkDropListDropped)="drop($event)"
       class="task-list"
-      style="min-height: 100px"
     >
       @for (task of done(); track task.id) {
         <div cdkDrag class="task-card">
@@ -129,6 +129,9 @@
               }
             </span>
           </div>
+          @if (task.description) {
+            <p class="task-desc">{{ task.description }}</p>
+          }
         </div>
       }
       @if (done().length === 0) {
