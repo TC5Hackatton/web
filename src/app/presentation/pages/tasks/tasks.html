@@ -139,6 +139,7 @@
             <span class="date-text">
               {{ task.createdAt | date: "dd/MM/yy" }}
             </span>
+            <app-running-timer [task]="task"></app-running-timer>
           </div>
         </div>
       }

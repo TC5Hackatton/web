@@ -20,6 +20,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
+import { RunningTimerComponent } from "../../components/running-timer/running-timer.component";
 
 @Component({
   selector: "app-tasks",
@@ -35,7 +36,8 @@ import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-tas
     MatInputModule,
     MatDialogModule,
     FormsModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RunningTimerComponent
   ],
   templateUrl: "./tasks.html",
   styleUrl: "./tasks.scss"
