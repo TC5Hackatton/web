@@ -96,4 +96,19 @@ export class TasksPage implements OnInit {
       }
     }
   }
+
+  async onStart(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "doing");
+    await this.loadTasks();
+  }
+
+  async onFinish(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "done");
+    await this.loadTasks();
+  }
+
+  async onPause(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "todo");
+    await this.loadTasks();
+  }
 }

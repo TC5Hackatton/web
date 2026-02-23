@@ -27,9 +27,16 @@
         <div cdkDrag class="task-card">
           <div class="task-header">
             <h4>{{ task.title }}</h4>
-            <button mat-icon-button class="play-btn">
-              <mat-icon>play_circle_filled</mat-icon>
-            </button>
+            <div class="action-buttons">
+              <button
+                mat-icon-button
+                class="action-btn start"
+                (click)="onStart(task)"
+                title="Iniciar"
+              >
+                <mat-icon>play_arrow</mat-icon>
+              </button>
+            </div>
           </div>
           <div class="task-meta">
             <span class="time-badge">
@@ -71,9 +78,24 @@
         <div cdkDrag class="task-card">
           <div class="task-header">
             <h4>{{ task.title }}</h4>
-            <button mat-icon-button class="play-btn">
-              <mat-icon>pause_circle_filled</mat-icon>
-            </button>
+            <div class="action-buttons">
+              <button
+                mat-icon-button
+                class="action-btn finish"
+                (click)="onFinish(task)"
+                title="Concluir"
+              >
+                <mat-icon>flag</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                class="action-btn pause"
+                (click)="onPause(task)"
+                title="Pausar"
+              >
+                <mat-icon>pause</mat-icon>
+              </button>
+            </div>
           </div>
           <div class="task-meta">
             <span class="time-badge">
@@ -115,9 +137,9 @@
         <div cdkDrag class="task-card">
           <div class="task-header">
             <h4>{{ task.title }}</h4>
-            <button mat-icon-button class="play-btn">
-              <mat-icon>check_circle</mat-icon>
-            </button>
+            <div class="action-buttons">
+              <mat-icon class="done-icon">check_circle</mat-icon>
+            </div>
           </div>
           <div class="task-meta">
             <span class="time-badge">
