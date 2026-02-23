@@ -38,19 +38,34 @@
               </button>
             </div>
           </div>
-          <div class="task-meta">
-            <span class="time-badge">
-              <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "tempo_fixo") {
+          <div class="task-labels">
+            @if (task.timeValue > 0) {
+              <span class="label-chip gray">
+                <mat-icon>schedule</mat-icon>
+                {{ task.timeValue }} min
+              </span>
+            }
+            @if (task.timeSpend > 0) {
+              <span class="label-chip paused">
+                <mat-icon>hourglass_top</mat-icon>
                 {{ task.timeSpend }} min
-              } @else {
-                {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
-              }
-            </span>
+              </span>
+            }
           </div>
           @if (task.description) {
-            <p class="task-desc">{{ task.description }}</p>
+            <p class="task-desc">
+              {{
+                task.description.length > 180
+                  ? (task.description | slice: 0 : 180) + "..."
+                  : task.description
+              }}
+            </p>
           }
+          <div class="card-footer">
+            <span class="date-text">
+              {{ task.createdAt | date: "dd/MM/yy" }}
+            </span>
+          </div>
         </div>
       }
       @if (todo().length === 0) {
@@ -97,19 +112,34 @@
               </button>
             </div>
           </div>
-          <div class="task-meta">
-            <span class="time-badge">
-              <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "tempo_fixo") {
+          <div class="task-labels">
+            @if (task.timeValue > 0) {
+              <span class="label-chip gray">
+                <mat-icon>schedule</mat-icon>
+                {{ task.timeValue }} min
+              </span>
+            }
+            @if (task.timeSpend > 0) {
+              <span class="label-chip primary">
+                <mat-icon>hourglass_top</mat-icon>
                 {{ task.timeSpend }} min
-              } @else {
-                {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
-              }
-            </span>
+              </span>
+            }
           </div>
           @if (task.description) {
-            <p class="task-desc">{{ task.description }}</p>
+            <p class="task-desc">
+              {{
+                task.description.length > 180
+                  ? (task.description | slice: 0 : 180) + "..."
+                  : task.description
+              }}
+            </p>
           }
+          <div class="card-footer">
+            <span class="date-text">
+              {{ task.createdAt | date: "dd/MM/yy" }}
+            </span>
+          </div>
         </div>
       }
       @if (doing().length === 0) {
@@ -141,19 +171,34 @@
               <mat-icon class="done-icon">check_circle</mat-icon>
             </div>
           </div>
-          <div class="task-meta">
-            <span class="time-badge">
-              <mat-icon>schedule</mat-icon>
-              @if (task.timeType === "tempo_fixo") {
+          <div class="task-labels">
+            @if (task.timeValue > 0) {
+              <span class="label-chip gray">
+                <mat-icon>schedule</mat-icon>
+                {{ task.timeValue }} min
+              </span>
+            }
+            @if (task.timeSpend > 0) {
+              <span class="label-chip success">
+                <mat-icon>hourglass_top</mat-icon>
                 {{ task.timeSpend }} min
-              } @else {
-                {{ task.createdAt | date: "dd/MM/yy HH:mm" }}
-              }
-            </span>
+              </span>
+            }
           </div>
           @if (task.description) {
-            <p class="task-desc">{{ task.description }}</p>
+            <p class="task-desc">
+              {{
+                task.description.length > 180
+                  ? (task.description | slice: 0 : 180) + "..."
+                  : task.description
+              }}
+            </p>
           }
+          <div class="card-footer">
+            <span class="date-text">
+              {{ task.createdAt | date: "dd/MM/yy" }}
+            </span>
+          </div>
         </div>
       }
       @if (done().length === 0) {
