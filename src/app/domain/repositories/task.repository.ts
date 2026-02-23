@@ -11,4 +11,5 @@ export abstract class TaskRepository {
     status?: TaskStatus
   ): Promise<void>;
   abstract updateTask(task: Task): Promise<void>;
+  abstract getOldestTodoTask(): Promise<Task | null>;
 }

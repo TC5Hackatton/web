@@ -1,5 +1,15 @@
 import { Injectable } from "@angular/core";
-import { collection, query, where, getDocs, addDoc, updateDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  orderBy,
+  limit
+} from "firebase/firestore";
 import { db, auth } from "../../infrastructure/config/firebase.config";
 import { Task, TaskStatus } from "../../domain/models/task.model";
 import { TaskRepository } from "../../domain/repositories/task.repository";
@@ -13,7 +23,7 @@ export class FirebaseTaskRepository implements TaskRepository {
     if (!user) return [];
 
     const tasksRef = collection(db, "tasks");
-    const q = query(tasksRef, where("uid", "==", user.uid));
+    const q = query(tasksRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"));
 
     const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => {
@@ -67,5 +77,39 @@ export class FirebaseTaskRepository implements TaskRepository {
       timeSpend: task.timeSpend,
       statusChangedAt: task.statusChangedAt ?? null
     });
+  }
+
+  async getOldestTodoTask(): Promise<Task | null> {
+    const user = auth.currentUser;
+    if (!user) return null;
+
+    const tasksRef = collection(db, "tasks");
+    const q = query(
+      tasksRef,
+      where("uid", "==", user.uid),
+      where("status", "==", "todo"),
+      orderBy("createdAt", "asc"),
+      limit(1)
+    );
+
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) return null;
+
+    const docSnap = snapshot.docs[0];
+    const data = docSnap.data();
+    return {
+      id: docSnap.id,
+      uid: data["uid"],
+      title: data["title"],
+      description: data["description"],
+      timeType: data["timeType"] ?? data["time_type"],
+      timeSpend: data["timeSpend"] ?? data["time_spend"],
+      timeValue: data["timeValue"] ?? 0,
+      statusChangedAt: data["statusChangedAt"]?.toDate
+        ? data["statusChangedAt"].toDate()
+        : data["statusChangedAt"],
+      status: data["status"],
+      createdAt: data["createdAt"]?.toDate ? data["createdAt"].toDate() : data["createdAt"]
+    } as Task;
   }
 }
