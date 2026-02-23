@@ -11,7 +11,7 @@
   <!-- TODO COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
-      <span class="dot blue"></span>
+      <span class="count-badge blue">{{ todo().length }}</span>
       <h3>A Fazer</h3>
     </div>
 
@@ -55,7 +55,7 @@
   <!-- DOING COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
-      <span class="dot yellow"></span>
+      <span class="count-badge yellow">{{ doing().length }}</span>
       <h3>Em andamento</h3>
     </div>
 
@@ -99,8 +99,8 @@
   <!-- DONE COLUMN -->
   <app-card class="column-card">
     <div class="column-header">
-      <span class="dot green"></span>
-      <h3>Concluido</h3>
+      <span class="count-badge green">{{ done().length }}</span>
+      <h3>Concluído</h3>
     </div>
 
     <div
