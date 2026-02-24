@@ -29,10 +29,7 @@ describe("SettingsComponent", () => {
 
     await TestBed.configureTestingModule({
       imports: [SettingsComponent],
-      providers: [
-        { provide: AppSettingsService, useValue: settingsServiceSpy },
-        provideRouter([])
-      ],
+      providers: [{ provide: AppSettingsService, useValue: settingsServiceSpy }, provideRouter([])],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 

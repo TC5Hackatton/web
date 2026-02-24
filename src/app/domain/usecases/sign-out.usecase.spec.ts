@@ -11,10 +11,7 @@ describe("SignOutUseCase", () => {
     authRepositorySpy = { logout: jest.fn() };
 
     TestBed.configureTestingModule({
-      providers: [
-        SignOutUseCase,
-        { provide: AuthRepository, useValue: authRepositorySpy }
-      ]
+      providers: [SignOutUseCase, { provide: AuthRepository, useValue: authRepositorySpy }]
     });
 
     useCase = TestBed.inject(SignOutUseCase);

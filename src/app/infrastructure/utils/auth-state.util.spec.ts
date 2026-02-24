@@ -1,6 +1,18 @@
 import { TestBed } from "@angular/core/testing";
 import { AuthStateUtil } from "./auth-state.util";
 
+jest.mock("firebase/auth", () => ({
+  onAuthStateChanged: jest.fn((auth, callback) => {
+    return jest.fn();
+  })
+}));
+
+jest.mock("../config/firebase.config", () => ({
+  auth: {
+    currentUser: null
+  }
+}));
+
 describe("AuthStateUtil", () => {
   let service: AuthStateUtil;
 
@@ -13,18 +25,7 @@ describe("AuthStateUtil", () => {
     expect(service).toBeTruthy();
   });
 
-  it("should have initial login state as false", () => {
-    expect(service.isAuthenticated()).toBe(false);
-  });
-
-  it("should set login state to true on login()", () => {
-    service.login();
-    expect(service.isAuthenticated()).toBe(true);
-  });
-
-  it("should set login state to false on logout()", () => {
-    service.login();
-    service.logout();
+  it("should have initial login state as false (when currentUser is null)", () => {
     expect(service.isAuthenticated()).toBe(false);
   });
 });

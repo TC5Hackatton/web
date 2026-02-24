@@ -11,10 +11,7 @@ describe("SignUpUseCase", () => {
     authRepositorySpy = { signUp: jest.fn() };
 
     TestBed.configureTestingModule({
-      providers: [
-        SignUpUseCase,
-        { provide: AuthRepository, useValue: authRepositorySpy }
-      ]
+      providers: [SignUpUseCase, { provide: AuthRepository, useValue: authRepositorySpy }]
     });
 
     useCase = TestBed.inject(SignUpUseCase);

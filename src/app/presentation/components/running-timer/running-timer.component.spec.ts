@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+  discardPeriodicTasks
+} from "@angular/core/testing";
 import { RunningTimerComponent } from "./running-timer.component";
 import { Task } from "../../../domain/models/task.model";
 

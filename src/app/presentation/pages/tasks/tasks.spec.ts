@@ -3,6 +3,7 @@ import { TasksPage } from "./tasks";
 import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecase";
 import { UpdateTaskStatusUseCase } from "../../../domain/usecases/tasks/update-task-status.usecase";
 import { MatDialog } from "@angular/material/dialog";
+import { provideRouter } from "@angular/router";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { of } from "rxjs";
 
@@ -31,9 +32,14 @@ describe("TasksPage", () => {
       providers: [
         { provide: GetTasksUseCase, useValue: getTasksUseCaseSpy },
         { provide: UpdateTaskStatusUseCase, useValue: updateTaskStatusUseCaseSpy },
-        { provide: MatDialog, useValue: dialogSpy }
+        { provide: MatDialog, useValue: dialogSpy },
+        provideRouter([])
       ]
-    }).compileComponents();
+    })
+      .overrideComponent(TasksPage, {
+        set: { providers: [{ provide: MatDialog, useValue: dialogSpy }] }
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(TasksPage);
     component = fixture.componentInstance;

@@ -21,10 +21,7 @@ describe("GetSettingsUseCase", () => {
     repositorySpy = { getSettings: jest.fn() };
 
     TestBed.configureTestingModule({
-      providers: [
-        GetSettingsUseCase,
-        { provide: SettingsRepository, useValue: repositorySpy }
-      ]
+      providers: [GetSettingsUseCase, { provide: SettingsRepository, useValue: repositorySpy }]
     });
 
     useCase = TestBed.inject(GetSettingsUseCase);

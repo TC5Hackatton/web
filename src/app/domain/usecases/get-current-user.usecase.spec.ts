@@ -10,10 +10,7 @@ describe("GetCurrentUserUseCase", () => {
     authRepositorySpy = { getCurrentUser: jest.fn() };
 
     TestBed.configureTestingModule({
-      providers: [
-        GetCurrentUserUseCase,
-        { provide: AuthRepository, useValue: authRepositorySpy }
-      ]
+      providers: [GetCurrentUserUseCase, { provide: AuthRepository, useValue: authRepositorySpy }]
     });
 
     useCase = TestBed.inject(GetCurrentUserUseCase);
