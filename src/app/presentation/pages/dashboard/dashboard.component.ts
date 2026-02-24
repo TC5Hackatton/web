@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
   userName = "Usuário";
 
-  // Metrics
   todoCount = 0;
   doingCount = 0;
   doneCount = 0;

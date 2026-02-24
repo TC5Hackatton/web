@@ -12,7 +12,6 @@ export class UpdateTaskStatusUseCase {
     let timeSpend = task.timeSpend;
     let statusChangedAt: Date | undefined = undefined;
 
-    // Acumula o tempo decorrido ao sair do status "doing"
     if (task.status === "doing" && task.statusChangedAt) {
       const now = new Date();
       const elapsedMs = now.getTime() - task.statusChangedAt.getTime();
@@ -20,7 +19,6 @@ export class UpdateTaskStatusUseCase {
       timeSpend = Number((timeSpend + elapsedMinutes).toFixed(2));
     }
 
-    // Define statusChangedAt somente ao entrar em "doing"
     if (newStatus === "doing") {
       statusChangedAt = new Date();
     }
