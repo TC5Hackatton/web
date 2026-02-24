@@ -19,8 +19,12 @@
 
   @if (timeType === "tempo_fixo") {
     <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Duração (minutos)</mat-label>
-      <input matInput type="number" [(ngModel)]="timeSpent" min="1" />
+      <mat-label>Duração</mat-label>
+      <mat-select [(ngModel)]="timeValue">
+        @for (option of pomodoroOptions; track option) {
+          <mat-option [value]="option">{{ option }} min</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
   }
 </mat-dialog-content>
