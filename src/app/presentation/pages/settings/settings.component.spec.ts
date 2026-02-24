@@ -9,7 +9,14 @@ import { provideRouter } from "@angular/router";
 describe("SettingsComponent", () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
-  let settingsServiceSpy: any;
+  let settingsServiceSpy: {
+    settings: ReturnType<typeof signal<unknown>>;
+    updateAppearance: jest.Mock;
+    updateTimer: jest.Mock;
+    updateNotifications: jest.Mock;
+    updateAccessibility: jest.Mock;
+    updateFocus: jest.Mock;
+  };
 
   beforeEach(async () => {
     settingsServiceSpy = {

@@ -50,7 +50,7 @@ describe("FirebaseSettingsRepository", () => {
       };
 
       (doc as jest.Mock).mockReturnValue({});
-      (onSnapshot as jest.Mock).mockImplementation((_ref: any, cb: (snap: any) => void) => {
+      (onSnapshot as jest.Mock).mockImplementation((_ref: unknown, cb: (snap: unknown) => void) => {
         cb(mockSnap);
         return jest.fn();
       });
@@ -65,7 +65,7 @@ describe("FirebaseSettingsRepository", () => {
       const mockSnap = { exists: () => false };
 
       (doc as jest.Mock).mockReturnValue({});
-      (onSnapshot as jest.Mock).mockImplementation((_ref: any, cb: (snap: any) => void) => {
+      (onSnapshot as jest.Mock).mockImplementation((_ref: unknown, cb: (snap: unknown) => void) => {
         cb(mockSnap);
         return jest.fn();
       });
@@ -81,7 +81,7 @@ describe("FirebaseSettingsRepository", () => {
 
       (doc as jest.Mock).mockReturnValue({});
       (onSnapshot as jest.Mock).mockImplementation(
-        (_ref: any, _cb: any, errCb: (e: Error) => void) => {
+        (_ref: unknown, _cb: unknown, errCb: (e: Error) => void) => {
           errCb(mockError);
           return jest.fn();
         }
