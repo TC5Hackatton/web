@@ -56,7 +56,7 @@ describe("UpdateTaskStatusUseCase", () => {
 
   it("should accumulate timeSpend when moving from 'doing' to 'done'", async () => {
     const startTime = new Date("2024-01-01T12:00:00.000Z");
-    const finishTime = new Date("2024-01-01T12:01:00.000Z"); // 1 minuto depois
+    const finishTime = new Date("2024-01-01T12:01:00.000Z");
     jest.setSystemTime(finishTime);
 
     const task = makeTask({ status: "doing", timeSpend: 10, statusChangedAt: startTime });
@@ -65,7 +65,7 @@ describe("UpdateTaskStatusUseCase", () => {
     expect(repositorySpy.updateTask).toHaveBeenCalledWith(
       expect.objectContaining({
         status: "done",
-        timeSpend: 11, // 10 originais + 1 minuto decorrido
+        timeSpend: 11,
         statusChangedAt: undefined
       })
     );
@@ -73,7 +73,7 @@ describe("UpdateTaskStatusUseCase", () => {
 
   it("should accumulate timeSpend when pausing (moving from 'doing' to 'todo')", async () => {
     const startTime = new Date("2024-01-01T12:00:00.000Z");
-    const pauseTime = new Date("2024-01-01T12:00:30.000Z"); // 30s depois (0.5 min)
+    const pauseTime = new Date("2024-01-01T12:00:30.000Z");
     jest.setSystemTime(pauseTime);
 
     const task = makeTask({ status: "doing", timeSpend: 10, statusChangedAt: startTime });
@@ -95,14 +95,13 @@ describe("UpdateTaskStatusUseCase", () => {
     expect(repositorySpy.updateTask).toHaveBeenCalledWith(
       expect.objectContaining({
         status: "done",
-        timeSpend: 10 // sem alteração
+        timeSpend: 10
       })
     );
   });
 
   it("should round timeSpend to 2 decimal places when leaving 'doing'", async () => {
     const startTime = new Date("2024-01-01T12:00:00.000Z");
-    // 13 segundos = 0.2166... minutos → 10 + 0.22 = 10.22
     const finishTime = new Date("2024-01-01T12:00:13.000Z");
     jest.setSystemTime(finishTime);
 

@@ -4,7 +4,6 @@ import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { provideRouter } from "@angular/router";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 
-// Mock Firebase functions to avoid issues during testing
 jest.mock("firebase/auth", () => ({
   signInWithEmailAndPassword: jest.fn()
 }));
@@ -28,7 +27,7 @@ describe("LoginPage", () => {
     authStateUtilSpy = { login: jest.fn() };
 
     await TestBed.configureTestingModule({
-      imports: [LoginPage], // Removed NoopAnimationsModule
+      imports: [LoginPage],
       providers: [{ provide: AuthStateUtil, useValue: authStateUtilSpy }, provideRouter([])],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

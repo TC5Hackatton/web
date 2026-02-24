@@ -5,7 +5,6 @@ import { AddTaskUseCase } from "../../../domain/usecases/tasks/add-task.usecase"
 import { AppSettingsService } from "../../services/app-settings.service";
 import { signal } from "@angular/core";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("firebase/storage", () => ({ getStorage: jest.fn() }));

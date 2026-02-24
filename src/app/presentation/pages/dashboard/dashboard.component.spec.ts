@@ -6,7 +6,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { of } from "rxjs";
 import { Task } from "../../../domain/models/task.model";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("firebase/storage", () => ({ getStorage: jest.fn() }));
