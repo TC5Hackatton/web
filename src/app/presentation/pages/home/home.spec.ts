@@ -4,7 +4,6 @@ import { HomePage } from "./home";
 import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
 import { provideRouter } from "@angular/router";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("../../../infrastructure/config/firebase.config", () => ({ auth: {}, db: {} }));

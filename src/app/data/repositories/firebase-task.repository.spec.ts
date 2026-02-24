@@ -2,7 +2,6 @@ import { TestBed } from "@angular/core/testing";
 import { FirebaseTaskRepository } from "./firebase-task.repository";
 import { TaskRepository } from "../../domain/repositories/task.repository";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("../../infrastructure/config/firebase.config", () => ({ auth: {}, db: {} }));

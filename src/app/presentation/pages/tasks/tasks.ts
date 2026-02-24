@@ -20,6 +20,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
+import { RunningTimerComponent } from "../../components/running-timer/running-timer.component";
 
 @Component({
   selector: "app-tasks",
@@ -35,7 +36,8 @@ import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-tas
     MatInputModule,
     MatDialogModule,
     FormsModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RunningTimerComponent
   ],
   templateUrl: "./tasks.html",
   styleUrl: "./tasks.scss"
@@ -90,8 +92,25 @@ export class TasksPage implements OnInit {
       const newStatus = event.container.id as "todo" | "doing" | "done";
 
       if (task.id) {
-        this.updateTaskStatusUseCase.execute(task.id, newStatus);
+        this.updateTaskStatusUseCase.execute(task, newStatus).then(() => {
+          this.loadTasks();
+        });
       }
     }
+  }
+
+  async onStart(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "doing");
+    await this.loadTasks();
+  }
+
+  async onFinish(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "done");
+    await this.loadTasks();
+  }
+
+  async onPause(task: Task) {
+    await this.updateTaskStatusUseCase.execute(task, "todo");
+    await this.loadTasks();
   }
 }

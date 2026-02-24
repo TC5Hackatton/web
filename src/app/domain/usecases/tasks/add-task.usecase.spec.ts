@@ -24,11 +24,19 @@ describe("AddTaskUseCase", () => {
     const title = "New Task";
     const desc = "Desc";
     const timeType = "tempo_fixo";
-    const timeSpent = 60;
+    const timeValue = 60;
+    const timeSpent = 0;
     const status = "todo";
 
-    await useCase.execute(title, desc, timeType, timeSpent, status);
+    await useCase.execute(title, desc, timeType, timeValue, timeSpent, status);
 
-    expect(repositorySpy.addTask).toHaveBeenCalledWith(title, desc, timeType, timeSpent, status);
+    expect(repositorySpy.addTask).toHaveBeenCalledWith(
+      title,
+      desc,
+      timeType,
+      timeValue,
+      timeSpent,
+      status
+    );
   });
 });

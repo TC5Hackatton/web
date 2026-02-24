@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HorizontalLogoComponent } from "./horizontal-logo";
+import { AppSettingsService } from "../../services/app-settings.service";
+import { signal } from "@angular/core";
 
 describe("HorizontalLogoComponent", () => {
   let component: HorizontalLogoComponent;
@@ -7,7 +9,15 @@ describe("HorizontalLogoComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HorizontalLogoComponent]
+      imports: [HorizontalLogoComponent],
+      providers: [
+        {
+          provide: AppSettingsService,
+          useValue: {
+            settings: signal({ appearance: { dark_mode: false } })
+          }
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HorizontalLogoComponent);

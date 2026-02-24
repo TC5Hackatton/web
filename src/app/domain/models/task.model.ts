@@ -6,7 +6,9 @@ export interface Task {
   title: string;
   description?: string;
   timeType: "cronometro" | "tempo_fixo";
+  timeValue: number;
   timeSpend: number;
+  statusChangedAt?: Date;
   status: TaskStatus;
   createdAt: Date;
 }

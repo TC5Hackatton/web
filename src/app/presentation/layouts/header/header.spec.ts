@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { Header } from "./header";
+import { AppSettingsService } from "../../services/app-settings.service";
+import { signal } from "@angular/core";
 
 describe("Header", () => {
   let component: Header;
@@ -7,7 +9,16 @@ describe("Header", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Header]
+      imports: [Header],
+      providers: [
+        {
+          provide: AppSettingsService,
+          useValue: {
+            settings: signal({ appearance: { dark_mode: false } }),
+            updateAppearance: jest.fn()
+          }
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Header);

@@ -5,8 +5,10 @@ import { provideRouter } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { of } from "rxjs";
 import { Task } from "../../../domain/models/task.model";
+import { GetCurrentUserUseCase } from "../../../domain/usecases/get-current-user.usecase";
+import { AppSettingsService } from "../../services/app-settings.service";
+import { signal } from "@angular/core";
 
-// Mock Firebase
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("firebase/storage", () => ({ getStorage: jest.fn() }));
@@ -16,10 +18,12 @@ describe("DashboardComponent", () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let getTasksUseCaseSpy: { execute: jest.Mock };
+  let getCurrentUserUseCaseSpy: { execute: jest.Mock };
   let dialogSpy: { open: jest.Mock };
 
   beforeEach(async () => {
     getTasksUseCaseSpy = { execute: jest.fn().mockResolvedValue([]) };
+    getCurrentUserUseCaseSpy = { execute: jest.fn().mockReturnValue({ id: "user1" }) };
     dialogSpy = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(of(null))
@@ -30,10 +34,22 @@ describe("DashboardComponent", () => {
       imports: [DashboardComponent],
       providers: [
         { provide: GetTasksUseCase, useValue: getTasksUseCaseSpy },
+        { provide: GetCurrentUserUseCase, useValue: getCurrentUserUseCaseSpy },
+        {
+          provide: AppSettingsService,
+          useValue: {
+            settings: signal({ appearance: { dark_mode: false } }),
+            loadSettings: jest.fn()
+          }
+        },
         { provide: MatDialog, useValue: dialogSpy },
         provideRouter([])
       ]
-    }).compileComponents();
+    })
+      .overrideComponent(DashboardComponent, {
+        set: { providers: [{ provide: MatDialog, useValue: dialogSpy }] }
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
@@ -53,7 +69,8 @@ describe("DashboardComponent", () => {
         status: "todo",
         createdAt: new Date(),
         timeType: "tempo_fixo",
-        timeSpend: 30
+        timeValue: 30,
+        timeSpend: 0
       },
       {
         id: "2",
@@ -61,7 +78,8 @@ describe("DashboardComponent", () => {
         title: "Task 2",
         status: "doing",
         createdAt: new Date(),
-        timeType: "Cronometro",
+        timeType: "cronometro",
+        timeValue: 0,
         timeSpend: 0
       },
       {
@@ -71,6 +89,7 @@ describe("DashboardComponent", () => {
         status: "done",
         createdAt: new Date(),
         timeType: "tempo_fixo",
+        timeValue: 15,
         timeSpend: 15
       }
     ];
