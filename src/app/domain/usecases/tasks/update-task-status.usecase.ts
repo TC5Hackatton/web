@@ -23,12 +23,11 @@ export class UpdateTaskStatusUseCase {
       statusChangedAt = new Date();
     }
 
-    const updatedTask: Task = {
-      ...task,
+    const updatedTask = task.copyWith({
       status: newStatus,
       timeSpend,
       statusChangedAt
-    };
+    });
 
     return this.taskRepository.updateTask(updatedTask);
   }

@@ -13,6 +13,8 @@ import {
 import { db, auth } from "../../infrastructure/config/firebase.config";
 import { Task, TaskStatus } from "../../domain/models/task.model";
 import { TaskRepository } from "../../domain/repositories/task.repository";
+import { TaskMapper } from "../mappers/task-mapper";
+import { TaskDTO } from "../dtos/task-dto";
 
 @Injectable({
   providedIn: "root"
@@ -27,21 +29,8 @@ export class FirebaseTaskRepository implements TaskRepository {
 
     const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        uid: data["uid"],
-        title: data["title"],
-        description: data["description"],
-        timeType: data["timeType"] ?? data["time_type"],
-        timeSpend: data["timeSpend"] ?? data["time_spend"],
-        timeValue: data["timeValue"] ?? 0,
-        statusChangedAt: data["statusChangedAt"]?.toDate
-          ? data["statusChangedAt"].toDate()
-          : data["statusChangedAt"],
-        status: data["status"],
-        createdAt: data["createdAt"]?.toDate ? data["createdAt"].toDate() : data["createdAt"]
-      } as Task;
+      const data = doc.data() as TaskDTO;
+      return TaskMapper.fromDtoToDomain({ ...data, id: doc.id });
     });
   }
 
@@ -56,7 +45,7 @@ export class FirebaseTaskRepository implements TaskRepository {
     const user = auth.currentUser;
     if (!user) throw new Error("Usuário não autenticado");
 
-    await addDoc(collection(db, "tasks"), {
+    const taskDto: TaskDTO = {
       uid: user.uid,
       title,
       description,
@@ -65,17 +54,21 @@ export class FirebaseTaskRepository implements TaskRepository {
       timeSpend: timeSpent,
       status,
       createdAt: new Date()
-    });
+    };
+
+    await addDoc(collection(db, "tasks"), taskDto);
   }
 
   async updateTask(task: Task): Promise<void> {
     if (!task.id) throw new Error("Task ID is required for update");
 
     const taskRef = doc(db, "tasks", task.id);
+    const taskDto = TaskMapper.fromDomainToDto(task);
+    
     await updateDoc(taskRef, {
-      status: task.status,
-      timeSpend: task.timeSpend,
-      statusChangedAt: task.statusChangedAt ?? null
+      status: taskDto.status,
+      timeSpend: taskDto.timeSpend,
+      statusChangedAt: taskDto.statusChangedAt ?? null
     });
   }
 
@@ -96,20 +89,7 @@ export class FirebaseTaskRepository implements TaskRepository {
     if (snapshot.empty) return null;
 
     const docSnap = snapshot.docs[0];
-    const data = docSnap.data();
-    return {
-      id: docSnap.id,
-      uid: data["uid"],
-      title: data["title"],
-      description: data["description"],
-      timeType: data["timeType"] ?? data["time_type"],
-      timeSpend: data["timeSpend"] ?? data["time_spend"],
-      timeValue: data["timeValue"] ?? 0,
-      statusChangedAt: data["statusChangedAt"]?.toDate
-        ? data["statusChangedAt"].toDate()
-        : data["statusChangedAt"],
-      status: data["status"],
-      createdAt: data["createdAt"]?.toDate ? data["createdAt"].toDate() : data["createdAt"]
-    } as Task;
+    const data = docSnap.data() as TaskDTO;
+    return TaskMapper.fromDtoToDomain({ ...data, id: docSnap.id });
   }
 }
