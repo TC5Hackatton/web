@@ -2,7 +2,7 @@ import { TestBed } from "@angular/core/testing";
 import { AuthStateUtil } from "./auth-state.util";
 
 jest.mock("firebase/auth", () => ({
-  onAuthStateChanged: jest.fn((auth, callback) => {
+  onAuthStateChanged: jest.fn(() => {
     return jest.fn();
   })
 }));

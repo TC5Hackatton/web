@@ -1,7 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { FirebaseAuthRepository } from "./firebase-auth.repository";
 import { AuthRepository } from "../../domain/repositories/auth.repository";
-import { of } from "rxjs";
 
 jest.mock("firebase/app", () => ({ initializeApp: jest.fn() }));
 jest.mock("firebase/auth", () => ({
@@ -94,13 +93,13 @@ describe("FirebaseAuthRepository", () => {
 
   describe("getCurrentUser", () => {
     it("should return null when no user is logged in", () => {
-      (auth as any).currentUser = null;
+      (auth as unknown as { currentUser: null }).currentUser = null;
       const result = repository.getCurrentUser();
       expect(result).toBeNull();
     });
 
     it("should return a User object when a user is logged in", () => {
-      (auth as any).currentUser = {
+      (auth as unknown as { currentUser: object }).currentUser = {
         uid: "uid-789",
         email: "logged@test.com",
         displayName: "Logged User"
