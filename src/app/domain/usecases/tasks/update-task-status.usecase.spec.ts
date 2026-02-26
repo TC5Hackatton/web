@@ -3,18 +3,19 @@ import { Task } from "../../models/task.model";
 import { TaskRepository } from "../../repositories/task.repository";
 import { UpdateTaskStatusUseCase } from "./update-task-status.usecase";
 
-const makeTask = (overrides: Partial<Task> = {}): Task => ({
-  id: "task-1",
-  uid: "user-1",
-  title: "Tarefa de Teste",
-  description: "Descrição",
-  timeType: "cronometro",
-  timeValue: 100,
-  timeSpend: 10,
-  status: "todo",
-  createdAt: new Date("2024-01-01"),
-  ...overrides
-});
+const makeTask = (overrides: Partial<Task> = {}): Task =>
+  Task.create({
+    id: "task-1",
+    uid: "user-1",
+    title: "Tarefa de Teste",
+    description: "Descrição",
+    timeType: "cronometro",
+    timeValue: 100,
+    timeSpend: 10,
+    status: "todo",
+    createdAt: new Date("2024-01-01"),
+    ...overrides
+  });
 
 describe("UpdateTaskStatusUseCase", () => {
   let useCase: UpdateTaskStatusUseCase;

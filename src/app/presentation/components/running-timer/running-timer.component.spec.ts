@@ -8,19 +8,20 @@ import {
 import { RunningTimerComponent } from "./running-timer.component";
 import { Task } from "../../../domain/models/task.model";
 
-const makeTask = (overrides: Partial<Task> = {}): Task => ({
-  id: "task-1",
-  uid: "user-1",
-  title: "Test Task",
-  description: "",
-  timeType: "tempo_fixo",
-  timeValue: 25,
-  timeSpend: 0,
-  status: "doing",
-  statusChangedAt: new Date(),
-  createdAt: new Date(),
-  ...overrides
-});
+const makeTask = (overrides: Partial<Task> = {}): Task =>
+  Task.create({
+    id: "task-1",
+    uid: "user-1",
+    title: "Test Task",
+    description: "",
+    timeType: "tempo_fixo",
+    timeValue: 25,
+    timeSpend: 0,
+    status: "doing",
+    statusChangedAt: new Date(),
+    createdAt: new Date(),
+    ...overrides
+  });
 
 describe("RunningTimerComponent", () => {
   let component: RunningTimerComponent;

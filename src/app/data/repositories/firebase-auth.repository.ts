@@ -4,6 +4,7 @@ import { map } from "rxjs/operators";
 import { AuthRepository } from "../../domain/repositories/auth.repository";
 import { User } from "../../domain/models/user.model";
 import { auth } from "../../infrastructure/config/firebase.config";
+import { UserMapper } from "../mappers/user-mapper";
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -15,10 +16,12 @@ import {
 export class FirebaseAuthRepository implements AuthRepository {
   signIn(email: string, password: string): Observable<User> {
     return from(signInWithEmailAndPassword(auth, email, password)).pipe(
-      map((userCredential) => ({
-        id: userCredential.user.uid,
-        email: userCredential.user.email!
-      }))
+      map((userCredential) =>
+        UserMapper.fromDtoToDomain({
+          id: userCredential.user.uid,
+          email: userCredential.user.email!
+        })
+      )
     );
   }
 
@@ -37,11 +40,11 @@ export class FirebaseAuthRepository implements AuthRepository {
   getCurrentUser(): User | null {
     const user = auth.currentUser;
     if (user) {
-      return {
+      return UserMapper.fromDtoToDomain({
         id: user.uid,
-        email: user.email,
-        name: user.displayName
-      };
+        email: user.email!,
+        name: user.displayName || undefined
+      });
     }
     return null;
   }
