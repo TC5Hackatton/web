@@ -15,3 +15,25 @@ if (typeof globalThis.Response === "undefined") {
 if (typeof globalThis.Headers === "undefined") {
   (globalThis as unknown as Record<string, unknown>)["Headers"] = jest.fn();
 }
+
+// Mock Firebase to avoid initialization errors in pipeline unit tests
+jest.mock("firebase/app", () => ({
+  initializeApp: jest.fn().mockReturnValue({}),
+  getApps: jest.fn().mockReturnValue([]),
+  getApp: jest.fn().mockReturnValue({})
+}));
+
+jest.mock("firebase/auth", () => ({
+  getAuth: jest.fn().mockReturnValue({
+    currentUser: null
+  }),
+  onAuthStateChanged: jest.fn().mockReturnValue(jest.fn())
+}));
+
+jest.mock("firebase/firestore", () => ({
+  getFirestore: jest.fn().mockReturnValue({})
+}));
+
+jest.mock("firebase/storage", () => ({
+  getStorage: jest.fn().mockReturnValue({})
+}));
