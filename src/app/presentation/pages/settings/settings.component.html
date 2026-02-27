@@ -74,11 +74,11 @@
       <mat-card-content>
         <div class="setting-row vertical">
           <div class="setting-label">
-            <p>Pomodoro Padrão</p>
+            <p>Tempo Padrão</p>
           </div>
           <mat-button-toggle-group
             name="pomodoro"
-            aria-label="Pomodoro Time"
+            aria-label="Tempo Padrão"
             [value]="(settings.timer.amount_default ?? 25).toString()"
             (change)="changePomodoroTime($event)"
           >
@@ -89,7 +89,7 @@
           </mat-button-toggle-group>
         </div>
 
-        <div class="setting-row">
+        <!-- <div class="setting-row">
           <div class="setting-label">
             <p>Lembrete de Pausa</p>
             <span>Avisa quando terminar</span>
@@ -100,7 +100,7 @@
             (change)="togglePauseReminder($event)"
           >
           </mat-slide-toggle>
-        </div>
+        </div> -->
       </mat-card-content>
     </mat-card>
 
@@ -133,7 +133,7 @@
         <mat-card-title>Modo Foco</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div class="setting-row">
+        <!-- <div class="setting-row">
           <div class="setting-label">
             <p>Ocultar Concluídas</p>
             <span>Menos distrações visuais</span>
@@ -144,7 +144,7 @@
             (change)="toggleHideDone($event)"
           >
           </mat-slide-toggle>
-        </div>
+        </div> -->
 
         <div class="setting-row">
           <div class="setting-label">
