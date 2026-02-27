@@ -52,7 +52,7 @@ describe("AddTaskDialogComponent", () => {
   it("should verify mandatory fields", async () => {
     component.taskTitle = "  ";
     await component.onAdd();
-    expect(addTaskUseCaseSpy.execute).toHaveBeenCalled();
+    expect(addTaskUseCaseSpy.execute).not.toHaveBeenCalled();
 
     component.taskTitle = "Task 1";
     await component.onAdd();
