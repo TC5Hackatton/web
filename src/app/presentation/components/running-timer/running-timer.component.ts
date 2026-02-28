@@ -10,9 +10,10 @@ import { Task } from "../../../domain/models/task.model";
   styles: [
     `
       .timer-text {
-        font-size: 11px;
+        font-size: 0.75rem;
         font-weight: bold;
         color: var(--settings-text-subtitle);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
     `
   ]
