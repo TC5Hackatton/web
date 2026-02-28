@@ -17,6 +17,7 @@ html {
   --primary: #5b8dbe;
   --error: #e89b8c;
   --success: #a8dba8;
+  --success-text: #8bb07f;
   --background-color: #f7f8fa;
   --drawer-bg-active: #a8c5e080;
   --drawer-border: #e5e4e4;
@@ -29,6 +30,35 @@ html {
   --task-bg: #f5f5f5;
 
   --drawer-width: 538px;
+  --drawer-padding-x: 91px;
+}
+
+@media (max-width: 1600px) {
+  :root {
+    --drawer-width: 450px;
+    --drawer-padding-x: 60px;
+  }
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --drawer-width: 350px;
+    --drawer-padding-x: 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --drawer-width: 280px;
+    --drawer-padding-x: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --drawer-width: 240px;
+    --drawer-padding-x: 16px;
+  }
 }
 
 body.theme-dark {
