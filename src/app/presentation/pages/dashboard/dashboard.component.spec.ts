@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { of } from "rxjs";
 import { Task } from "../../../domain/models/task.model";
 import { GetCurrentUserUseCase } from "../../../domain/usecases/get-current-user.usecase";
+import { GetOldestTodoTaskUseCase } from "../../../domain/usecases/tasks/get-oldest-todo-task.usecase";
 import { AppSettingsService } from "../../services/app-settings.service";
 import { signal } from "@angular/core";
 
@@ -18,12 +19,15 @@ describe("DashboardComponent", () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let getTasksUseCaseSpy: { execute: jest.Mock };
+  let getOldestTodoTaskUseCaseSpy: { execute: jest.Mock };
   let getCurrentUserUseCaseSpy: { execute: jest.Mock };
   let dialogSpy: { open: jest.Mock };
 
   beforeEach(async () => {
     getTasksUseCaseSpy = { execute: jest.fn().mockResolvedValue([]) };
+    getOldestTodoTaskUseCaseSpy = { execute: jest.fn().mockResolvedValue(null) };
     getCurrentUserUseCaseSpy = { execute: jest.fn().mockReturnValue({ id: "user1" }) };
+
     dialogSpy = {
       open: jest.fn().mockReturnValue({
         afterClosed: jest.fn().mockReturnValue(of(null))
@@ -34,7 +38,9 @@ describe("DashboardComponent", () => {
       imports: [DashboardComponent],
       providers: [
         { provide: GetTasksUseCase, useValue: getTasksUseCaseSpy },
+        { provide: GetOldestTodoTaskUseCase, useValue: getOldestTodoTaskUseCaseSpy },
         { provide: GetCurrentUserUseCase, useValue: getCurrentUserUseCaseSpy },
+
         {
           provide: AppSettingsService,
           useValue: {
@@ -66,41 +72,48 @@ describe("DashboardComponent", () => {
         id: "1",
         uid: "user1",
         title: "Task 1",
+        description: "Desc 1",
         status: "todo",
         createdAt: new Date(),
         timeType: "tempo_fixo",
         timeValue: 30,
-        timeSpend: 0
+        timeSpend: 0,
+        copyWith: jest.fn()
       },
       {
         id: "2",
         uid: "user1",
         title: "Task 2",
+        description: "Desc 2",
         status: "doing",
         createdAt: new Date(),
         timeType: "cronometro",
         timeValue: 0,
-        timeSpend: 0
+        timeSpend: 0,
+        copyWith: jest.fn()
       },
       {
         id: "3",
         uid: "user1",
         title: "Task 3",
+        description: "Desc 3",
         status: "done",
         createdAt: new Date(),
         timeType: "tempo_fixo",
         timeValue: 15,
-        timeSpend: 15
+        timeSpend: 15,
+        copyWith: jest.fn()
       }
     ];
+    const mockOldestTask: Task = mockTasks[0];
     getTasksUseCaseSpy.execute.mockResolvedValue(mockTasks);
+    getOldestTodoTaskUseCaseSpy.execute.mockResolvedValue(mockOldestTask);
 
     await component.loadData();
 
     expect(component.tasks).toEqual(mockTasks);
-    expect(component.todoCount).toBe(1);
-    expect(component.doingCount).toBe(1);
-    expect(component.doneCount).toBe(1);
+    expect(component.oldestTask).toEqual(mockOldestTask);
+    expect(component.doneTasks).toBe("1/3");
   });
 
   it("should open add task dialog", () => {
