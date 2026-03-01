@@ -4,13 +4,12 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecase";
-import { Task } from "../../../domain/models/task.model";
 import { RouterModule } from "@angular/router";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
 import { GetCurrentUserUseCase } from "../../../domain/usecases/get-current-user.usecase";
-import { GetOldestTodoTaskUseCase } from "../../../domain/usecases/tasks/get-oldest-todo-task.usecase";
+import { GetStatisticsUseCase } from "../../../domain/usecases/tasks/get-statistics.usecase";
+import { UserTaskStatistics } from "../../../domain/models/user-task-statistics.model";
 
 @Component({
   selector: "app-dashboard",
@@ -27,25 +26,18 @@ import { GetOldestTodoTaskUseCase } from "../../../domain/usecases/tasks/get-old
   styleUrl: "./dashboard.component.scss"
 })
 export class DashboardComponent implements OnInit {
-  private getTasksUseCase = inject(GetTasksUseCase);
+  private getStatisticsUseCase = inject(GetStatisticsUseCase);
   private getCurrentUserUseCase = inject(GetCurrentUserUseCase);
-  private getOldestTodoTaskUseCase = inject(GetOldestTodoTaskUseCase);
   private dialog = inject(MatDialog);
   private router = inject(Router);
 
-  tasks: Task[] = [];
+  statistics: UserTaskStatistics = {
+    oldestTask: null,
+    progress: { completed: 0, total: 0 },
+    totalFocusTime: "0 min",
+    taskCounts: { todo: 0, doing: 0, done: 0, total: 0 }
+  };
   userName = "Usuário01";
-  oldestTask: Task | null = null;
-
-  doneTasks = "0/0";
-  workedTime = "0 min";
-  pomodoroSessions = 0;
-
-  weeklyProgress = 0;
-  completedTasksWeekly = 0;
-  focusTimeWeekly = "0h 0min";
-  activeStreakWeekly = 0;
-  growthWeekly = "0%";
 
   async ngOnInit() {
     await this.loadData();
@@ -57,23 +49,7 @@ export class DashboardComponent implements OnInit {
       this.userName = user.name || user.email.split("@")[0];
     }
 
-    this.tasks = await this.getTasksUseCase.execute();
-    this.oldestTask = await this.getOldestTodoTaskUseCase.execute();
-    this.calculateMetrics();
-  }
-
-  calculateMetrics() {
-    const totalTasks = this.tasks.length;
-    const doneCount = this.tasks.filter((t) => t.status === "done").length;
-    this.doneTasks = `${doneCount}/${totalTasks}`;
-
-    this.workedTime = "45 min";
-    this.pomodoroSessions = 2;
-    this.weeklyProgress = 65;
-    this.completedTasksWeekly = 15;
-    this.focusTimeWeekly = "3h 45min";
-    this.activeStreakWeekly = 5;
-    this.growthWeekly = "+20%";
+    this.statistics = await this.getStatisticsUseCase.execute();
   }
 
   openAddTaskDialog() {

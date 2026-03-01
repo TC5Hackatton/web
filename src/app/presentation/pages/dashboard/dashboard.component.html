@@ -15,36 +15,38 @@
       <!-- Summary Metrics -->
       <section class="summary-cards">
         <div class="summary-card">
-          <span class="value blue">{{ doneTasks }}</span>
+          <span class="value blue">
+            {{ statistics.progress.completed }}/{{ statistics.progress.total }}
+          </span>
           <span class="label">Tarefas<br />Concluídas</span>
         </div>
         <div class="summary-card">
-          <span class="value green">{{ workedTime }}</span>
+          <span class="value green">{{ statistics.totalFocusTime }}</span>
           <span class="label">Tempo<br />Trabalhado</span>
         </div>
         <div class="summary-card">
-          <span class="value orange">{{ pomodoroSessions }}</span>
-          <span class="label">Sessões<br />Pomodoro</span>
+          <span class="value orange">{{ statistics.taskCounts.doing }}</span>
+          <span class="label">Tareas em<br />Andamento</span>
         </div>
       </section>
 
       <!-- Oldest Task -->
       <section class="priority-tasks">
         <h2>Tarefa Mais Antiga</h2>
-        @if (oldestTask) {
+        @if (statistics.oldestTask) {
           <div class="task-card">
             <div class="task-header">
-              <h3>{{ oldestTask.title }}</h3>
+              <h3>{{ statistics.oldestTask.title }}</h3>
               <div class="task-duration">
                 <mat-icon>schedule</mat-icon>
                 <span
-                  >{{ oldestTask.timeValue }}
-                  {{ oldestTask.timeType === "cronometro" ? "min" : "min" }}</span
+                  >{{ statistics.oldestTask.timeValue }}
+                  {{ statistics.oldestTask.timeType === "cronometro" ? "min" : "min" }}</span
                 >
               </div>
             </div>
-            <div class="status-badge">{{ oldestTask.status }}</div>
-            <p class="task-description">{{ oldestTask.description }}</p>
+            <div class="status-badge">{{ statistics.oldestTask.status }}</div>
+            <p class="task-description">{{ statistics.oldestTask.description }}</p>
           </div>
         } @else {
           <div class="empty-state">
@@ -59,29 +61,32 @@
       <section class="weekly-progress">
         <h2>Progresso Semanal</h2>
         <div class="progress-bar-container">
-          <div class="progress-fill" [style.width.%]="weeklyProgress"></div>
+          <div
+            class="progress-fill"
+            [style.width.%]="(statistics.progress.completed / statistics.progress.total) * 100"
+          ></div>
         </div>
 
         <div class="progress-grid">
           <div class="progress-item">
-            <mat-icon class="green">track_changes</mat-icon>
-            <span class="item-value">{{ completedTasksWeekly }}</span>
-            <span class="label item-label">Tarefas<br />Concluídas</span>
+            <mat-icon class="green">pending</mat-icon>
+            <span class="item-value">{{ statistics.taskCounts.todo }}</span>
+            <span class="label item-label">A Fazer</span>
           </div>
           <div class="progress-item">
-            <mat-icon class="orange">timer</mat-icon>
-            <span class="item-value">{{ focusTimeWeekly }}</span>
-            <span class="label item-label">Tempo de<br />Foco</span>
+            <mat-icon class="orange">timelapse</mat-icon>
+            <span class="item-value">{{ statistics.taskCounts.doing }}</span>
+            <span class="label item-label">Em Andamento</span>
           </div>
           <div class="progress-item">
-            <mat-icon class="blue-light">local_fire_department</mat-icon>
-            <span class="item-value">{{ activeStreakWeekly }} dias</span>
-            <span class="label item-label">Sequência<br />Ativa</span>
+            <mat-icon class="blue-light">check_circle</mat-icon>
+            <span class="item-value">{{ statistics.taskCounts.done }}</span>
+            <span class="label item-label">Concluídas</span>
           </div>
           <div class="progress-item">
-            <mat-icon class="success">show_chart</mat-icon>
-            <span class="item-value">{{ growthWeekly }}</span>
-            <span class="label item-label">vs<br />Semana Passada</span>
+            <mat-icon class="success">group_work</mat-icon>
+            <span class="item-value">{{ statistics.taskCounts.total }}</span>
+            <span class="label item-label">Total</span>
           </div>
         </div>
       </section>
