@@ -64,7 +64,7 @@ export class FirebaseTaskRepository implements TaskRepository {
 
     const taskRef = doc(db, "tasks", task.id);
     const taskDto = TaskMapper.fromDomainToDto(task);
-    
+
     await updateDoc(taskRef, {
       status: taskDto.status,
       timeSpend: taskDto.timeSpend,

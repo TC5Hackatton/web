@@ -27,7 +27,7 @@
 
   h3 {
     margin: 0;
-    font-size: 14px;
+    font-size: 1rem;
     color: var(--settings-text-subtitle);
     font-weight: 500;
   }
@@ -39,10 +39,11 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 600;
     color: #fff;
     margin-right: 8px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     &.blue {
       background-color: var(--primary);
     }
@@ -78,7 +79,6 @@
     }
 
     .action-btn {
-
       &.start {
         color: var(--primary);
         background-color: rgba(var(--primary-rgb, 99, 102, 241), 0.15);
@@ -98,7 +98,7 @@
 
     .done-icon {
       color: var(--success);
-      font-size: 24px;
+      font-size: 1.5rem;
     }
   }
 
@@ -114,11 +114,12 @@
     align-items: center;
     padding: 3px 8px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 0.85rem;
     font-weight: 500;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     mat-icon {
-      font-size: 14px;
+      font-size: 0.875rem;
       width: 14px;
       height: 14px;
       margin-right: 4px;
@@ -138,12 +139,12 @@
     }
     &.success {
       background-color: rgba(var(--success-rgb, 76, 175, 80), 0.15);
-      color: var(--success);
+      color: var(--success-text);
     }
   }
 
   .task-desc {
-    font-size: 12px;
+    font-size: 0.85rem;
     color: var(--settings-text-subtitle);
     line-height: 1.4;
     margin: 0;
@@ -157,9 +158,10 @@
   }
 
   .date-text {
-    font-size: 11px;
+    font-size: 0.75rem;
     font-style: italic;
     color: var(--settings-text-subtitle);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 .task-list {
@@ -186,6 +188,6 @@
   align-items: center;
   justify-content: center;
   color: #ccc;
-  font-size: 12px;
+  font-size: 0.85rem;
   gap: 8px;
 }

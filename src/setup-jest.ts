@@ -1,4 +1,4 @@
-declare const jest: any;
+import { jest } from "@jest/globals";
 import { setupZoneTestEnv } from "jest-preset-angular/setup-env/zone";
 
 setupZoneTestEnv();
