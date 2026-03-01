@@ -69,9 +69,9 @@
     gap: 24px;
 
     .summary-card {
-      background: white;
+      background: var(--card-bg);
       padding: 32px 24px;
-      border-radius: 24px;
+      border-radius: 12px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
       border: 1px solid rgba(0, 0, 0, 0.03);
@@ -83,10 +83,11 @@
 
       .value {
         display: block;
-        font-size: 2.2rem;
+        font-size: 1.7rem;
         font-weight: 800;
         margin-bottom: 12px;
         line-height: 1;
+        font-family: "Montserrat", sans-serif;
 
         &.blue { color: var(--primary); }
         &.green { color: #5cb85c; }
@@ -95,7 +96,7 @@
 
       .label {
         font-size: 1rem;
-        color: #718096;
+        color: var(--settings-text-subtitle);
         font-weight: 500;
         line-height: 1.4;
       }
@@ -103,38 +104,30 @@
   }
 
   .priority-tasks {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
-    border-radius: 24px;
+    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 
     h2 {
       font-size: 1.5rem;
+      color: var(--settings-text);
       font-weight: 700;
       margin-bottom: 24px;
       display: flex;
       align-items: center;
       gap: 12px;
-
-      &::before {
-        content: "";
-        width: 4px;
-        height: 24px;
-        background: var(--primary);
-        border-radius: 2px;
-      }
     }
 
     .task-card {
-      background: #f8fafc;
+      background: var(--task-bg);
       padding: 24px;
-      border-radius: 20px;
+      border-radius: 12px;
       border: 1px solid #edf2f7;
       transition: all 0.3s ease;
 
       &:hover {
-        border-color: var(--primary);
-        background: #f1f5f9;
+        transform: translateY(-4px);
       }
 
       .task-header {
@@ -146,7 +139,7 @@
         h3 {
           font-size: 1.3rem;
           font-weight: 700;
-          color: #1a202c;
+          color: var(--settings-text);
           margin: 0;
         }
 
@@ -154,10 +147,10 @@
           display: flex;
           align-items: center;
           gap: 6px;
-          color: #718096;
+          color: var(--settings-text-subtitle);
           font-weight: 600;
           font-size: 0.9rem;
-          background: white;
+          background: var(--card-bg);
           padding: 6px 12px;
           border-radius: 10px;
           border: 1px solid #edf2f7;
@@ -186,8 +179,8 @@
       }
 
       .task-description {
-        color: #4a5568;
-        font-size: 1rem;
+        color: var(--settings-text-subtitle);
+        font-size: 0.9rem;
         line-height: 1.6;
         margin: 0;
       }
@@ -202,16 +195,17 @@
   }
 
   .weekly-progress {
-    background: white;
+    background: var(--card-bg);
     padding: 32px;
-    border-radius: 24px;
+    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     height: fit-content;
 
     h2 {
-      font-size: 1rem;
+      font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 24px;
+      color: var(--settings-text);
     }
 
     .progress-bar-container {
@@ -235,9 +229,9 @@
       gap: 20px;
 
       .progress-item {
-        background: #f8fafc;
+        background: var(--task-bg);
         padding: 20px;
-        border-radius: 16px;
+        border-radius: 12px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -245,9 +239,7 @@
         transition: all 0.3s ease;
 
         &:hover {
-          background: white;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-          transform: scale(1.02);
+          transform: translateY(-4px);
         }
 
         mat-icon {
@@ -264,12 +256,12 @@
         .item-value {
           font-size: 1rem;
           font-weight: 800;
-          color: #1a202c;
+          color: var(--settings-text);
         }
 
         .item-label {
-          font-size: 0.7rem;
-          color: #718096;
+          font-size: 0.8rem;
+          color: var(--settings-text-subtitle);
           font-weight: 600;
           text-align: center;
           line-height: 1.2;
