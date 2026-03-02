@@ -14,8 +14,17 @@ export class AddTaskUseCase {
     timeType: "cronometro" | "tempo_fixo",
     timeValue: number,
     timeSpent: number,
-    status: TaskStatus = "todo"
+    status: TaskStatus = "todo",
+    statusChangedAt?: Date
   ): Promise<void> {
-    return this.taskRepository.addTask(title, description, timeType, timeValue, timeSpent, status);
+    return this.taskRepository.addTask(
+      title,
+      description,
+      timeType,
+      timeValue,
+      timeSpent,
+      status,
+      statusChangedAt
+    );
   }
 }

@@ -41,13 +41,20 @@ export class AddTaskDialogComponent {
     if (!this.taskTitle.trim()) return;
 
     try {
+      // Se definido como true, toda nova tarefa iniciará como 'A Fazer' (status 'todo')
+      const alwaysStartAsTodo = false;
+
+      const status = this.timeType === "cronometro" && !alwaysStartAsTodo ? "doing" : "todo";
+      const statusChangedAt = status === "doing" ? new Date() : undefined;
+
       await this.addTaskUseCase.execute(
         this.taskTitle,
         this.taskDescription,
         this.timeType,
         this.timeType === "tempo_fixo" ? this.timeValue : 0,
         0,
-        "todo"
+        status,
+        statusChangedAt
       );
       this.dialogRef.close(true);
     } catch (error) {

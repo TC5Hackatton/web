@@ -40,7 +40,8 @@ export class FirebaseTaskRepository implements TaskRepository {
     timeType: "cronometro" | "tempo_fixo",
     timeValue: number,
     timeSpent: number,
-    status: TaskStatus = "todo"
+    status: TaskStatus = "todo",
+    statusChangedAt?: Date
   ) {
     const user = auth.currentUser;
     if (!user) throw new Error("Usuário não autenticado");
@@ -53,7 +54,8 @@ export class FirebaseTaskRepository implements TaskRepository {
       timeValue,
       timeSpend: timeSpent,
       status,
-      createdAt: new Date()
+      createdAt: new Date(),
+      statusChangedAt: statusChangedAt ?? null
     };
 
     await addDoc(collection(db, "tasks"), taskDto);

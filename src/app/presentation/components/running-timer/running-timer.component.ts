@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Task } from "../../../domain/models/task.model";
 
@@ -18,7 +18,7 @@ import { Task } from "../../../domain/models/task.model";
     `
   ]
 })
-export class RunningTimerComponent implements OnInit, OnDestroy {
+export class RunningTimerComponent implements OnInit, OnDestroy, OnChanges {
   @Input({ required: true }) task!: Task;
 
   minutes = 0;
@@ -27,6 +27,22 @@ export class RunningTimerComponent implements OnInit, OnDestroy {
   private intervalId: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit(): void {
+    this.startTimer();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["task"] && !changes["task"].firstChange) {
+      this.startTimer();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.stopTimer();
+  }
+
+  private startTimer(): void {
+    this.stopTimer();
+
     if (this.task.status !== "doing" || !this.task.statusChangedAt) return;
 
     this.updateElapsed();
@@ -36,9 +52,10 @@ export class RunningTimerComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  ngOnDestroy(): void {
+  private stopTimer(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
+      this.intervalId = null;
     }
   }
 

@@ -81,7 +81,8 @@ describe("AddTaskDialogComponent", () => {
       "tempo_fixo",
       35,
       0,
-      "todo"
+      "todo",
+      undefined
     );
     expect(dialogRefSpy.close).toHaveBeenCalledWith(true);
   });
@@ -100,7 +101,8 @@ describe("AddTaskDialogComponent", () => {
       "cronometro",
       0,
       0,
-      "todo"
+      "doing",
+      expect.any(Date)
     );
   });
 

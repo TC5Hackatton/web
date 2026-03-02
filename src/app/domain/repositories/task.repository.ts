@@ -8,7 +8,8 @@ export abstract class TaskRepository {
     timeType: "cronometro" | "tempo_fixo",
     timeValue: number,
     timeSpent: number,
-    status?: TaskStatus
+    status?: TaskStatus,
+    statusChangedAt?: Date
   ): Promise<void>;
   abstract updateTask(task: Task): Promise<void>;
   abstract getOldestTodoTask(): Promise<Task | null>;
