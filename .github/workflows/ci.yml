@@ -75,4 +75,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to AWS S3
-        run: aws s3 sync dist/tc5hackatton/browser s3://${{ secrets.AWS_S3_BUCKET }} --delete
+        run: aws s3 sync dist/mindease-web/browser s3://${{ secrets.AWS_S3_BUCKET }} --delete
