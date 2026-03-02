@@ -36,7 +36,8 @@ describe("AddTaskUseCase", () => {
       timeType,
       timeValue,
       timeSpent,
-      status
+      status,
+      undefined
     );
   });
 });
