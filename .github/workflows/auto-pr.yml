@@ -1,0 +1,35 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  create-pr:
+    name: Create PR to main
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_EXISTS=$(gh pr list --head "${GITHUB_REF_NAME}" --base main --json url --jq 'length')
+
+          if [ "$PR_EXISTS" -eq "0" ]; then
+            gh pr create \
+              --base main \
+              --head "${GITHUB_REF_NAME}" \
+              --title "Automated PR: ${GITHUB_REF_NAME}" \
+              --body "Este Pull Request foi criado automaticamente após um push na branch **${GITHUB_REF_NAME}**."
+            echo "Pull Request criado com sucesso!"
+          else
+            echo "Já existe um Pull Request aberto para a branch ${GITHUB_REF_NAME}."
+          fi
