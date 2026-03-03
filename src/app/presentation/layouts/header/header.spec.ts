@@ -14,8 +14,12 @@ describe("Header", () => {
         {
           provide: AppSettingsService,
           useValue: {
-            settings: signal({ appearance: { dark_mode: false } }),
-            updateAppearance: jest.fn()
+            settings: signal({
+              appearance: { dark_mode: false },
+              focus: { only_current: false }
+            }),
+            updateAppearance: jest.fn(),
+            updateFocus: jest.fn()
           }
         }
       ]
@@ -30,11 +34,22 @@ describe("Header", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should toggle isInputMode", () => {
-    expect(component.isInputMode).toBe(true);
-    component.toggleArrow();
-    expect(component.isInputMode).toBe(false);
-    component.toggleArrow();
-    expect(component.isInputMode).toBe(true);
+  it("should toggle focus mode", () => {
+    const settingsService = TestBed.inject(AppSettingsService);
+    const updateFocusSpy = jest.spyOn(settingsService, "updateFocus");
+
+    component.toggleFocus();
+
+    expect(updateFocusSpy).toHaveBeenCalledWith({ only_current: true });
+    expect(component.isFocusMode).toBe(true);
+  });
+
+  it("should toggle dark mode", () => {
+    const settingsService = TestBed.inject(AppSettingsService);
+    const updateAppearanceSpy = jest.spyOn(settingsService, "updateAppearance");
+
+    component.toggleDarkMode();
+
+    expect(updateAppearanceSpy).toHaveBeenCalledWith({ dark_mode: true });
   });
 });
