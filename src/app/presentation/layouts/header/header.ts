@@ -12,10 +12,14 @@ import { AppSettingsService } from "../../services/app-settings.service";
 })
 export class Header {
   private settingsService = inject(AppSettingsService);
-  isInputMode = true;
+  isFocusMode = false;
 
-  toggleArrow() {
-    this.isInputMode = !this.isInputMode;
+  toggleFocus() {
+    const isFocus = this.settingsService.settings().focus.only_current;
+    this.isFocusMode = !isFocus;
+    this.settingsService.updateFocus({ only_current: !isFocus });
+    console.log("settings", this.settingsService.settings().focus);
+    console.log("isFocusMode", this.isFocusMode);
   }
 
   toggleDarkMode() {
