@@ -21,6 +21,7 @@ import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { AddTaskDialogComponent } from "../../components/add-task-dialog/add-task-dialog.component";
 import { RunningTimerComponent } from "../../components/running-timer/running-timer.component";
+import { AppSettingsService } from "../../services/app-settings.service";
 
 @Component({
   selector: "app-tasks",
@@ -45,6 +46,7 @@ import { RunningTimerComponent } from "../../components/running-timer/running-ti
 export class TasksPage implements OnInit {
   private getTasksUseCase = inject(GetTasksUseCase);
   private updateTaskStatusUseCase = inject(UpdateTaskStatusUseCase);
+  private settingsService = inject(AppSettingsService);
 
   private dialog = inject(MatDialog);
 
@@ -53,6 +55,7 @@ export class TasksPage implements OnInit {
   done = signal<Task[]>([]);
   tasks: Task[] = [];
   newTaskTitle = "";
+  focusMode = this.settingsService.focusSettings;
 
   ngOnInit() {
     this.loadTasks();

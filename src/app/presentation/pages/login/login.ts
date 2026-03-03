@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -30,7 +30,7 @@ import { User } from "../../../domain/models/user.model";
   templateUrl: "./login.html",
   styleUrl: "./login.scss"
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterViewInit {
   private formBuilder = inject(FormBuilder);
   private signInUseCase = inject(SignInUseCase);
   private router = inject(Router);
@@ -39,9 +39,13 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required]
+      email: ["k@teste.com", [Validators.required, Validators.email]],
+      password: ["kaue123", Validators.required]
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.entrar();
   }
 
   entrar() {

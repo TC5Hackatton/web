@@ -1,4 +1,12 @@
-import { Injectable, inject, signal, effect, Renderer2, RendererFactory2 } from "@angular/core";
+import {
+  Injectable,
+  inject,
+  signal,
+  effect,
+  Renderer2,
+  RendererFactory2,
+  computed
+} from "@angular/core";
 import { GetSettingsUseCase } from "../../domain/usecases/settings/get-settings.usecase";
 import { SaveSettingsUseCase } from "../../domain/usecases/settings/save-settings.usecase";
 import { GetCurrentUserUseCase } from "../../domain/usecases/get-current-user.usecase";
@@ -44,6 +52,9 @@ export class AppSettingsService {
   private renderer: Renderer2 = this.rendererFactory.createRenderer(null, null);
 
   settings = signal<UserSettings>(DEFAULT_SETTINGS);
+
+  focusSettings = computed(() => this.settings().focus);
+  // focusSettings = computed(() => this.settings().focus.hide_done);
 
   constructor() {
     this.loadSettings();
