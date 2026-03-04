@@ -5,11 +5,29 @@ export const passwordMatchValidator = (
   confirmPasswordKey: string
 ): ValidatorFn => {
   return (form: AbstractControl): ValidationErrors | null => {
-    const password = form.get(passwordKey)?.value;
-    const confirmPassword = form.get(confirmPasswordKey)?.value;
+    const passwordControl = form.get(passwordKey);
+    const confirmPasswordControl = form.get(confirmPasswordKey);
+
+    if (!passwordControl || !confirmPasswordControl) return null;
+
+    const password = passwordControl.value;
+    const confirmPassword = confirmPasswordControl.value;
 
     if (!password || !confirmPassword) return null;
 
-    return password === confirmPassword ? null : { passwordMismatch: true };
+    if (password !== confirmPassword) {
+      confirmPasswordControl.setErrors({
+        ...confirmPasswordControl.errors,
+        passwordMismatch: true
+      });
+      return { passwordMismatch: true };
+    } else {
+      const errors = confirmPasswordControl.errors;
+      if (errors) {
+        delete errors["passwordMismatch"];
+        confirmPasswordControl.setErrors(Object.keys(errors).length ? errors : null);
+      }
+      return null;
+    }
   };
 };
