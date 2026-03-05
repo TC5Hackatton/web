@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { Router, RouterOutlet } from "@angular/router";
+import { RouterOutlet } from "@angular/router";
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from "@angular/material/sidenav";
 
 import { MatButtonModule } from "@angular/material/button";
 import { Header } from "../../layouts/header/header";
 import { Drawer } from "../../layouts/drawer/drawer";
-import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
+import { AppSettingsService } from "../../services/app-settings.service";
 
 @Component({
   selector: "app-home",
@@ -22,8 +22,9 @@ import { AuthStateUtil } from "../../../infrastructure/utils/auth-state.util";
   styleUrls: ["./home.scss"]
 })
 export class HomePage implements OnInit {
-  authService = inject(AuthStateUtil);
-  router = inject(Router);
+  private settingsService = inject(AppSettingsService);
+
+  focusMode = this.settingsService.focusSettings;
 
   ngOnInit() {
     console.log("home");
