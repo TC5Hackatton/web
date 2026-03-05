@@ -89,9 +89,15 @@
         line-height: 1;
         font-family: "Montserrat", sans-serif;
 
-        &.blue { color: var(--primary); }
-        &.green { color: #5cb85c; }
-        &.orange { color: #f0ad4e; }
+        &.blue {
+          color: var(--primary);
+        }
+        &.green {
+          color: #5cb85c;
+        }
+        &.orange {
+          color: #f0ad4e;
+        }
       }
 
       .label {
@@ -247,10 +253,18 @@
           width: 28px;
           height: 28px;
 
-          &.green { color: #5cb85c; }
-          &.orange { color: #f0ad4e; }
-          &.blue-light { color: #4299e1; }
-          &.success { color: #805ad5; }
+          &.green {
+            color: #5cb85c;
+          }
+          &.orange {
+            color: #f0ad4e;
+          }
+          &.blue-light {
+            color: #4299e1;
+          }
+          &.success {
+            color: #805ad5;
+          }
         }
 
         .item-value {

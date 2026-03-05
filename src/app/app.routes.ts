@@ -30,6 +30,10 @@ export const routes: Routes = [
         loadComponent: () => import("./presentation/pages/tasks/tasks").then((m) => m.TasksPage)
       },
       {
+        path: "focus-mode",
+        loadComponent: () => import("./presentation/pages/focus/focus").then((m) => m.FocusPage)
+      },
+      {
         path: "settings",
         loadComponent: () =>
           import("./presentation/pages/settings/settings.component").then(

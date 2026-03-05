@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { MatIcon } from "@angular/material/icon";
 import { Router, RouterModule } from "@angular/router";
+import { SignOutUseCase } from "../../../../domain/usecases/sign-out.usecase";
 
 @Component({
   selector: "app-drawer-footer",
@@ -10,7 +11,11 @@ import { Router, RouterModule } from "@angular/router";
 })
 export class DrawerFooterComponent {
   private router = inject(Router);
+  private signOutUseCase = inject(SignOutUseCase);
+
   logout() {
-    this.router.navigate(["/login"]);
+    this.signOutUseCase.execute().subscribe(() => {
+      this.router.navigate(["/login"]);
+    });
   }
 }

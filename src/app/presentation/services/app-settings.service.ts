@@ -54,7 +54,6 @@ export class AppSettingsService {
   settings = signal<UserSettings>(DEFAULT_SETTINGS);
 
   focusSettings = computed(() => this.settings().focus);
-  // focusSettings = computed(() => this.settings().focus.hide_done);
 
   constructor() {
     this.loadSettings();
@@ -113,22 +112,29 @@ export class AppSettingsService {
     section: K,
     changes: Partial<UserSettings[K]>
   ) {
-    const currentUser = this.settings().uid;
+    let currentUser = this.settings().uid;
+
+    if (!currentUser) {
+      const user = this.getCurrentUserUseCase.execute();
+      currentUser = user?.id || "";
+
+      if (currentUser) {
+        this.settings.update((s) => ({ ...s, uid: currentUser }));
+      }
+    }
+
     if (!currentUser) return;
 
-    this.settings.update((current) => {
-      const currentSection = current[section] || {};
-      const updatedSettings = {
-        ...current,
-        [section]: { ...currentSection, ...changes }
-      };
+    const currentSettings = this.settings();
+    const currentSection = currentSettings[section] || {};
 
-      this.saveSettingsUseCase
-        .execute(currentUser, { [section]: updatedSettings[section] })
-        .subscribe();
+    const newSettings: UserSettings = {
+      ...currentSettings,
+      [section]: { ...currentSection, ...changes }
+    } as UserSettings;
 
-      return updatedSettings;
-    });
+    this.settings.set(newSettings);
+    this.saveSettingsUseCase.execute(currentUser, newSettings).subscribe();
   }
 
   applyTheme(appearance: AppearanceSettings) {
