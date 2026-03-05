@@ -1,9 +1,14 @@
 <mat-toolbar color="white" class="header-toolbar">
   <app-horizontal-logo class="logo" width="211px" />
   <div class="buttons-container">
-    <button mat-icon-button (click)="toggleArrow()" class="arrows-icon">
+    <button
+      mat-icon-button
+      (click)="toggleFocus()"
+      [disabled]="doing().length === 0"
+      class="arrows-icon"
+    >
       <mat-icon class="header-icons" fontSet="material-symbols-outlined">{{
-        isInputMode ? "arrows_input" : "arrows_output"
+        focusMode().only_current ? "arrows_input" : "arrows_output"
       }}</mat-icon>
     </button>
     <button mat-icon-button (click)="toggleDarkMode()">

@@ -1,4 +1,12 @@
-import { Injectable, inject, signal, effect, Renderer2, RendererFactory2 } from "@angular/core";
+import {
+  Injectable,
+  inject,
+  signal,
+  effect,
+  Renderer2,
+  RendererFactory2,
+  computed
+} from "@angular/core";
 import { GetSettingsUseCase } from "../../domain/usecases/settings/get-settings.usecase";
 import { SaveSettingsUseCase } from "../../domain/usecases/settings/save-settings.usecase";
 import { GetCurrentUserUseCase } from "../../domain/usecases/get-current-user.usecase";
@@ -44,6 +52,8 @@ export class AppSettingsService {
   private renderer: Renderer2 = this.rendererFactory.createRenderer(null, null);
 
   settings = signal<UserSettings>(DEFAULT_SETTINGS);
+
+  focusSettings = computed(() => this.settings().focus);
 
   constructor() {
     this.loadSettings();
@@ -102,22 +112,29 @@ export class AppSettingsService {
     section: K,
     changes: Partial<UserSettings[K]>
   ) {
-    const currentUser = this.settings().uid;
+    let currentUser = this.settings().uid;
+
+    if (!currentUser) {
+      const user = this.getCurrentUserUseCase.execute();
+      currentUser = user?.id || "";
+
+      if (currentUser) {
+        this.settings.update((s) => ({ ...s, uid: currentUser }));
+      }
+    }
+
     if (!currentUser) return;
 
-    this.settings.update((current) => {
-      const currentSection = current[section] || {};
-      const updatedSettings = {
-        ...current,
-        [section]: { ...currentSection, ...changes }
-      };
+    const currentSettings = this.settings();
+    const currentSection = currentSettings[section] || {};
 
-      this.saveSettingsUseCase
-        .execute(currentUser, { [section]: updatedSettings[section] })
-        .subscribe();
+    const newSettings: UserSettings = {
+      ...currentSettings,
+      [section]: { ...currentSection, ...changes }
+    } as UserSettings;
 
-      return updatedSettings;
-    });
+    this.settings.set(newSettings);
+    this.saveSettingsUseCase.execute(currentUser, newSettings).subscribe();
   }
 
   applyTheme(appearance: AppearanceSettings) {

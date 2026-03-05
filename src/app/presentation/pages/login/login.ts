@@ -14,6 +14,7 @@ import { Card } from "../../../presentation/components/card/card";
 import { MatButtonModule } from "@angular/material/button";
 import { SignInUseCase } from "../../../domain/usecases/sign-in.usecase";
 import { User } from "../../../domain/models/user.model";
+import { AppSettingsService } from "../../services/app-settings.service";
 
 @Component({
   selector: "app-login",
@@ -34,9 +35,21 @@ export class LoginPage implements OnInit {
   private formBuilder = inject(FormBuilder);
   private signInUseCase = inject(SignInUseCase);
   private router = inject(Router);
+  private settingsService = inject(AppSettingsService);
 
   loginForm!: FormGroup;
+  focusMode = this.settingsService.focusSettings;
 
+  // ngOnInit() {
+  //   this.loginForm = this.formBuilder.group({
+  //     email: ["k@teste.com", [Validators.required, Validators.email]],
+  //     password: ["kaue123", Validators.required]
+  //   });
+  // }
+
+  // ngAfterViewInit(): void {
+  //   this.entrar();
+  // }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
@@ -52,6 +65,11 @@ export class LoginPage implements OnInit {
     this.signInUseCase.execute(email, password).subscribe({
       next: (user: User) => {
         console.log("Login realizado com sucesso", user);
+
+        if (this.focusMode().only_current) {
+          this.router.navigate(["/focus-mode"]);
+          return;
+        }
         this.router.navigate(["/"]);
       },
       error: (err: Error) => {

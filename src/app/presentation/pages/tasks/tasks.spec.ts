@@ -7,6 +7,9 @@ import { provideRouter } from "@angular/router";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { of } from "rxjs";
 
+import { AppSettingsService } from "../../services/app-settings.service";
+import { signal } from "@angular/core";
+
 jest.mock("firebase/auth", () => ({ getAuth: jest.fn() }));
 jest.mock("firebase/firestore", () => ({ getFirestore: jest.fn() }));
 jest.mock("../../../infrastructure/config/firebase.config", () => ({ auth: {}, db: {} }));
@@ -17,6 +20,7 @@ describe("TasksPage", () => {
   let getTasksUseCaseSpy: { execute: jest.Mock };
   let updateTaskStatusUseCaseSpy: { execute: jest.Mock };
   let dialogSpy: { open: jest.Mock };
+  let appSettingsServiceMock: Partial<AppSettingsService>;
 
   beforeEach(async () => {
     getTasksUseCaseSpy = { execute: jest.fn().mockResolvedValue([]) };
@@ -27,12 +31,18 @@ describe("TasksPage", () => {
       })
     };
 
+    appSettingsServiceMock = {
+      focusSettings: signal({ hide_done: false, only_current: false }),
+      updateFocus: jest.fn()
+    };
+
     await TestBed.configureTestingModule({
       imports: [TasksPage, NoopAnimationsModule],
       providers: [
         { provide: GetTasksUseCase, useValue: getTasksUseCaseSpy },
         { provide: UpdateTaskStatusUseCase, useValue: updateTaskStatusUseCaseSpy },
         { provide: MatDialog, useValue: dialogSpy },
+        { provide: AppSettingsService, useValue: appSettingsServiceMock },
         provideRouter([])
       ]
     })
