@@ -13,7 +13,6 @@ import { GetTasksUseCase } from "../../../domain/usecases/tasks/get-tasks.usecas
 import { UpdateTaskStatusUseCase } from "../../../domain/usecases/tasks/update-task-status.usecase";
 
 import { Card } from "../../components/card/card";
-import { BreadcrumbComponent } from "../../components/breadcrumb/breadcrumb";
 import { Task } from "../../../domain/models/task.model";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -24,7 +23,7 @@ import { RunningTimerComponent } from "../../components/running-timer/running-ti
 import { AppSettingsService } from "../../services/app-settings.service";
 
 @Component({
-  selector: "app-tasks",
+  selector: "app-focus",
   standalone: true,
   imports: [
     CommonModule,
@@ -37,25 +36,26 @@ import { AppSettingsService } from "../../services/app-settings.service";
     MatInputModule,
     MatDialogModule,
     FormsModule,
-    BreadcrumbComponent,
     RunningTimerComponent
   ],
-  templateUrl: "./tasks.html",
-  styleUrl: "./tasks.scss"
+  templateUrl: "./focus.html",
+  styleUrl: "./focus.scss"
 })
-export class TasksPage implements OnInit {
+export class FocusPage implements OnInit {
   private getTasksUseCase = inject(GetTasksUseCase);
   private updateTaskStatusUseCase = inject(UpdateTaskStatusUseCase);
-  private settingsService = inject(AppSettingsService);
 
   private dialog = inject(MatDialog);
+
+  private settingsService = inject(AppSettingsService);
+
+  focusMode = this.settingsService.focusSettings;
 
   todo = signal<Task[]>([]);
   doing = signal<Task[]>([]);
   done = signal<Task[]>([]);
   tasks: Task[] = [];
   newTaskTitle = "";
-  focusMode = this.settingsService.focusSettings;
 
   ngOnInit() {
     this.loadTasks();

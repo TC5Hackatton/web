@@ -104,6 +104,11 @@ body {
   background-color: var(--background-color);
 }
 
+button:disabled {
+  opacity: 0.4;
+  cursor: no-drop;
+}
+
 .mat-drawer-content {
   margin-left: var(--drawer-width) !important;
 }
@@ -143,11 +148,7 @@ body {
   color: var(--error) !important;
 }
 
-.mat-mdc-form-field:not(.mat-focused)
-  .mdc-text-field:not(.mdc-text-field--invalid)
-  .mdc-text-field__input,
-.mat-mdc-form-field:not(.mat-focused)
-  .mdc-text-field:not(.mdc-text-field--invalid)
-  .mdc-floating-label {
+.mat-mdc-form-field:not(.mat-focused) .mdc-text-field:not(.mdc-text-field--invalid) .mdc-text-field__input,
+.mat-mdc-form-field:not(.mat-focused) .mdc-text-field:not(.mdc-text-field--invalid) .mdc-floating-label {
   color: var(--primary) !important;
 }

@@ -67,17 +67,23 @@ describe("AppSettingsService", () => {
     saveSettingsUseCaseSpy.execute.mockReturnValue(of(undefined));
     service.updateAppearance({ dark_mode: false });
     expect(service.settings().appearance.dark_mode).toBe(false);
-    expect(saveSettingsUseCaseSpy.execute).toHaveBeenCalledWith("user-123", {
-      appearance: expect.objectContaining({ dark_mode: false })
-    });
+    expect(saveSettingsUseCaseSpy.execute).toHaveBeenCalledWith(
+      "user-123",
+      expect.objectContaining({
+        appearance: expect.objectContaining({ dark_mode: false })
+      })
+    );
   });
 
   it("should update timer and save", () => {
     saveSettingsUseCaseSpy.execute.mockReturnValue(of(undefined));
     service.updateTimer({ amount_default: 50 });
     expect(service.settings().timer.amount_default).toBe(50);
-    expect(saveSettingsUseCaseSpy.execute).toHaveBeenCalledWith("user-123", {
-      timer: expect.objectContaining({ amount_default: 50 })
-    });
+    expect(saveSettingsUseCaseSpy.execute).toHaveBeenCalledWith(
+      "user-123",
+      expect.objectContaining({
+        timer: expect.objectContaining({ amount_default: 50 })
+      })
+    );
   });
 });

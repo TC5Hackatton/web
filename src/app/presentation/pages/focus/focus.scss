@@ -1,0 +1,202 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 7.5rem);
+}
+
+.focus-columns {
+  display: flex;
+  width: fit-content;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.add-task-btn {
+  margin-left: 4rem;
+  cursor: pointer;
+}
+
+::ng-deep app-card.column-card .card {
+  min-height: 700px;
+  max-height: 700px;
+  background-color: var(--card-bg);
+  min-width: 25rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--settings-text-subtitle);
+    font-weight: 500;
+  }
+
+  .count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-right: 8px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    &.blue {
+      background-color: var(--primary);
+    }
+    &.yellow {
+      background-color: #ffca28;
+      color: #333;
+    }
+    &.green {
+      background-color: var(--success);
+    }
+  }
+}
+
+.task-card {
+  background-color: var(--task-bg);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h4 {
+      margin: 0;
+      font-weight: bold;
+      color: var(--settings-text);
+    }
+    .action-buttons {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .action-btn {
+      &.start {
+        color: var(--primary);
+        background-color: rgba(var(--primary-rgb, 99, 102, 241), 0.15);
+        border-radius: 50%;
+      }
+      &.finish {
+        color: var(--success);
+        background-color: rgba(var(--success-rgb, 76, 175, 80), 0.15);
+        border-radius: 50%;
+      }
+      &.pause {
+        color: var(--settings-text-subtitle);
+        background-color: rgba(128, 128, 128, 0.15);
+        border-radius: 50%;
+      }
+    }
+
+    .done-icon {
+      color: var(--success);
+      font-size: 1.5rem;
+    }
+  }
+
+  .task-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+  }
+
+  .label-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    mat-icon {
+      font-size: 0.875rem;
+      width: 14px;
+      height: 14px;
+      margin-right: 4px;
+    }
+
+    &.gray {
+      background-color: rgba(158, 158, 158, 0.2);
+      color: #9e9e9e;
+    }
+    &.paused {
+      background-color: rgba(var(--primary-rgb, 99, 102, 241), 0.15);
+      color: var(--primary);
+    }
+    &.primary {
+      background-color: rgba(var(--primary-rgb, 99, 102, 241), 0.15);
+      color: var(--primary);
+    }
+    &.success {
+      background-color: rgba(var(--success-rgb, 76, 175, 80), 0.15);
+      color: var(--success-text);
+    }
+  }
+
+  .task-desc {
+    font-size: 0.85rem;
+    color: var(--settings-text-subtitle);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .date-text {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--settings-text-subtitle);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+}
+.task-list {
+  overflow-y: auto;
+  max-height: 620px;
+  flex: 1;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+  }
+}
+
+.empty-state {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 0.85rem;
+  gap: 8px;
+}
