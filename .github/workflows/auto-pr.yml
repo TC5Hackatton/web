@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  # 1. Primeiro job: Roda os testes e valida o build
-  test:
-    name: Run Tests
+  unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,10 +28,9 @@ jobs:
       - name: Build Project (Validation)
         run: npm run build -- --configuration production
 
-  # 2. Segundo job: Cria o PR APENAS se o job 'test' passar
   create-pr:
     name: Create PR to main
-    needs: test
+    needs: unit-tests
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -53,7 +51,7 @@ jobs:
               --base main \
               --head "${GITHUB_REF_NAME}" \
               --title "Automated PR: ${GITHUB_REF_NAME}" \
-              --body "Este Pull Request foi criado automaticamente após os testes passarem com sucesso na branch **${GITHUB_REF_NAME}**."
+              --body "Este Pull Request foi validado e criado automaticamente após testes bem-sucedidos na branch **${GITHUB_REF_NAME}**."
             echo "Pull Request criado com sucesso!"
           else
             echo "Já existe um Pull Request aberto para a branch ${GITHUB_REF_NAME}."
