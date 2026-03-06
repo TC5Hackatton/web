@@ -43,7 +43,7 @@ export class Header implements OnInit {
 
     const currentUrl = this.router.url;
     if (currentUrl.includes("/focus-mode")) {
-      this.router.navigate(["/dashboard"]);
+      this.router.navigate(["/tasks"]);
     } else {
       this.router.navigate(["/focus-mode"]);
     }

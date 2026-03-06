@@ -225,64 +225,62 @@
     </app-card>
 
     <!-- DONE COLUMN -->
-    @if (!focusMode().hide_done) {
-      <app-card class="column-card">
-        <div class="column-header">
-          <span class="count-badge green">{{ done().length }}</span>
-          <h3>Concluído</h3>
-        </div>
+    <app-card class="column-card">
+      <div class="column-header">
+        <span class="count-badge green">{{ done().length }}</span>
+        <h3>Concluído</h3>
+      </div>
 
-        <div
-          cdkDropList
-          id="done"
-          [cdkDropListData]="done()"
-          [cdkDropListConnectedTo]="['todo', 'doing']"
-          (cdkDropListDropped)="drop($event)"
-          class="task-list"
-        >
-          @for (task of done(); track task.id) {
-            <div cdkDrag class="task-card">
-              <div class="task-header">
-                <h4>{{ task.title }}</h4>
-                <div class="action-buttons">
-                  <mat-icon class="done-icon">check_circle</mat-icon>
-                </div>
-              </div>
-              <div class="task-labels">
-                @if (task.timeValue > 0) {
-                  <span class="label-chip gray">
-                    <mat-icon>schedule</mat-icon>
-                    {{ task.timeValue }} min
-                  </span>
-                }
-                @if (task.timeSpend > 0) {
-                  <span class="label-chip success">
-                    <mat-icon>hourglass_top</mat-icon>
-                    {{ task.timeSpend }} min
-                  </span>
-                }
-              </div>
-              @if (task.description) {
-                <p class="task-desc">
-                  {{
-                    task.description.length > 180
-                      ? (task.description | slice: 0 : 180) + "..."
-                      : task.description
-                  }}
-                </p>
-              }
-              <div class="card-footer">
-                <span class="date-text">
-                  {{ task.createdAt | date: "dd/MM/yy" }}
-                </span>
+      <div
+        cdkDropList
+        id="done"
+        [cdkDropListData]="done()"
+        [cdkDropListConnectedTo]="['todo', 'doing']"
+        (cdkDropListDropped)="drop($event)"
+        class="task-list"
+      >
+        @for (task of done(); track task.id) {
+          <div cdkDrag class="task-card">
+            <div class="task-header">
+              <h4>{{ task.title }}</h4>
+              <div class="action-buttons">
+                <mat-icon class="done-icon">check_circle</mat-icon>
               </div>
             </div>
-          }
-          @if (done().length === 0) {
-            <div class="empty-state">Nenhuma tarefa concluída</div>
-          }
-        </div>
-      </app-card>
-    }
+            <div class="task-labels">
+              @if (task.timeValue > 0) {
+                <span class="label-chip gray">
+                  <mat-icon>schedule</mat-icon>
+                  {{ task.timeValue }} min
+                </span>
+              }
+              @if (task.timeSpend > 0) {
+                <span class="label-chip success">
+                  <mat-icon>hourglass_top</mat-icon>
+                  {{ task.timeSpend }} min
+                </span>
+              }
+            </div>
+            @if (task.description) {
+              <p class="task-desc">
+                {{
+                  task.description.length > 180
+                    ? (task.description | slice: 0 : 180) + "..."
+                    : task.description
+                }}
+              </p>
+            }
+            <div class="card-footer">
+              <span class="date-text">
+                {{ task.createdAt | date: "dd/MM/yy" }}
+              </span>
+            </div>
+          </div>
+        }
+        @if (done().length === 0) {
+          <div class="empty-state">Nenhuma tarefa concluída</div>
+        }
+      </div>
+    </app-card>
   </div>
 }
