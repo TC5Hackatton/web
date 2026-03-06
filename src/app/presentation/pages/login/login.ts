@@ -40,16 +40,6 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   focusMode = this.settingsService.focusSettings;
 
-  // ngOnInit() {
-  //   this.loginForm = this.formBuilder.group({
-  //     email: ["k@teste.com", [Validators.required, Validators.email]],
-  //     password: ["kaue123", Validators.required]
-  //   });
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.entrar();
-  // }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
