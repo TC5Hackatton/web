@@ -1,4 +1,4 @@
-name: Auto Create Pull Request
+name: Test and Auto Create Pull Request
 
 on:
   push:
@@ -6,8 +6,33 @@ on:
       - main
 
 jobs:
+  # 1. Primeiro job: Roda os testes e valida o build
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Jest tests
+        run: npm run test -- --ci
+
+      - name: Build Project (Validation)
+        run: npm run build -- --configuration production
+
+  # 2. Segundo job: Cria o PR APENAS se o job 'test' passar
   create-pr:
     name: Create PR to main
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -28,7 +53,7 @@ jobs:
               --base main \
               --head "${GITHUB_REF_NAME}" \
               --title "Automated PR: ${GITHUB_REF_NAME}" \
-              --body "Este Pull Request foi criado automaticamente após um push na branch **${GITHUB_REF_NAME}**."
+              --body "Este Pull Request foi criado automaticamente após os testes passarem com sucesso na branch **${GITHUB_REF_NAME}**."
             echo "Pull Request criado com sucesso!"
           else
             echo "Já existe um Pull Request aberto para a branch ${GITHUB_REF_NAME}."
