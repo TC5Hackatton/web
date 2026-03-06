@@ -95,6 +95,6 @@ describe("Header", () => {
     component.toggleFocus();
 
     expect(settingsServiceMock.updateFocus).toHaveBeenCalledWith({ only_current: false });
-    expect(routerMock.navigate).toHaveBeenCalledWith(["/dashboard"]);
+    expect(routerMock.navigate).toHaveBeenCalledWith(["/tasks"]);
   });
 });
