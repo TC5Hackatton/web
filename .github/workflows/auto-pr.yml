@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Run Jest tests
-        run: npm run test -- --ci
+        run: npm run test -- --ci --maxWorkers=2
 
       - name: Build Project (Validation)
         run: npm run build -- --configuration production
