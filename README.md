@@ -1,10 +1,14 @@
-# FIAP - Hackaton - Web
+# MindEase — FIAP Hackathon Fase 5 · Web
 
-Este repositório é referente ao desenvolvimento web do hackaton. Aqui você encontrará tudo que precisa pra executar o projeto, instalar novos módulos, etc.
+MindEase é uma aplicação web voltada para saúde mental e neurodiversidade, desenvolvida como entrega do Hackathon da FIAP Fase 5. O projeto ajuda usuários com TDAH, TEA, Burnout e outros perfis neurodivergentes a gerenciar tarefas, monitorar tempo de foco e manter uma rotina saudável.
 
-## Primeiros passos
+> 🌐 **Acesso em produção:** [d146vb28pj7z8r.cloudfront.net](https://d146vb28pj7z8r.cloudfront.net)
 
-### Pré Requisitos
+---
+
+## Primeiros Passos
+
+### Pré-Requisitos
 
 Antes de iniciar o projeto, certifique-se de ter as seguintes tecnologias instaladas:
 
@@ -15,37 +19,46 @@ Antes de iniciar o projeto, certifique-se de ter as seguintes tecnologias instal
 
 > 💡 Versões acima são as recomendadas durante o desenvolvimento. Pode funcionar com versões mais novas, mas verifique a compatibilidade.
 
-### Tecnologias utilizadas
+### Tecnologias Utilizadas
 
-Esta aplicação web é construída com as seguintes principais tecnologias:
+Esta aplicação web é construída com as seguintes tecnologias:
 
-- **Angular** (>= 20.x) – framework frontend com arquitetura componentizada.
-- **TypeScript** para tipagem estática.
-- **Firebase** para autenticação, persistência de dados e backend.
-- **Jest** e **Testing Library** para testes unitários e de integração.
-- **SCSS** para estilos com suporte a variáveis e mix-ins.
-- **ESLint** para qualidade de código.
-- Arquitetura limpa (Domain, Data, Infrastructure, Presentation).
+| Tecnologia                 | Finalidade                                                                |
+| -------------------------- | ------------------------------------------------------------------------- |
+| **Angular 18+**            | Framework frontend com arquitetura componentizada (Standalone Components) |
+| **TypeScript**             | Tipagem estática e segurança em tempo de desenvolvimento                  |
+| **Firebase**               | Autenticação, persistência de dados e backend                             |
+| **Angular Material + CDK** | Componentes de UI e suporte a drag-and-drop                               |
+| **Jest + Testing Library** | Testes unitários em todas as camadas                                      |
+| **SCSS**                   | Estilos com variáveis, mixins e suporte a temas                           |
+| **ESLint + Prettier**      | Qualidade e formatação de código                                          |
+| **AWS S3**                 | Hospedagem do build de produção                                           |
+| **GitHub Actions**         | CI/CD automatizado                                                        |
 
-### Passo a passo para instalação em nova máquina
+A arquitetura segue os princípios da **Clean Architecture** com separação clara entre Domain, Data, Infrastructure e Presentation.
 
-1. Clone o repositório:
+---
+
+## Instalação
+
+### Passo a Passo para nova máquina
+
+1. **Clone o repositório:**
 
    ```bash
    git clone git@github.com:TC5Hackatton/web.git web
    cd web
    ```
 
-2. Instale as dependências:
+2. **Instale as dependências:**
 
    ```bash
    npm install
    ```
 
-3. Configure as variáveis de ambiente. Duplique o arquivo `.env.example`, renomeie para `.env` e cole as credenciais do Firebase que foram enviadas junto com a entrega do projeto:
+3. **Configure as variáveis de ambiente.** Duplique o arquivo `.env.example`, renomeie para `.env` e cole as credenciais do Firebase:
 
    ```env
-   # Exemplo
    NG_APP_FIREBASE_API_KEY=
    NG_APP_FIREBASE_AUTH_DOMAIN=
    NG_APP_FIREBASE_PROJECT_ID=
@@ -55,98 +68,308 @@ Esta aplicação web é construída com as seguintes principais tecnologias:
    NG_APP_FIREBASE_MEASUREMENT_ID=
    ```
 
-4. Inicie o servidor de desenvolvimento:
+4. **Inicie o servidor de desenvolvimento:**
 
    ```bash
    npm start
-   # Ou com o Angular CLI diretamente:
+   # Ou diretamente com o Angular CLI:
    ng serve
    ```
 
 5. Acesse a aplicação em `http://localhost:4200/`.
 
-6. Comece a desenvolver editando os arquivos em `src/app/`.
+---
 
-### Estrutura do Projeto
+## Estrutura do Projeto
 
 A aplicação segue a Clean Architecture com separação clara entre camadas:
 
 ```
 src/
-├── app/                              ← Raiz da aplicação
-│   ├── app.config.ts                 ← Configurações globais
-│   ├── app.ts                        ← Componente raiz
+├── app/
+│   ├── app.config.ts                 ← Configurações globais (providers, Firebase)
 │   ├── app.routes.ts                 ← Definição de rotas
+│   ├── app.ts                        ← Componente raiz
+│   │
 │   ├── data/                         ← Camada de dados
-│   │   ├── dtos/                     ← Data Transfer Objects
-│   │   │   ├── task-dto.ts
-│   │   │   └── user-dto.ts
+│   │   ├── dtos/                     ← Data Transfer Objects (task-dto, user-dto)
 │   │   ├── mappers/                  ← Conversão entre DTOs e Models
-│   │   │   ├── task-mapper.ts
-│   │   │   └── user-mapper.ts
-│   │   ├── repositories/             ← Implementação concreta dos repositórios
-│   │   │   ├── firebase-task.repository.ts
-│   │   │   ├── firebase-auth.repository.ts
-│   │   │   └── firebase-settings.repository.ts
-│   │   └── sources/                  ← Fontes de dados externas
+│   │   └── repositories/             ← Implementações concretas (Firebase)
+│   │       ├── firebase-auth.repository.ts
+│   │       ├── firebase-task.repository.ts
+│   │       └── firebase-settings.repository.ts
+│   │
 │   ├── domain/                       ← Camada de domínio (regras de negócio)
 │   │   ├── models/                   ← Entidades do domínio
-│   │   │   ├── user.model.ts
 │   │   │   ├── task.model.ts
+│   │   │   ├── user.model.ts
 │   │   │   ├── user-settings.model.ts
 │   │   │   └── user-task-statistics.model.ts
-│   │   ├── repositories/             ← Contratos (interfaces) dos repositórios
-│   │   │   ├── auth.repository.ts
-│   │   │   ├── task.repository.ts
-│   │   │   └── settings.repository.ts
+│   │   ├── repositories/             ← Contratos (interfaces)
 │   │   └── usecases/                 ← Casos de uso (lógica de negócio)
 │   │       ├── sign-in.usecase.ts
 │   │       ├── sign-up.usecase.ts
 │   │       ├── sign-out.usecase.ts
 │   │       ├── get-current-user.usecase.ts
 │   │       ├── settings/
+│   │       │   ├── get-settings.usecase.ts
+│   │       │   └── save-settings.usecase.ts
 │   │       └── tasks/
+│   │           ├── add-task.usecase.ts
+│   │           ├── get-tasks.usecase.ts
+│   │           ├── get-statistics.usecase.ts
+│   │           ├── get-oldest-todo-task.usecase.ts
+│   │           └── update-task-status.usecase.ts
+│   │
 │   ├── infrastructure/               ← Camada de infraestrutura
-│   │   ├── config/                   ← Configurações do Firebase
-│   │   │   └── firebase.config.ts
-│   │   ├── guards/                   ← Guards de rotas
-│   │   │   └── auth.guard.ts
-│   │   ├── interceptors/             ← Interceptadores HTTP
-│   │   └── utils/                    ← Utilitários
-│   │       └── auth-state.util.ts
+│   │   ├── config/firebase.config.ts
+│   │   ├── guards/auth.guard.ts      ← Proteção de rotas
+│   │   └── utils/auth-state.util.ts
+│   │
 │   └── presentation/                 ← Camada de apresentação (UI)
 │       ├── components/               ← Componentes reutilizáveis
 │       │   ├── add-task-dialog/
 │       │   ├── breadcrumb/
 │       │   ├── card/
 │       │   ├── horizontal-logo/
-│       │   ├── running-timer/
+│       │   ├── running-timer/        ← Timer em execução em tempo real
 │       │   └── vertical-logo/
-│       ├── layouts/                  ← Layouts principais
-│       │   ├── drawer/
+│       ├── layouts/
+│       │   ├── drawer/               ← Menu lateral
 │       │   └── header/
-│       ├── pages/                    ← Páginas/Telas
-│       │   ├── dashboard/
+│       ├── pages/
+│       │   ├── dashboard/            ← Estatísticas e visão geral
+│       │   ├── focus/                ← Modo Foco (kanban)
 │       │   ├── home/
 │       │   ├── login/
-│       │   ├── settings/
+│       │   ├── settings/             ← Configurações do usuário
 │       │   ├── signup/
-│       │   └── tasks/
-│       ├── services/                 ← Serviços da aplicação
+│       │   └── tasks/                ← Kanban de tarefas completo
+│       ├── services/
 │       │   └── app-settings.service.ts
-│       └── validators/               ← Validadores customizados
+│       └── validators/
 │           └── password-match.validator.ts
+│
 ├── environments/                     ← Configurações por ambiente
-├── styles.scss                       ← Estilos globais
-├── main.ts                           ← Entry point da aplicação
-├── index.html                        ← HTML principal
+├── styles.scss                       ← Estilos globais e variáveis de tema
+├── main.ts
+├── index.html
 └── setup-jest.ts                     ← Configuração do Jest
-
 ```
 
-#### Onde Adicionar novos componentes
+---
 
-Seguindo as normas da Clean Architecture, cada tipo de serviço, componente ou utilitário tem seu lugar definido.
+## Funcionalidades
+
+### 🔐 Autenticação
+
+- Cadastro e login com Firebase Authentication.
+- Sessão persistida via `localStorage` — o usuário permanece logado após atualizar a página.
+- Rotas privadas protegidas por `authGuard`.
+- Validação de senha mínima (6 caracteres) no formulário de cadastro.
+
+### 📋 Gerenciamento de Tarefas (Kanban)
+
+- Criação de tarefas com título, descrição, tipo de timer e tempo estimado.
+- Colunas Kanban: **A Fazer → Em Andamento → Concluído**.
+- Drag-and-drop entre colunas com **Angular CDK**.
+- Tarefas do tipo **Cronômetro** iniciam automaticamente no status "Em Andamento".
+- Atualização de status via ação direta (botões Iniciar / Pausar / Concluir).
+
+### ⏱️ Timer Automático
+
+- Duas modalidades de timer por tarefa:
+  - **Cronômetro** (`cronometro`) – conta o tempo gasto na tarefa.
+  - **Tempo Fixo** (`tempo_fixo`) – define um tempo pré-determinado.
+- O tempo gasto é calculado automaticamente ao mudar o status de "Em Andamento" para qualquer outro estado, usando `statusChangedAt`.
+- O componente `RunningTimerComponent` exibe o timer em tempo real na interface.
+
+### 🎯 Modo Foco (`/focus-mode`)
+
+- Visão Kanban simplificada focada nas tarefas do momento.
+- Filtragem conforme configurações de foco ativas do usuário:
+  - **Ocultar tarefas concluídas** (`hide_done`)
+  - **Exibir apenas a tarefa atual** (`only_current`)
+- Permite adicionar novas tarefas diretamente pelo diálogo.
+
+### 📊 Dashboard
+
+- Visão geral com estatísticas das tarefas do usuário:
+  - Progresso (concluídas / total)
+  - Contagem por status (A Fazer, Em Andamento, Concluídas)
+  - **Tempo total de foco** investido (em minutos ou horas)
+  - Tarefa mais antiga ainda pendente
+
+### ⚙️ Configurações do Usuário
+
+Preferências organizadas em grupos e salvas no Firebase:
+
+| Grupo         | Opções                                                |
+| ------------- | ----------------------------------------------------- |
+| **Aparência** | Modo escuro, alto contraste, tamanho de fonte (P/M/G) |
+| **Timer**     | Tempo padrão                                          |
+| **Foco**      | Ocultar concluídas, exibir apenas tarefa atual        |
+
+---
+
+## Navegação (Rotas)
+
+| Rota          | Descrição                       | Privada |
+| ------------- | ------------------------------- | ------- |
+| `/login`      | Tela de login                   | ❌      |
+| `/signup`     | Tela de cadastro                | ❌      |
+| `/dashboard`  | Visão geral / estatísticas      | ✅      |
+| `/tasks`      | Kanban de tarefas completo      | ✅      |
+| `/focus-mode` | Modo foco (Kanban simplificado) | ✅      |
+| `/settings`   | Configurações do usuário        | ✅      |
+
+> Rotas privadas usam `canActivate: [authGuard]`, que redireciona para `/login` caso o usuário não esteja autenticado.
+
+---
+
+## Estilos e Temas
+
+O projeto usa **SCSS** com variáveis customizadas para gerenciar temas. Os estilos globais estão em `src/styles.scss`.
+
+### Modo Escuro como Acessibilidade
+
+Para alternar entre modo claro/escuro, o projeto utiliza componentes Angular com binding de classes dinâmicas. O estado do tema é gerenciado através de serviços Angular que persistem a preferência do usuário.
+
+As fontes customizadas e configurações de tema devem ser ajustadas em `src/styles.scss`. A lógica de modo claro/escuro também leva em conta a preferência do sistema do usuário quando disponível.
+
+O modo claro/escuro foi pensado não apenas esteticamente, mas como ferramenta de **acessibilidade cognitiva** e **conforto sensorial**:
+
+- **Redução de Sobrecarga Sensorial** – Para usuários com TEA (Autismo) ou Burnout, o excesso de luminosidade e o contraste agressivo de telas brancas podem causar fadiga visual e irritabilidade. O modo escuro minimiza a emissão de luz azul, proporcionando um ambiente digital mais acolhedor e menos estimulante.
+- **Controle de Ansiedade e Foco** – Ambientes com cores mais sóbrias ajudam a reduzir a "poluição visual", permitindo que usuários com TDAH consigam manter a atenção no conteúdo central (como as tarefas e cronogramas) sem se distraírem com o brilho excessivo da interface.
+- **Leitura Facilitada** – Em casos de fotofobia (comum em enxaquecas crônicas e alguns perfis neurodivergentes), o tema escuro reduz o ofuscamento, tornando a retenção de informações mais fluida e menos exaustiva.
+
+#### Detalhes Técnicos
+
+Para garantir que o MindEase seja verdadeiramente inclusivo, a alternância de temas segue diretrizes específicas:
+
+<ol>
+  <li>Contraste Otimizado: Diferente do "preto absoluto", utilizamos as variações de cinza profundo e azul marinho do nosso manual de identidade, o que evita o efeito de "halo" (borrão) que algumas pessoas com Dislexia sentem ao ler texto branco sobre fundo 100% preto.</li>
+  <li>Consistência Sistêmica: Através do Angular binding e data services, garantimos que a transição de cores seja atômica em toda a aplicação, evitando flashes de luz branca durante o carregamento de telas, o que poderia desencadear gatilhos sensoriais.</li>
+  <li>Persistência de Preferência: A escolha do usuário é armazenada no Firebase para que a aplicação respeite o "espaço seguro" configurado pelo usuário desde o primeiro acesso à aplicação.</li>
+</ol>
+
+---
+
+## CI/CD — Integração e Deploy Contínuo
+
+O pipeline de CI/CD está definido em `.github/workflows/ci.yml` com **dois jobs independentes**:
+
+### `test` — Validação Automática
+
+Executado em todo push e pull request para `main`:
+
+1. Instala dependências com `npm ci`.
+2. Roda os testes com `npm run test -- --ci`.
+3. Executa o build de produção para validar a compilação.
+
+### `deploy` — Deploy para AWS S3
+
+Executado apenas em push direto para `main` (após aprovação do job `test`):
+
+1. Injeta as credenciais Firebase via GitHub Secrets no arquivo de ambiente.
+2. Gera o build de produção.
+3. Faz deploy do bundle para o bucket **AWS S3** via `aws s3 sync`.
+
+#### Secrets necessários no repositório
+
+| Secret                         | Descrição                |
+| ------------------------------ | ------------------------ |
+| `FIREBASE_API_KEY`             | Chave da API do Firebase |
+| `FIREBASE_AUTH_DOMAIN`         | Domínio de autenticação  |
+| `FIREBASE_PROJECT_ID`          | ID do projeto Firebase   |
+| `FIREBASE_STORAGE_BUCKET`      | Bucket do Storage        |
+| `FIREBASE_MESSAGING_SENDER_ID` | Sender ID                |
+| `FIREBASE_APP_ID`              | ID da aplicação Firebase |
+| `AWS_ACCESS_KEY_ID`            | Credencial AWS           |
+| `AWS_SECRET_ACCESS_KEY`        | Credencial AWS secreta   |
+| `AWS_REGION`                   | Região do bucket S3      |
+| `AWS_S3_BUCKET`                | Nome do bucket S3        |
+
+---
+
+## Qualidade e Testes
+
+Para um aplicativo focado em saúde mental, a **previsibilidade é uma regra de ouro**. Falhas inesperadas podem gerar ansiedade e frustração. Por isso, adotamos testes rigorosos em todas as camadas.
+
+### Stack de Testes
+
+- **Jest** configurado em `jest.config.ts` e `setup-jest.ts`.
+- **Testing Library** para testes de componentes Angular.
+
+### Cobertura por Camada
+
+| Camada             | O que é testado                                  |
+| ------------------ | ------------------------------------------------ |
+| **Domínio**        | Modelos (`Task`, `User`) e todos os casos de uso |
+| **Infraestrutura** | Guards de rota e utilitários                     |
+| **Apresentação**   | Componentes standalone, serviços e validadores   |
+
+### Comandos
+
+```bash
+# Rodar todos os testes
+npm test
+
+# Rodar em modo watch
+npm run test -- --watch
+
+# Rodar com cobertura
+npm run test -- --coverage
+
+# Filtrar por arquivo específico
+npm test -- --testPathPattern='auth'
+```
+
+### Por que Jest?
+
+Velocidade e isolamento. A capacidade de rodar testes em paralelo e o modo watch nos permitiu iterar rápido sem quebrar funcionalidades críticas de acessibilidade durante o desenvolvimento do hackathon.
+
+---
+
+## Comandos Úteis
+
+```bash
+# Servidor de desenvolvimento
+npm start
+ng serve
+
+# Testes
+npm test
+
+# Linting
+npm run lint
+
+# Build de produção
+ng build --configuration production
+
+# Gerar componente via CLI
+ng generate component presentation/pages/nova-pagina --standalone
+```
+
+---
+
+## Onde Adicionar Novos Recursos
+
+Seguindo a Clean Architecture, cada tipo de artefato tem seu lugar definido:
+
+| Tipo de artefato               | Onde adicionar                     |
+| ------------------------------ | ---------------------------------- |
+| Nova tela/página               | `src/app/presentation/pages/`      |
+| Componente reutilizável        | `src/app/presentation/components/` |
+| Serviço Angular                | `src/app/presentation/services/`   |
+| Validador customizado          | `src/app/presentation/validators/` |
+| Caso de uso (regra de negócio) | `src/app/domain/usecases/`         |
+| Modelo de domínio              | `src/app/domain/models/`           |
+| Interface de repositório       | `src/app/domain/repositories/`     |
+| Implementação de repositório   | `src/app/data/repositories/`       |
+| Guard de rota                  | `src/app/infrastructure/guards/`   |
+| Configuração de infraestrutura | `src/app/infrastructure/config/`   |
+
 Use os exemplos abaixo para entender onde as novas peças do sistema devem viver.
 
 - **Apresentação (presentation)**
@@ -171,123 +394,3 @@ Use os exemplos abaixo para entender onde as novas peças do sistema devem viver
   - Responsável pela comunicação com APIs externas e transformação de dados.
 
 > 💡 Ao criar um novo recurso, pense primeiro em sua responsabilidade e escolha a camada adequada. Isso mantém o código modular, testável e fácil de manter.
-
-#### Extra - Comandos Úteis
-
-```bash
-# Inicia o servidor de desenvolvimento
-npm start
-# ou
-ng serve
-
-# Executar testes unitários
-npm test
-
-# Executar linting
-npm run lint
-
-# Build para produção
-ng build --configuration production
-
-# Rodar um teste específico em watch mode
-npm test -- --include='**/*auth.spec.ts'
-```
-
-### Estilos e Temas
-
-O projeto utiliza **SCSS** com variáveis customizadas para gerenciar temas. Os estilos globais estão em `src/styles.scss` e cada componente pode ter seu próprio arquivo SCSS.
-
-Para alternar entre modo claro/escuro, o projeto utiliza componentes Angular com binding de classes dinâmicas. O estado do tema é gerenciado através de serviços Angular que persistem a preferência do usuário.
-
-As fontes customizadas e configurações de tema devem ser ajustadas em `src/styles.scss`. A lógica de modo claro/escuro também leva em conta a preferência do sistema do usuário quando disponível.
-
-O modo escuro foi aplicado não apenas como uma preferência estética, mas como uma ferramenta de acessibilidade cognitiva e conforto sensorial. A implementação justifica-se pelos seguintes pilares:
-
-<ul>
-  <li>Redução de Sobrecarga Sensorial: Para usuários com TEA (Autismo) ou Burnout, o excesso de luminosidade e o contraste agressivo de telas brancas podem causar fadiga visual e irritabilidade. O modo escuro minimiza a emissão de luz azul, proporcionando um ambiente digital mais acolhedor e menos estimulante.</li>
-  <li>Controle de Ansiedade e Foco: Ambientes com cores mais sóbrias ajudam a reduzir a "poluição visual", permitindo que usuários com TDAH consigam manter a atenção no conteúdo central (como as tarefas e cronogramas) sem se distraírem com o brilho excessivo da interface.</li>
-  <li>Leitura Facilitada: Em casos de fotofobia (comum em enxaquecas crônicas e alguns perfis neurodivergentes), o tema escuro reduz o ofuscamento, tornando a retenção de informações mais fluida e menos exaustiva.</li>
-</ul>
-
-#### Implementação Técnica de Acessibilidade
-
-Para garantir que o MindEase seja verdadeiramente inclusivo, a alternância de temas segue diretrizes específicas:
-
-<ol>
-  <li>Contraste Otimizado: Diferente do "preto absoluto", utilizamos as variações de cinza profundo e azul marinho do nosso manual de identidade, o que evita o efeito de "halo" (borrão) que algumas pessoas com Dislexia sentem ao ler texto branco sobre fundo 100% preto.</li>
-  <li>Consistência Sistêmica: Através do Angular binding e data services, garantimos que a transição de cores seja atômica em toda a aplicação, evitando flashes de luz branca durante o carregamento de telas, o que poderia desencadear gatilhos sensoriais.</li>
-  <li>Persistência de Preferência: A escolha do usuário é armazenada no Firebase para que a aplicação respeite o "espaço seguro" configurado pelo usuário desde o primeiro acesso à aplicação.</li>
-</ol>
-
-### Gerenciamento de estado e Injeção de Dependências
-
-O projeto utiliza Angular Services e Dependency Injection para gerenciar o estado da aplicação:
-
-- **Auth Service** – gerencia autenticação, login, logout e estado de sessão do usuário.
-- **Task Service** – gerencia operações de tarefas (criar, listar, atualizar, deletar).
-- **Settings Service** – gerencia preferências e configurações do usuário.
-- **Firebase Config** – centraliza a configuração do Firebase e é injetado nos serviços.
-
-Os serviços são injetados nos componentes via `constructor` ou `inject()` function (Angular 14+). Toda lógica de estado deve residir nos serviços, mantendo os componentes focados apenas na apresentação.
-
-Use a injeção de dependências do Angular em vez de instanciar classes diretamente. Isso facilita testes unitários e substituição de implementações.
-
-### Navegação
-
-A navegação é implementada via **Angular Router** e é definida em `src/app/app.routes.ts`.
-
-As rotas estão organizadas por páginas:
-
-- `/login` e `/signup` – fluxo de autenticação público
-- `/dashboard` – tela inicial privada (protegida por `auth.guard`)
-- `/tasks` – gerenciamento de tarefas
-- `/settings` – configurações do usuário
-
-O componente raiz (`app.ts`) contém o `<router-outlet>` que renderiza o componente correspondente à rota ativa.
-
-Para proteger rotas, use o `auth.guard.ts` que verifica se o usuário está autenticado antes de permitir acesso. Qualquer rota privada deve incluir `canActivate: [authGuard]` em sua configuração.
-
-Para adicionar uma nova página/rota:
-
-1. Crie a página em `src/app/presentation/pages/`
-2. Adicione a rota em `src/app/app.routes.ts`
-3. Se a página for privada, inclua o guard de autenticação
-
-### Qualidade e Confiabilidade (Jest & Testing)
-
-Para um aplicativo focado em saúde mental e neurodiversidade, a previsibilidade é uma regra de ouro. Falhas inesperadas ou comportamentos inconsistentes na interface podem gerar ansiedade e frustração no nosso público-alvo. Por isso, adotamos uma cultura de testes rigorosa.
-
-O conjunto de testes usa **Jest** (configurado em `jest.config.ts` e `setup-jest.ts`) e cobre todas as camadas:
-
-- **Domínio** – modelos e casos de uso (`SignInUseCase`, `SignOutUseCase`, etc.) têm specs em `src/app/domain`.
-- **Infraestrutura** – guards de rota, interceptadores HTTP e utilitários possuem testes que garantem seu funcionamento correto.
-- **Apresentação** – componentes, serviços e validadores customizados são exercitados com testes de UI.
-
-Para rodar os testes execute:
-
-```bash
-npm test
-```
-
-Novas specs devem ficar próximas ao código testado e utilizar o padrão `*.spec.ts` ou `*.spec.tsx`.
-
-#### Por que escolhemos o Jest?
-
-Escolhemos o Jest pela sua velocidade e isolamento de testes. Em um ambiente de desenvolvimento ágil como um hackathon, a capacidade de rodar testes em paralelo e o modo watch nos permitiram iterar rápido sem quebrar funcionalidades críticas de acessibilidade.
-
-Não testamos apenas o "caminho feliz". Nossa suíte de testes abrange:
-
-<ul>
-  <li>Domínio e Lógica de Negócio: Garantimos que as regras de criação de tarefas e gerenciamento de sessões sejam funcionais.</li>
-  <li>Consistência de Interface (UI): Testamos componentes e serviços para garantir que a transição entre diferentes estados da aplicação nunca falhe, mantendo o conforto visual e a acessibilidade.</li>
-</ul>
-
-#### Resultado de testes com o Jest
-
-Como evidenciado, alcançamos uma cobertura significativa em testes unitários através do Jest, cobrindo todas as camadas da arquitetura:
-
-- **Domínio**: Testes de modelos e casos de uso
-- **Infraestrutura**: Testes de guards, interceptadores e utilitários
-- **Apresentação**: Testes de componentes e serviços
-
-**Destaque do Time**: Conseguimos validar componentes complexos de UI, como o `RunningTimer` e os componentes de listagem, garantindo que funcionalidades críticas funcionem com precisão — algo muito importante para usuários com TDAH que dependem de indicadores visuais de tempo.
