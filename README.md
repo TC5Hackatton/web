@@ -292,45 +292,6 @@ Executado apenas em push direto para `main` (após aprovação do job `test`):
 
 ---
 
-## Qualidade e Testes
-
-Para um aplicativo focado em saúde mental, a **previsibilidade é uma regra de ouro**. Falhas inesperadas podem gerar ansiedade e frustração. Por isso, adotamos testes rigorosos em todas as camadas.
-
-### Stack de Testes
-
-- **Jest** configurado em `jest.config.ts` e `setup-jest.ts`.
-- **Testing Library** para testes de componentes Angular.
-
-### Cobertura por Camada
-
-| Camada             | O que é testado                                  |
-| ------------------ | ------------------------------------------------ |
-| **Domínio**        | Modelos (`Task`, `User`) e todos os casos de uso |
-| **Infraestrutura** | Guards de rota e utilitários                     |
-| **Apresentação**   | Componentes standalone, serviços e validadores   |
-
-### Comandos
-
-```bash
-# Rodar todos os testes
-npm test
-
-# Rodar em modo watch
-npm run test -- --watch
-
-# Rodar com cobertura
-npm run test -- --coverage
-
-# Filtrar por arquivo específico
-npm test -- --testPathPattern='auth'
-```
-
-### Por que Jest?
-
-Velocidade e isolamento. A capacidade de rodar testes em paralelo e o modo watch nos permitiu iterar rápido sem quebrar funcionalidades críticas de acessibilidade durante o desenvolvimento do hackathon.
-
----
-
 ## Comandos Úteis
 
 ```bash
@@ -394,3 +355,48 @@ Use os exemplos abaixo para entender onde as novas peças do sistema devem viver
   - Responsável pela comunicação com APIs externas e transformação de dados.
 
 > 💡 Ao criar um novo recurso, pense primeiro em sua responsabilidade e escolha a camada adequada. Isso mantém o código modular, testável e fácil de manter.
+
+---
+
+## Qualidade e Testes
+
+Para um aplicativo focado em saúde mental, a **previsibilidade é uma regra de ouro**. Falhas inesperadas podem gerar ansiedade e frustração. Por isso, adotamos testes rigorosos em todas as camadas.
+
+### Stack de Testes
+
+- **Jest** configurado em `jest.config.ts` e `setup-jest.ts`.
+- **Testing Library** para testes de componentes Angular.
+
+### Cobertura por Camada
+
+| Camada             | O que é testado                                  |
+| ------------------ | ------------------------------------------------ |
+| **Domínio**        | Modelos (`Task`, `User`) e todos os casos de uso |
+| **Infraestrutura** | Guards de rota e utilitários                     |
+| **Apresentação**   | Componentes standalone, serviços e validadores   |
+
+### Comandos
+
+```bash
+# Rodar todos os testes
+npm test
+
+# Rodar em modo watch
+npm run test -- --watch
+
+# Rodar com cobertura
+npm run test -- --coverage
+
+# Filtrar por arquivo específico
+npm test -- --testPathPattern='auth'
+```
+
+### Por que Jest?
+
+Velocidade e isolamento. A capacidade de rodar testes em paralelo e o modo watch nos permitiu iterar rápido sem quebrar funcionalidades críticas de acessibilidade durante o desenvolvimento do hackathon.
+
+##### Execução das Suítes de Teste
+
+Abaixo, a execução detalhada mostrando a cobertura desde os casos de uso de domínio até os componentes de apresentação.
+
+![alt text](public/image.png)
