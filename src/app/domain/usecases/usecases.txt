@@ -1,7 +1,0 @@
-Lógica de aplicação (Use Cases)
-Esta pasta contém os casos de uso da aplicação, organizados por funcionalidade/domínio.
-Cada caso de uso representa uma ação específica que o usuário pode realizar no sistema.
-- sign-in.usecase.ts: Autenticação de usuário
-- sign-up.usecase.ts: Registro de usuário
-- sign-out.usecase.ts: Logout
-- tasks/: Pasta contendo os casos de uso relacionados a tarefas (GetTasks, updateTaskStatus, AddTask)

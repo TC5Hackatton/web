@@ -1,8 +1,0 @@
-🟣 Infrastructure (Configurações Globais e Ferramentas)
-Aqui ficam os serviços e utilitários que sustentam a aplicação MindEase inteira.
-Diferente do domínio, aqui podemos ter dependências de framework (Angular, Firebase).
-Exemplos no seu projeto:
-- AuthService: Gerencia o login/logout (conhece Firebase).
-- AuthGuard: Protege as rotas (conhece Angular Router).
-- Modelos Compartilhados: Como `Task.ts` (embora idealmente models de domínio fiquem no Domain, se forem usados por toda a app como DTOs, as vezes ficam aqui ou em Shared).
-- Interceptors: Tratamento de erros HTTP global.
