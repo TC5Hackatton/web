@@ -43,12 +43,20 @@ A arquitetura segue os princípios da **Clean Architecture** com separação cla
 
 ### Passo a Passo para nova máquina
 
-1. **Clone o repositório:**
+1. **Clone o repositório com uma das opções abaixo:**
 
-   ```bash
-   git clone git@github.com:TC5Hackatton/web.git web
-   cd web
-   ```
+- HTTPS
+
+  ```bash
+  git clone https://github.com/TC5Hackatton/web.git
+  cd web
+  ```
+
+- SSH
+  ```bash
+  git clone git@github.com:TC5Hackatton/web.git
+  cd web
+  ```
 
 2. **Instale as dependências:**
 
@@ -56,16 +64,15 @@ A arquitetura segue os princípios da **Clean Architecture** com separação cla
    npm install
    ```
 
-3. **Configure as variáveis de ambiente.** Duplique o arquivo `.env.example`, renomeie para `.env` e cole as credenciais do Firebase:
+3. **Configure as variáveis de ambiente.** Altere o arquivo `src\environments\environment.ts`, preenchendo os valores para as seguintes credenciais do Firebase:
 
    ```env
-   NG_APP_FIREBASE_API_KEY=
-   NG_APP_FIREBASE_AUTH_DOMAIN=
-   NG_APP_FIREBASE_PROJECT_ID=
-   NG_APP_FIREBASE_STORAGE_BUCKET=
-   NG_APP_FIREBASE_MESSAGING_SENDER_ID=
-   NG_APP_FIREBASE_APP_ID=
-   NG_APP_FIREBASE_MEASUREMENT_ID=
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
    ```
 
 4. **Inicie o servidor de desenvolvimento:**
